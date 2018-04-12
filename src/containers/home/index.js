@@ -7,7 +7,7 @@ import {
   incrementAsync,
   decrement,
   decrementAsync,
-} from '../../modules/counter';
+} from '../../reducers/counterReducer';
 
 const Home = props => (
   <div>
