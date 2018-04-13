@@ -1,0 +1,32 @@
+.searchSection {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: url('../../assets/img/homeSearchBg.jpg') no-repeat;
+  background-size:100% auto;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  margin-top: 117px;
+}
+.title > div {
+  align-self: center;
+}
+.title--size-1 {
+  font-size: 100px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+.title--size-2 {
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+.title--size-3 {
+  font-size: 25px;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
