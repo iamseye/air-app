@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './style.css';
 
 class SearchBar extends Component {
   state = {
@@ -7,8 +7,22 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div className="SearchBar">
-        searchbar
+      <div className="searchBar">
+        <div>
+          <span>我要預約體驗</span>
+        </div>
+        <div className="selectBrand">
+          <span>廠牌</span>
+        </div>
+        <div className="selectType">
+          <span>車型</span>
+        </div>
+        <div className="selectArea">
+          <span>地區</span>
+        </div>
+        <div className="searchButton">
+          <span>搜尋</span>
+        </div>
       </div>
     );
   }

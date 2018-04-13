@@ -17,7 +17,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="Home">
+      <div className="home">
         <div className="searchSection">
           <div className="title">
             <div className="title--size-2"><span>不想再盲目找車?</span></div>

@@ -3,30 +3,30 @@
   justify-content: center;
   flex-direction: column;
   background: url('../../assets/img/homeSearchBg.jpg') no-repeat;
-  background-size:100% auto;
+  background-size: cover;
 }
 .title {
   display: flex;
   flex-direction: column;
-  margin-top: 117px;
+  margin-top: 130px;
 }
 .title > div {
   align-self: center;
 }
 .title--size-1 {
-  font-size: 100px;
+  font-size: 72px;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 1.4px;
   color: #ffffff;
 }
 .title--size-2 {
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 0.8px;
   color: #ffffff;
 }
 .title--size-3 {
-  font-size: 25px;
-  letter-spacing: 0.5px;
+  font-size: 20px;
+  letter-spacing: 0.4px;
   color: #ffffff;
 }
