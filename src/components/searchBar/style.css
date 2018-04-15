@@ -3,7 +3,7 @@
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
-  margin: 43px 52px;
+  margin-top: 43px;
   display: flex;
 }
 
@@ -21,28 +21,24 @@
 
 .selectBrand {
   color: #008fd2;
+  cursor: pointer;
 }
 
 .selectType {
   color: #008fd2;
   border-left: solid 1px #d2d2d2;
   border-right: solid 1px #d2d2d2;
+  cursor: pointer;
 }
-
-/* .selectType::after {
-  content: "";
-  display: block;
-  margin: auto 0;
-  padding-top: 20px;
-  border-right: 1px solid black;
-} */
 
 .selectArea {
   color: #008fd2;
+  cursor: pointer;
 }
 
 .searchButton {
   color: #ffffff;
   background-color: #008fd2;
   border-radius: 0 8px 8px 0px;
+  cursor: pointer;
 }
