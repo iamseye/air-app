@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
+import DropDownButton from '../dropDownButton';
 import './style.css';
-import Icon from '../../utils/Icon';
-import { ICONS } from '../../utils/constants';
 
 class SearchBar extends Component {
   state = {
+    brandValues: [],
+    vehicleTypes: [],
+    areas: [],
   };
+
+  componentDidMount() {
+    this.prepareData();
+  }
+
+  prepareData() {
+    this.setState({
+      brandValues: ['BMW', 'Audi', 'M BENZ'],
+      vehicleTypes: ['四門房車', '休旅車', '敞篷車', '性能跑車'],
+      areas: ['台北', '台中', '台南'],
+    });
+  }
 
   render() {
     return (
@@ -13,18 +27,18 @@ class SearchBar extends Component {
         <div>
           <span>我要預約體驗</span>
         </div>
-        <div className="selectBrand">
-          <span>廠牌</span> <Icon icon={ICONS.DROP_DOWN} />
-        </div>
-        <div className="selectType">
-          <span>車型</span> <Icon icon={ICONS.DROP_DOWN} />
-        </div>
-        <div className="selectArea">
-          <span>地區</span> <Icon icon={ICONS.DROP_DOWN} />
-        </div>
-        <div className="searchButton">
-          <span>搜尋</span>
-        </div>
+        <DropDownButton
+          name="廠牌"
+          options={this.state.brandValues}
+        />
+        <DropDownButton
+          name="車型"
+          options={this.state.vehicleTypes}
+        />
+        <DropDownButton
+          name="地區"
+          options={this.state.areas}
+        />
       </div>
     );
   }

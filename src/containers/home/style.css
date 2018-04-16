@@ -17,16 +17,29 @@
   font-size: 72px;
   font-weight: 600;
   letter-spacing: 1.4px;
-  color: #ffffff;
 }
 .title--size-2 {
   font-size: 36px;
   font-weight: 600;
   letter-spacing: 0.8px;
-  color: #ffffff;
 }
 .title--size-3 {
   font-size: 20px;
   letter-spacing: 0.4px;
+}
+
+.text-white {
   color: #ffffff;
+}
+
+.text-black {
+  color: #4a4a4a;
+}
+
+.hotSells {
+  padding: 50px 11px;
+}
+
+.hotSells_title {
+  padding-left: 41px;
 }
