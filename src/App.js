@@ -2,7 +2,6 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
 } from 'react-router-dom';
 import Home from './containers/home';
 import Header from './containers/header';
@@ -12,9 +11,9 @@ const App = () => (
   <Router>
     <div className="App">
       <Header />
-      <Switch>
+      <main>
         <Route exact path="/" component={Home} />
-      </Switch>
+      </main>
       <Footer />
     </div>
   </Router>

@@ -2,7 +2,7 @@ import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
-import counterReducer from './reducers/counterReducer';
+import searchReducer from './reducers/searchReducer';
 
 export const history = createHistory();
 
@@ -12,15 +12,13 @@ const middleware = [
   thunk,
   routerMiddleware(history),
 ];
-
 const reducer = combineReducers({
   route: routerReducer,
-  counter: counterReducer,
+  search: searchReducer,
 });
 
-
 if (process.env.NODE_ENV === 'development') {
-  const devToolsExtension = window.devToolsExtension;
+  const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
 
   if (typeof devToolsExtension === 'function') {
     enhancers.push(devToolsExtension());
