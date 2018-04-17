@@ -27,7 +27,6 @@ class SearchBar extends Component {
   handleSelectOption(selectType, selectedOption) {
     if (selectType === 'brand') {
       console.log(selectedOption);
-      searchActions.setSearchBrandType(selectedOption);
     }
   }
 
@@ -41,7 +40,7 @@ class SearchBar extends Component {
         <div>
           <span>我要預約體驗</span>
         </div>
-        <DropDownButton
+        <DropDownButton onClick={this.props.searchActions.setSearchBrandType('123')}
           selectType="brand"
           name="廠牌"
           options={this.state.brandValues}
