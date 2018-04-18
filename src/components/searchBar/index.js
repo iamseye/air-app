@@ -24,9 +24,13 @@ class SearchBar extends Component {
     });
   }
 
-  handleSelectOption(selectType, selectedOption) {
-    if (selectType === 'brand') {
-      console.log(selectedOption);
+  handleSelectItem = (selectCategory, selectedItem) => {
+    if (selectCategory === 'brand') {
+      this.props.searchActions.setSearchBrandType(selectedItem);
+    } else if (selectCategory === 'vehicleTypes') {
+      this.props.searchActions.setSearchVehicleType(selectedItem);
+    } else if (selectCategory === 'areas') {
+      this.props.searchActions.setSearchAreaType(selectedItem);
     }
   }
 
@@ -40,23 +44,23 @@ class SearchBar extends Component {
         <div>
           <span>我要預約體驗</span>
         </div>
-        <DropDownButton onClick={this.props.searchActions.setSearchBrandType('123')}
-          selectType="brand"
+        <DropDownButton
+          selectCategory="brand"
           name="廠牌"
           options={this.state.brandValues}
-          handleSelectOption={this.handleSelectOption}
+          handleSelectItem={this.handleSelectItem}
         />
         <DropDownButton
-          selectType="vehicleTypes"
+          selectCategory="vehicleTypes"
           name="車型"
           options={this.state.vehicleTypes}
-          handleSelectOption={this.handleSelectOption}
+          handleSelectItem={this.handleSelectItem}
         />
         <DropDownButton
-          selectType="areas"
+          selectCategory="areas"
           name="地區"
           options={this.state.areas}
-          handleSelectOption={this.handleSelectOption}
+          handleSelectItem={this.handleSelectItem}
         />
         <div>
           <span onClick={()=> this.submitSearch()}>搜尋</span>

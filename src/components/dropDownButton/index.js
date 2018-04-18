@@ -8,42 +8,42 @@ import './style.css';
 export default class DropDownButton extends Component {
   state = {
     showOptions: false,
-    selectedOption: '',
+    selectedItem: '',
   }
 
-  handleSelectOption = (selectedOption) => this.props.handleSelectOption(this.props.selectType, selectedOption);
+  handleSelectItem = (selectedItem) => this.props.handleSelectItem(this.props.selectCategory, selectedItem);
 
-  handleClick() {
+  handleClickCategory() {
     this.setState({ showOptions: !this.state.showOptions });
   }
 
-  handleClickOption(option) {
+  handleClickItem(option) {
     this.setState({ showOptions: !this.state.showOptions });
-    this.setState({ selectedOption: option });
-    this.handleSelectOption(option);
+    this.setState({ selectedItem: option });
+    this.handleSelectItem(option);
   }
 
   render() {
     const options = this.props.options.map((item, index) => (
-      <p key={index} onClick={() => this.handleClickOption(item)}>
+      <p key={index} onClick={() => this.handleClickItem(item)}>
         {item}
       </p>
     ));
 
     const dropDownBox = (
       <div className="dropDownBox">
-        <p onClick={() => this.handleClickOption('')}> 不限{this.props.name} </p>
+        <p onClick={() => this.handleClickItem('')}> 不限{this.props.name} </p>
         {options}
       </div>
     );
 
     return (
       <div className="dropDownButton">
-        <div onClick={() => this.handleClick()}>
+        <div onClick={() => this.handleClickCategory()}>
           <span>
-            { this.state.selectedOption !== '' ? this.state.selectedOption : this.props.name}
+            { this.state.selectedItem !== '' ? this.state.selectedItem : this.props.name}
           </span>
-          { this.state.selectedOption !== '' ? '' : <Icon icon={ICONS.DROP_DOWN} /> }
+          { this.state.selectedItem !== '' ? '' : <Icon icon={ICONS.DROP_DOWN} /> }
         </div>
         {this.state.showOptions ? dropDownBox : ''}
       </div>
@@ -53,7 +53,7 @@ export default class DropDownButton extends Component {
 
 DropDownButton.propTypes = {
   name: PropTypes.string.isRequired,
-  selectType: PropTypes.string.isRequired,
+  selectCategory: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  handleSelectOption: PropTypes.func.isRequired,
+  handleSelectItem: PropTypes.func.isRequired,
 };

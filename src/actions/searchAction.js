@@ -8,11 +8,11 @@ export const setSearchBrandType = value => ({
 });
 
 export const setSearchVehicleType = value => ({
-  type: SET_SEARCH_BRAND_TYPE,
+  type: SET_SEARCH_VEHICLE_TYPE,
   value,
 });
 
 export const setSearchAreaType = value => ({
-  type: SET_SEARCH_BRAND_TYPE,
+  type: SET_SEARCH_AREA_TYPE,
   value,
 });
