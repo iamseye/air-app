@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as styleActions from '../../actions/styleAction';
 import SearchBar from '../../components/searchBar';
 import CardSlider from '../../components/cardSlider';
+import StepSection from './components/stepSection';
 import './style.css';
 
 class Home extends Component {
@@ -23,8 +24,9 @@ class Home extends Component {
         </div>
         <div className="hotSells">
           <div className="hotSells_title"><span>精選車輛</span></div>
-          <CardSlider />
         </div>
+
+        <StepSection />
       </div>
     );
   }
