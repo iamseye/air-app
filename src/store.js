@@ -3,6 +3,7 @@ import { routerMiddleware, routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import searchReducer from './reducers/searchReducer';
+import styleReducer from './reducers/styleReducer';
 
 export const history = createHistory();
 
@@ -15,6 +16,7 @@ const middleware = [
 const reducer = combineReducers({
   route: routerReducer,
   search: searchReducer,
+  style: styleReducer,
 });
 
 if (process.env.NODE_ENV === 'development') {

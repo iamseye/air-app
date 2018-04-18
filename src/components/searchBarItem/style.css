@@ -54,6 +54,11 @@
 }
 
 .searchBarItem＿＿option--active {
+  min-width: 200px;
+	line-height: 45px;
+	padding: 0 10px;
+	color: #555;
+	cursor: pointer;
   background: #008fd2;
 	color: #fff;
 }

@@ -5,7 +5,7 @@ import { ICONS } from '../../utils/constants';
 import './style.css';
 
 
-export default class DropDownButton extends Component {
+export default class searchBarItem extends Component {
   state = {
     showOptions: false,
     selectedItem: '',
@@ -40,8 +40,8 @@ export default class DropDownButton extends Component {
   render() {
     const options = this.props.options.map((item, index) => (
       <div
-        className="searchBarItem＿＿option"
-        key={index} 
+        className={this.state.selectedItem === item ? "searchBarItem＿＿option--active" : "searchBarItem＿＿option"}
+        key={index}
         onClick={() => this.handleClickItem(item)}
       >
         {item}
@@ -76,7 +76,7 @@ export default class DropDownButton extends Component {
   }
 }
 
-DropDownButton.propTypes = {
+searchBarItem.propTypes = {
   name: PropTypes.string.isRequired,
   selectCategory: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,

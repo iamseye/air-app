@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as styleActions from '../../actions/styleAction';
 import SearchBar from '../../components/searchBar';
 import CardSlider from '../../components/cardSlider';
 import './style.css';
 
 class Home extends Component {
-  state = {
-  };
-
+  state = {}
   render() {
     return (
       <div className="home">
+        { this.props.isActiveWhiteFilter ? <div className="whiteFilter" /> : ''}
         <div className="searchSection">
           <div className="searchSection__title">
             <h2>不想再盲目找車？</h2>
@@ -28,4 +30,12 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  isActiveWhiteFilter: state.style.isActiveWhiteFilter,
+});
+
+const mapDispatchToProps = dispatch => ({
+  styleActions: bindActionCreators(styleActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
