@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as searchActions from '../../actions/searchAction';
-import DropDownButton from '../dropDownButton';
+import SearchBarItem from '../searchBarItem';
 import './style.css';
 
 class SearchBar extends Component {
@@ -26,11 +26,11 @@ class SearchBar extends Component {
 
   handleSelectItem = (selectCategory, selectedItem) => {
     if (selectCategory === 'brand') {
-      this.props.searchActions.setSearchBrandType(selectedItem);
+      this.props.searchActions.setSearchBrand(selectedItem);
     } else if (selectCategory === 'vehicleTypes') {
       this.props.searchActions.setSearchVehicleType(selectedItem);
     } else if (selectCategory === 'areas') {
-      this.props.searchActions.setSearchAreaType(selectedItem);
+      this.props.searchActions.setSearchArea(selectedItem);
     }
   }
 
@@ -41,29 +41,27 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="searchBar">
-        <div>
-          <span>我要預約體驗</span>
-        </div>
-        <DropDownButton
+        <div className="searchBar__title"><span>我要預約體驗</span></div>
+        <SearchBarItem
           selectCategory="brand"
           name="廠牌"
           options={this.state.brandValues}
           handleSelectItem={this.handleSelectItem}
         />
-        <DropDownButton
+        <SearchBarItem
           selectCategory="vehicleTypes"
           name="車型"
           options={this.state.vehicleTypes}
           handleSelectItem={this.handleSelectItem}
         />
-        <DropDownButton
+        <SearchBarItem
           selectCategory="areas"
           name="地區"
           options={this.state.areas}
           handleSelectItem={this.handleSelectItem}
         />
-        <div>
-          <span onClick={()=> this.submitSearch()}>搜尋</span>
+        <div className="searchBar__button" onClick={()=> this.submitSearch()}>
+          <span>搜尋</span>
         </div>
       </div>
     );

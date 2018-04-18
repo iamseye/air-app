@@ -1,0 +1,63 @@
+.searchBarItem {
+  display: flex;
+	flex:1;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+	margin: 10px 0;
+	color: #008fd2;
+	border-right:#eee 1px solid;
+	font-size: 18px;
+  cursor: pointer;
+}
+
+.searchBarItem > svg {
+  margin-left: 5px;
+}
+
+.searchBarItem＿＿box {
+  position: absolute;
+	top:70px;
+	left: 0;
+	max-height: 305px;
+	padding: 25px 22px 25px 25px;
+	background: #ffffff;
+	border-radius: 5px;
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
+	overflow-y: scroll;
+	transition: .2s;
+}
+
+.searchBarItem＿＿box::-webkit-scrollbar {
+	width: 5px;
+}
+
+.searchBarItem＿＿box::-webkit-scrollbar-track {
+	border-radius: 5px;
+}
+
+.searchBarItem＿＿box::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+	background: #d2d2d2;
+}
+
+.searchBarItem＿＿option {
+  min-width: 200px;
+	line-height: 45px;
+	padding: 0 10px;
+	color: #555;
+	cursor: pointer;
+}
+
+.searchBarItem＿＿option:hover {
+  background: #f1f1f1;
+}
+
+.searchBarItem＿＿option--active {
+  background: #008fd2;
+	color: #fff;
+}
+
+.searchBarItem＿＿option--active:hover {
+  background: #006eb7;
+}

@@ -1,9 +1,9 @@
-export const SET_SEARCH_BRAND_TYPE = 'SET_SEARCH_BRAND_TYPE';
+export const SET_SEARCH_BRAND = 'SET_SEARCH_BRAND';
 export const SET_SEARCH_VEHICLE_TYPE = 'SET_SEARCH_VEHICLE_TYPE';
-export const SET_SEARCH_AREA_TYPE = 'SET_SEARCH_AREA_TYPE';
+export const SET_SEARCH_AREA = 'SET_SEARCH_AREA';
 
-export const setSearchBrandType = value => ({
-  type: SET_SEARCH_BRAND_TYPE,
+export const setSearchBrand = value => ({
+  type: SET_SEARCH_BRAND,
   value,
 });
 
@@ -12,7 +12,7 @@ export const setSearchVehicleType = value => ({
   value,
 });
 
-export const setSearchAreaType = value => ({
-  type: SET_SEARCH_AREA_TYPE,
+export const setSearchArea = value => ({
+  type: SET_SEARCH_AREA,
   value,
 });

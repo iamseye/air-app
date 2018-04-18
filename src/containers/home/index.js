@@ -11,11 +11,12 @@ class Home extends Component {
     return (
       <div className="home">
         <div className="searchSection">
-          <div className="title">
-            <div className="title--size-2 text-white"><span>不想再盲目找車?</span></div>
-            <div className="title--size-1 text-white"><span>那就先開再買</span></div>
-            <div className="title--size-3 text-white"><span>創新的購前體驗，買車前先開回家盡情駕駛，從此告別肥羊以及冤大頭</span></div>
+          <div className="searchSection__title">
+            <h2>不想再盲目找車？</h2>
+            <h1>那就先開再買</h1>
+            <p>創新的購前體驗，買車前先開回家盡情駕駛，從此告別肥羊以及冤大頭</p>
           </div>
+
           <SearchBar />
         </div>
         <div className="hotSells">

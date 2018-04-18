@@ -1,39 +1,20 @@
 .searchSection {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background: url('../../assets/img/homeSearchBg.jpg') no-repeat;
-  background-size: cover;
-  padding: 130px 52px 64px 52px;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	padding: 125px 0;
+	background: url('../../assets/img/homeSearchBg.jpg') center no-repeat;
+	background-size: cover;
 }
-.title {
+
+.searchSection__title {
   display: flex;
   flex-direction: column;
-}
-.title > div {
-  align-self: center;
-}
-.title--size-1 {
-  font-size: 72px;
-  font-weight: 600;
-  letter-spacing: 1.4px;
-}
-.title--size-2 {
-  font-size: 36px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-}
-.title--size-3 {
-  font-size: 20px;
-  letter-spacing: 0.4px;
-}
-
-.text-white {
-  color: #ffffff;
-}
-
-.text-black {
-  color: #4a4a4a;
+  text-align: center;
+  width: 90%;
+  color: #fff;
+  margin-bottom: 50px;
 }
 
 .hotSells {

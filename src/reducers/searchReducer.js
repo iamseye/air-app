@@ -1,27 +1,25 @@
 import {
-  SET_SEARCH_BRAND_TYPE,
+  SET_SEARCH_BRAND,
   SET_SEARCH_VEHICLE_TYPE,
-  SET_SEARCH_AREA_TYPE,
+  SET_SEARCH_AREA,
 } from '../actions/searchAction';
 
 const initialState = {
-  searchBrandType: '',
-  searchVehicleType: '',
-  searchAreaType: '',
+  brand: '',
+  vehicleType: '',
+  area: '',
 };
 
 export default (state = initialState, action) => {
-  console.log('test');
-  console.log(action.type);
   switch (action.type) {
-    case SET_SEARCH_BRAND_TYPE:
-      return { ...state, searchBrandType: action.value };
+    case SET_SEARCH_BRAND:
+      return { ...state, brand: action.value };
 
     case SET_SEARCH_VEHICLE_TYPE:
-      return { ...state, searchVehicleType: action.value };
+      return { ...state, vehicleType: action.value };
 
-    case SET_SEARCH_AREA_TYPE:
-      return { ...state, searchAreaType: action.value };
+    case SET_SEARCH_AREA:
+      return { ...state, area: action.value };
 
     default:
       return state;
