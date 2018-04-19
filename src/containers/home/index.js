@@ -5,6 +5,7 @@ import * as styleActions from '../../actions/styleAction';
 import SearchBar from '../../components/searchBar';
 import CardSlider from '../../components/cardSlider';
 import StepSection from './components/stepSection';
+import ReviewSection from './components/reviewSection';
 import './style.css';
 
 class Home extends Component {
@@ -27,6 +28,7 @@ class Home extends Component {
         </div>
 
         <StepSection />
+        <ReviewSection />
       </div>
     );
   }
