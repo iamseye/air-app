@@ -23,12 +23,10 @@ class Home extends Component {
 
           <SearchBar />
         </div>
-        <div className="hotSells">
-          <div className="hotSells_title"><span>精選車輛</span></div>
-        </div>
-
+        <CardSlider title="精選車輛" />
         <StepSection />
         <ReviewSection />
+        <CardSlider title="最新上架" />
       </div>
     );
   }
