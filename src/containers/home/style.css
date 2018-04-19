@@ -1,3 +1,14 @@
+.home__section{
+	width: 100%;
+	padding: 50px 0;
+}
+
+.home__wraper{
+	width: 90%;
+	max-width: 1440px;
+	margin: 0 auto;
+}
+
 .whiteFilter {
   position: fixed;
   top: 0;
@@ -24,12 +35,4 @@
   width: 90%;
   color: #fff;
   margin-bottom: 50px;
-}
-
-.hotSells {
-  padding: 50px 11px;
-}
-
-.hotSells_title {
-  padding-left: 41px;
 }
