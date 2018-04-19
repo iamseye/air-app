@@ -4,7 +4,6 @@
 	background-color: #ffffff;
 	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
 	border-radius: 8px;
-	overflow: hidden;
   width: 90%;
 	max-width: 1200px;
 	height: 70px;
@@ -42,4 +41,6 @@
   color: #fff;
 	background: #008fd2;
   cursor: pointer;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
