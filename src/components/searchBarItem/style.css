@@ -1,6 +1,6 @@
 .searchBarItem {
 	position: relative;
-  display: flex;
+	display: flex;
 	flex:1;
 	align-items: center;
 	justify-content: center;
@@ -9,7 +9,7 @@
 	color: #008fd2;
 	border-right:#eee 1px solid;
 	font-size: 18px;
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .searchBarItem > svg {
