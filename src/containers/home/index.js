@@ -5,6 +5,9 @@ import * as styleActions from '../../actions/styleAction';
 import SearchBar from '../../components/searchBar';
 import CardSlider from '../../components/cardSlider';
 import StepSection from './components/stepSection';
+import ReviewSection from './components/reviewSection';
+import AreaSection from './components/areaSection';
+import KnowMoreSection from './components/knowMoreSection';
 import './style.css';
 
 class Home extends Component {
@@ -22,11 +25,12 @@ class Home extends Component {
 
           <SearchBar />
         </div>
-        <div className="hotSells">
-          <div className="hotSells_title"><span>精選車輛</span></div>
-        </div>
-
+        <CardSlider title="精選車輛" />
         <StepSection />
+        <ReviewSection />
+        <CardSlider title="最新上架" />
+        <AreaSection />
+        <KnowMoreSection />
       </div>
     );
   }

@@ -1,14 +1,18 @@
 import React from 'react';
 
+const slideStyle = {
+//  backgroundImage: 'url(/assets/img/carPhoto.jpg)',
+};
+
 const Slide = () => (
-  <div className="slide">
-    <div className="slide__title">
-      <div className="slide__title--small"><span>2013</span></div>
-      <div className="slide__title--big"><span>BENZ C250</span></div>
-    </div>
+  <div className="slide" style={slideStyle}>
+    <h4 className="slide__name">
+      <span>2016</span>
+      <div>Benz C250</div>
+    </h4>
     <div className="slide__price">
-      <div className="slide__price--small"><span>最低體驗價</span></div>
-      <div className="slide__price--big"><span>NT$ 3000</span></div>
+      <span>最低體驗價</span>
+      <div>NT$ 3,000</div>
     </div>
   </div>
 );

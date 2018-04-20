@@ -1,5 +1,5 @@
 .reviewSection {
-  background:url('../images/witnessBG.jpg') center no-repeat;
+  background: url('../../../assets/img/witnessBG.jpg') no-repeat;
 	background-size: cover;
 	color: #fff;
 	padding: 75px 0;
@@ -13,4 +13,71 @@
 
 .reviewSection h3 {
   margin-bottom: 25px;
+}
+
+.reviewSection__list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.reviewSection__item {
+  width: calc(100%/3 - 200px/3);
+}
+
+.reviewSection__text {
+  position: relative;
+	padding: 50px;
+	background:#fff;
+	color: #555;
+	border-radius: 8px;
+	margin-bottom: 50px;
+}
+
+.reviewSection__text:after {
+  content: '';
+	position: absolute;
+	bottom: -25px;
+	left: 25px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 25px 25px 0 0;
+	border-color: #fff transparent transparent transparent
+}
+
+.reviewSection__text p {
+  position: relative;
+  font-size: 16px;
+  text-align: justify;
+}
+
+.reviewSection__text p:before {
+  content: '';
+  position: absolute;
+  top:-15px;
+  left:-15px;
+  width: 15px;
+  height:15px;
+  background: url('../../../assets/img/markP.png') no-repeat;
+  background-size: contain;
+}
+
+.reviewPerson {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.reviewPerson__photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50px;
+  border:5px #fff solid;
+  overflow: hidden;
+  margin-right: 20px;
+}
+
+.reviewPerson__name {
+  font-size: 18px;
 }

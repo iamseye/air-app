@@ -1,30 +1,27 @@
-import React, { Component } from 'react';
-import Icon from '../../utils/Icon';
-import { ICONS } from '../../utils/constants';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Slide from './slide';
 import './style.css';
 
-class SearchBar extends Component {
-  state = {
-  };
-
-  render() {
-    return (
-      <div className="cardSlider">
-        <button>
-          <Icon icon={ICONS.DROP_DOWN} />
-        </button>
-        <div className="cardSlider__cards">
-          <Slide />
-          <Slide />
-          <Slide />
-        </div>
-        <button>
-          <Icon icon={ICONS.NEXT_ARROW} />
-        </button>
+const SearchBar = props => (
+  <div className="cardSlider">
+    <div className="cardSlider__wrapper">
+      <h3>{props.title}</h3>
+      <div className="cardSlider__list">
+        <Slide />
+        <Slide />
+        <Slide />
       </div>
-    );
-  }
-}
+      <div className="cardSlider__linkMore">
+        <span>更多車源</span>
+        <img src="/assets/img/arrow.svg" alt="arrow icon" />
+      </div>
+    </div>
+  </div>
+);
+
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default SearchBar;
