@@ -1,16 +1,16 @@
 .cardSlider {
-  width: 100%;
-	padding: 50px 0;
+	width: 100%;
+	padding: 75px 0;
 }
 
 .cardSlider__wrapper {
-  width: 90%;
+	width: 90%;
 	max-width: 1440px;
 	margin: 0 auto;
 }
 
 .cardSlider__list {
-  position: relative;
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -19,42 +19,46 @@
 }
 
 .slide {
-  position: relative;
+	position: relative;
 	width: calc( 100%/3 - 50px/3);
 	height: 250px;
 	border-radius: 8px;
 	overflow: hidden;
 	cursor: pointer;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-image: url('../../assets/img/carPhoto.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-image: url('../../assets/img/carPhoto.jpg');
 }
 
-.slide:hover .slide__price{
+.slide:hover .slide__price {
 	background: url('../../assets/img/price__hover.svg') center right no-repeat;
 	background-size: contain;
 }
 
 .slide__name {
-  width: 100%;
+	width: 100%;
 	padding: 15px 15px 30px;
 	background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0));
+	font-size: 16px;
+	line-height: 23px;
 	color: #fff;
 	transition: .3s;
 }
 
-.slide__name span:first-child{
-	font-size: 16px;
-	font-weight:100;
-	line-height: 15px;
+.slide__name span:first-child {
+	font-weight: 100;
 }
 
-.slide__price{
+.slide__name div {
+	font-size: 25px;
+}
+
+.slide__price {
 	position: absolute;
-	bottom:0px;
-	right:10px;
-	font-size: 20px;
+	bottom: 0px;
+	right: 10px;
+	font-size: 13px;
 	color: #ffffff;
 	padding: 15px 15px 15px 55px;
 	background: url('../../assets/img/price.svg') center right no-repeat;
@@ -62,12 +66,15 @@
 	transition: .2s;
 }
 
-.slide__price span:first-child{
-	font-size: 13px;
-	font-weight:100;
+.slide__price span:first-child {
+	font-weight: 100;
 }
 
-.cardSlider__linkMore{
+.slide__price div {
+	font-size: 20px;
+}
+
+.cardSlider__linkMore {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;

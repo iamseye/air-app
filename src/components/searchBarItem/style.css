@@ -13,12 +13,13 @@
 }
 
 .searchBarItem > svg {
-  margin-left: 5px;
+	margin-left: 5px;
 }
 
 .searchBarItem＿＿box {
-  position: absolute;
-	top:70px;
+	z-index: 9999;
+	position: absolute;
+	top: 70px;
 	left: 0;
 	max-height: 305px;
 	padding: 25px 22px 25px 25px;
@@ -43,7 +44,7 @@
 }
 
 .searchBarItem＿＿option {
-  min-width: 200px;
+	min-width: 200px;
 	line-height: 45px;
 	padding: 0 10px;
 	color: #555;
@@ -51,19 +52,19 @@
 }
 
 .searchBarItem＿＿option:hover {
-  background: #f1f1f1;
+	background: #f1f1f1;
 }
 
 .searchBarItem＿＿option--active {
-  min-width: 200px;
+	min-width: 200px;
 	line-height: 45px;
 	padding: 0 10px;
 	color: #555;
 	cursor: pointer;
-  background: #008fd2;
+	background: #008fd2;
 	color: #fff;
 }
 
 .searchBarItem＿＿option--active:hover {
-  background: #006eb7;
+	background: #006eb7;
 }
