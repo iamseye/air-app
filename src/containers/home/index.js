@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as styleActions from '../../actions/styleAction';
+import * as searchActions from '../../actions/searchAction';
 import SearchBar from '../../components/searchBar';
 import CardSlider from '../../components/cardSlider';
 import StepSection from './components/stepSection';
@@ -23,19 +24,15 @@ class Home extends Component {
     api.getInitailInfo()
       .then((json) => {
         if (json && json.data) {
-          console.log(json.data);
-          this.setState({
-            area: json.data.area,
-            vehicleType: json.data.vehicleType,
-            vehicleBrand: json.data.vehicleBrand,
-          });
+          this.props.searchActions.setSearchBrandOptions(json.data.vehicleBrand);
+          this.props.searchActions.setSearchVehicleTypeOptions(json.data.vehicleType);
+          this.props.searchActions.setSearchAreaOptions(json.data.area);
         }
       });
     api.getSellCars()
       .then((json) => {
         if (json && json.data) {
           this.setState({ newestCars: json.data });
-          console.log(json.data);
         }
       });
   }
@@ -51,11 +48,7 @@ class Home extends Component {
             <p>創新的購前體驗，買車前先開回家盡情駕駛，從此告別肥羊以及冤大頭</p>
           </div>
 
-          <SearchBar
-            vehicleBrand={this.state.vehicleBrand}
-            vehicleType={this.state.vehicleType}
-            area={this.state.area}
-          />
+          <SearchBar />
         </div>
         <CardSlider title="精選車輛" carArray={this.state.newestCars} />
         <StepSection />
@@ -74,6 +67,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   styleActions: bindActionCreators(styleActions, dispatch),
+  searchActions: bindActionCreators(searchActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
