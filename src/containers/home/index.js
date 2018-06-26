@@ -9,9 +9,23 @@ import ReviewSection from './components/reviewSection';
 import AreaSection from './components/areaSection';
 import KnowMoreSection from './components/knowMoreSection';
 import './style.css';
+import api from '../../utils/api';
 
 class Home extends Component {
-  state = {}
+  state = {
+    newestCars: [],
+  }
+
+  componentDidMount() {
+    api.getSellCars()
+      .then((json) => {
+        if (json && json.data) {
+          this.setState({ newestCars: json.data });
+          console.log(json.data);
+        }
+      });
+  }
+
   render() {
     return (
       <div className="home">
@@ -25,10 +39,10 @@ class Home extends Component {
 
           <SearchBar />
         </div>
-        <CardSlider title="精選車輛" />
+        <CardSlider title="精選車輛" carArray={this.state.newestCars} />
         <StepSection />
         <ReviewSection />
-        <CardSlider title="最新上架" />
+        <CardSlider title="最新上架" carArray={this.state.newestCars} />
         <AreaSection />
         <KnowMoreSection />
       </div>
