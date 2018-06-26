@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import * as searchActions from '../../actions/searchAction';
 import SearchBarItem from '../searchBarItem';
 import './style.css';
 
+
 class SearchBar extends Component {
   state = {
-    brandValues: [],
-    vehicleTypes: [],
-    areas: [],
+    vehicleBrand: [],
+    vehicleType: [],
+    area: [],
   };
 
   componentDidMount() {
@@ -18,10 +20,12 @@ class SearchBar extends Component {
 
   prepareData() {
     this.setState({
-      brandValues: ['BMW', 'Audi', 'M BENZ'],
-      vehicleTypes: ['四門房車', '休旅車', '敞篷車', '性能跑車'],
-      areas: ['台北', '台中', '台南'],
+      vehicleBrand: ['逼恩搭不溜 BMW', '奧迪 Audi'],
+      vehicleType: ['四門房車'],
+      area: ['台北', '新北', '台中'],
     });
+
+    console.log(this.state.vehicleType);
   }
 
   handleSelectItem = (selectCategory, selectedItem) => {
@@ -45,19 +49,19 @@ class SearchBar extends Component {
         <SearchBarItem
           selectCategory="brand"
           name="廠牌"
-          options={this.state.brandValues}
+          options={this.state.vehicleBrand}
           handleSelectItem={this.handleSelectItem}
         />
         <SearchBarItem
           selectCategory="vehicleTypes"
           name="車型"
-          options={this.state.vehicleTypes}
+          options={this.state.vehicleType}
           handleSelectItem={this.handleSelectItem}
         />
         <SearchBarItem
           selectCategory="areas"
           name="地區"
-          options={this.state.areas}
+          options={this.state.area}
           handleSelectItem={this.handleSelectItem}
         />
         <div className="searchBar__button" onClick={()=> this.submitSearch()}>

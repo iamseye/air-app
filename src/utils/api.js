@@ -15,6 +15,12 @@ const api = {
 
     return response.json();
   },
+  getInitailInfo: async () => {
+    const url = `${userApi}/getInitialInfo`;
+    const response = await fetch(proxyUrl + url);
+
+    return response.json();
+  },
 };
 
 export default api;
