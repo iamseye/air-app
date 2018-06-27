@@ -21,6 +21,17 @@ const api = {
 
     return response.json();
   },
+  getSearchSellCars: async (params) => {
+    const url = `${userApi}/search-sellcars`;
+    const response = await fetch(
+      proxyUrl + url,
+      {
+        method: 'post',
+        body: JSON.stringify(params),
+      },
+    );
+    return response.json();
+  },
 };
 
 export default api;

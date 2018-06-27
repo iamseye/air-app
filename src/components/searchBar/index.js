@@ -1,30 +1,37 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import * as searchActions from '../../actions/searchAction';
 import SearchBarItem from '../searchBarItem';
 import './style.css';
 
-
 class SearchBar extends Component {
   state = {
+    redirectListPage: false,
   };
 
   handleSelectItem = (selectCategory, selectedItem) => {
+    const selectedArray = [];
+    selectedArray.push(selectedItem);
     if (selectCategory === 'brand') {
-      this.props.searchActions.setSearchBrand(selectedItem);
+      this.props.searchActions.setSearchBrand(selectedArray);
     } else if (selectCategory === 'vehicleTypes') {
-      this.props.searchActions.setSearchVehicleType(selectedItem);
+      this.props.searchActions.setSearchVehicleType(selectedArray);
     } else if (selectCategory === 'areas') {
-      this.props.searchActions.setSearchArea(selectedItem);
+      this.props.searchActions.setSearchArea(selectedArray);
     }
   }
 
   submitSearch() {
-
+    this.setState({ redirectListPage: true });
   }
 
   render() {
+    if (this.state.redirectListPage) {
+      return <Redirect to="/list" />;
+    }
+
     return (
       <div className="searchBar">
         <div className="searchBar__title"><span>我要預約體驗</span></div>

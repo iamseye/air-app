@@ -11,7 +11,7 @@ const CarCard = props => (
     <div className="car__img" style={slideStyle}>
       <div className="car__price">
         <span>最低體驗價</span>
-        <div>NT$ 3,000</div>
+        <div>NT$ {props.rentPrice / 2}</div>
       </div>
     </div>
     <div className="car__content">
@@ -27,6 +27,7 @@ const CarCard = props => (
 );
 
 CarCard.propTypes = {
+  rentPrice: PropTypes.number.isRequired,
   buyPrice: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
   brand: PropTypes.string.isRequired,

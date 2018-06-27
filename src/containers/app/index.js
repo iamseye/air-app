@@ -9,10 +9,8 @@ import List from '../list';
 const App = () => (
   <Router>
     <div className="App">
-      <main>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/list" component={List} />
-      </main>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/list" component={List} />
     </div>
   </Router>
 );
