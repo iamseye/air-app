@@ -1,13 +1,6 @@
 const userApi = 'https://staging.api.cocarmaster.com/api';
-
-// const encodeQueryData = (data) => {
-//   const ret = [];
-//   for (let d in data) {
-//     ret.push(`${encodeURIComponent(d)}=${encodeURIComponent(data[d])}`);
-//   }
-//   return ret.join('&');
-// };
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
 const api = {
   getSellCars: async () => {
     const url = `${userApi}/sellcars`;
@@ -23,13 +16,13 @@ const api = {
   },
   getSearchSellCars: async (params) => {
     const url = `${userApi}/search-sellcars`;
-    const response = await fetch(
-      proxyUrl + url,
-      {
-        method: 'post',
-        body: JSON.stringify(params),
-      },
-    );
+    const response = await fetch(proxyUrl + url, {
+      method: 'POST',
+      body: JSON.stringify(params), // data can be `string` or {object}!
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    });
     return response.json();
   },
 };

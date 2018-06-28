@@ -15,7 +15,9 @@ class SearchBar extends Component {
     const selectedArray = [];
     selectedArray.push(selectedItem);
     if (selectCategory === 'brand') {
-      this.props.searchActions.setSearchBrand(selectedArray);
+      // only set english brand into store
+      const selectedEnglishBrand = selectedItem.split(' ');
+      this.props.searchActions.setSearchBrand(selectedEnglishBrand[1]);
     } else if (selectCategory === 'vehicleTypes') {
       this.props.searchActions.setSearchVehicleType(selectedArray);
     } else if (selectCategory === 'areas') {

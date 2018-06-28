@@ -1,6 +1,7 @@
 {
   "name": "aircnc-user-appp",
   "version": "0.1.0",
+  "proxy": "https://localhost:3000",
   "private": true,
   "dependencies": {
     "history": "^4.7.2",

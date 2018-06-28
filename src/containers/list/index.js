@@ -26,7 +26,8 @@ class List extends Component {
   componentDidMount() {
     const params = {
       'area': this.state.area,
-	   // 'vehicle_type': this.state.vehicleType,
+      'brand': this.state.brand,
+      'vehicle_type': this.state.vehicleType,
    };
 
     api.getSearchSellCars(params)
