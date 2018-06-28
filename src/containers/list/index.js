@@ -49,7 +49,6 @@ class List extends Component {
             buyPrice={item.buy_price}
             year={item.car.data.year}
             brand={item.car.data.brand}
-            series={item.car.data.series}
             seriesModel={item.car.data.series_model}
           />
         ))}
