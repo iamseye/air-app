@@ -4,7 +4,7 @@ import Icon from '../../../utils/Icon';
 import { ICONS } from '../../../utils/constants';
 import './searchBar.css';
 
-export default class SearchBarItem extends Component {
+export default class SearchMultipalItem extends Component {
   state = {
     showOptions: false,
     selectedItem: [],
@@ -99,7 +99,7 @@ export default class SearchBarItem extends Component {
   }
 }
 
-SearchBarItem.propTypes = {
+SearchMultipalItem.propTypes = {
   name: PropTypes.string.isRequired,
   selectCategory: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SearchBarItem from './searchBarItem';
+import SearchMultipalItem from './searchMultipalItem';
 import * as searchActions from '../../../actions/searchAction';
 import './searchBar.css';
 //import api from '../../../utils/api';
@@ -36,14 +36,14 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="searchBar">
-        <SearchBarItem
+        <SearchMultipalItem
           selectCategory="areas"
           name="地區"
           options={this.props.areaOptions}
           handleSelectItem={this.handleSelectItem}
           submitSearch={this.props.submitSearch}
         />
-        <SearchBarItem
+        <SearchMultipalItem
           selectCategory="vehicleTypes"
           name="車型"
           options={this.props.vehicleTypeOptions}
