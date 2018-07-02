@@ -16,6 +16,8 @@ class SearchBar extends Component {
   handleSelectItem = (selectCategory, selectedItem) => {
     if (selectCategory === 'areas') {
       this.props.searchActions.setSearchArea(selectedItem);
+    } else if (selectCategory === 'vehicleTypes') {
+      this.props.searchActions.setSearchVehicleType(selectedItem);
     }
     // console.log(selectedItem);
     // const selectedArray = [];
@@ -38,6 +40,13 @@ class SearchBar extends Component {
           selectCategory="areas"
           name="地區"
           options={this.props.areaOptions}
+          handleSelectItem={this.handleSelectItem}
+          submitSearch={this.props.submitSearch}
+        />
+        <SearchBarItem
+          selectCategory="vehicleTypes"
+          name="車型"
+          options={this.props.vehicleTypeOptions}
           handleSelectItem={this.handleSelectItem}
           submitSearch={this.props.submitSearch}
         />

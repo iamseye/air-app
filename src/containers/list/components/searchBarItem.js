@@ -35,7 +35,10 @@ export default class SearchBarItem extends Component {
     const selectedArray = [...this.state.selectedItem]; // make a separate copy of the array
     const index = selectedArray.indexOf(option);
     selectedArray.splice(index, 1);
-    this.setState({ selectedItem: selectedArray });
+    this.setState(
+      { selectedItem: selectedArray },
+      () => this.handleSelectItem(this.state.selectedItem),
+    );
   }
 
   closeOptionBox = () => {
