@@ -1,0 +1,136 @@
+.list .searchBar {
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: row;
+	background-color: #ffffff;
+	border-bottom: #d2d2d2 1px solid;
+	width: calc(100% - 100px);
+	padding: 0 50px;
+	z-index: 9999;
+}
+
+
+.list .searchBarItem {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 35px;
+	padding: 0 25px;
+	margin: 10px 10px 10px 0;
+	color: #008fd2;
+	font-size: 16px;
+	cursor: pointer;
+	border:#008fd2 1px solid;
+	border-radius: 5px;
+}
+
+.list .searchBarItem:hover {
+	background: #f2f2f2;
+}
+
+.list .searchBarItem__active{
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 35px;
+	padding: 0 25px;
+	margin: 10px 10px 10px 0;
+	color: #fff;
+	background: #008fd2;
+	font-size: 16px;
+	cursor: pointer;
+	border:#008fd2 1px solid;
+	border-radius: 5px;
+}
+
+.list .searchBarItem > span > img {
+	margin-left: 5px;
+}
+
+.list .searchBarItem__active > span > img {
+	margin-left: 5px;
+	filter: brightness(200%);
+}
+
+.list .searchBarItem__box {
+	z-index: 9999;
+	position: absolute;
+	top: 70px;
+	left: -1px;
+	max-height: 305px;
+	padding: 25px 22px 25px 25px;
+	background: #ffffff;
+	border-radius: 5px;
+	border:#d2d2d2 1px solid;
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
+	overflow-y: scroll;
+	transition: .2s;
+}
+
+.list .searchBarItem__box::-webkit-scrollbar {
+	width: 5px;
+}
+
+.list .searchBarItem__box::-webkit-scrollbar-track {
+	border-radius: 5px;
+}
+
+.list .searchBarItem__box::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+	background: #d2d2d2;
+}
+
+.list .searchBarItem__option {
+	min-width: 200px;
+	line-height: 45px;
+	padding: 0 10px;
+	color: #555;
+	cursor: pointer;
+}
+
+.list .searchBarItem__option:hover {
+	background: #f1f1f1;
+}
+
+.list .searchBarItem__option--active {
+	min-width: 200px;
+	line-height: 45px;
+	padding: 0 10px;
+	color: #555;
+	cursor: pointer;
+	background: #008fd2;
+	color: #fff;
+}
+
+.list .searchBarItem__option--active:hover {
+	background: #006eb7;
+}
+
+.list .searchBarItem__select {
+	border:#d2d2d2 1px solid;
+	border-radius:3px;
+	padding: 10px;
+	margin-bottom: 10px;
+	min-width: 198px;
+	line-height: 35px;
+	height: 35px;
+	font-size: 16px;
+	background:#fff;
+}
+
+.list .searchBarItem_select:hover {
+	background: #f1f1f1;
+}
+
+.list .searchBarItem__confirm {
+	font-size: 13px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 10px 10px 0;
+	border-top: #d2d2d2 1px solid;
+	color: #008fd2;
+}

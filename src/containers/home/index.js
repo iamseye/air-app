@@ -15,12 +15,9 @@ import api from '../../utils/api';
 class Home extends Component {
   state = {
     newestCars: [],
-    area: [],
-    vehicleType: [],
-    vehicleBrand: [],
   }
 
-  componentWillMount() {
+  componentDidMount() {
     api.getInitailInfo()
       .then((json) => {
         if (json && json.data) {
@@ -29,8 +26,6 @@ class Home extends Component {
           this.props.searchActions.setSearchAreaOptions(json.data.area);
         }
       });
-  }
-  componentDidMount() {
     api.getSellCars()
       .then((json) => {
         if (json && json.data) {

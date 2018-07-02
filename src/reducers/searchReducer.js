@@ -16,6 +16,7 @@ const initialState = {
   areaOptions: [],
 };
 
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_SEARCH_BRAND:

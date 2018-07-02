@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import SearchBar from './components/searchBar';
 import * as styleActions from '../../actions/styleAction';
 import * as searchActions from '../../actions/searchAction';
 import CarCard from '../../components/carCard';
@@ -9,26 +10,28 @@ import './style.css';
 
 class List extends Component {
   state = {
-    brand: [],
-    vehicleType: [],
-    area: [],
     carArray: [],
   }
 
-  componentWillMount() {
-    this.setState({
-      brand: this.props.brand,
-      vehicleType: this.props.vehicleType,
-      area: this.props.area
-    });
+  componentDidMount() {
+    api.getInitailInfo()
+      .then((json) => {
+        if (json && json.data) {
+          this.props.searchActions.setSearchBrandOptions(json.data.vehicleBrand);
+          this.props.searchActions.setSearchVehicleTypeOptions(json.data.vehicleType);
+          this.props.searchActions.setSearchAreaOptions(json.data.area);
+        }
+      });
+
+    this.submitSearch();
   }
 
-  componentDidMount() {
+  submitSearch = () => {
     const params = {
-      'area': this.state.area,
-      'brand': this.state.brand,
-      'vehicle_type': this.state.vehicleType,
-   };
+      area: this.props.area,
+      brand: this.props.brand,
+      vehicle_type: this.props.vehicleType,
+    };
 
     api.getSearchSellCars(params)
       .then((json) => {
@@ -42,6 +45,9 @@ class List extends Component {
   render() {
     return (
       <div className="list">
+        <SearchBar
+          submitSearch={this.submitSearch}
+        />
         { this.state.carArray.map((item, i) => (
           <CarCard
             key={item.id}
@@ -66,7 +72,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   styleActions: bindActionCreators(styleActions, dispatch),
-  searchAction: bindActionCreators(searchActions, dispatch),
+  searchActions: bindActionCreators(searchActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
