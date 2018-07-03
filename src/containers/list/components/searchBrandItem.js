@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Select } from 'antd';
 import Icon from '../../../utils/Icon';
 import { ICONS } from '../../../utils/constants';
 import './searchBar.css';
 
-export default class SearchMultipalItem extends Component {
+export default class SearchBrandItem extends Component {
   state = {
     showOptions: false,
     selectedItem: [],
@@ -21,29 +22,14 @@ export default class SearchMultipalItem extends Component {
     this.closeOptionBox();
   }
 
+  handleClickCategory = () => {
+    this.setState({ showOptions: !this.state.showOptions });
+  }
+
   addSelectedItem(option) {
     this.setState({
       selectedItem: [...this.state.selectedItem, option],
     }, () => this.handleSelectItem(this.state.selectedItem));
-  }
-
-  handleClickCategory = () => {
-    if (!this.state.showOptions) {
-      document.addEventListener('click', this.handleOutsideClick, false);
-    } else {
-      document.removeEventListener('click', this.handleOutsideClick, false);
-    }
-
-    this.setState({ showOptions: !this.state.showOptions });
-  }
-
-  handleOutsideClick = (e) => {
-    // ignore clicks on the component itself
-    if (this.node.contains(e.target)) {
-      return;
-    }
-    this.handleClickCategory();
-    this.submitSearch();
   }
 
   removeSelectedItem(option) {
@@ -61,25 +47,6 @@ export default class SearchMultipalItem extends Component {
   }
 
   render() {
-    const options = this.props.options.map((item, index) => (
-      <div key={index}>
-        { this.state.selectedItem.includes(item) ?
-        <div
-          className="searchBarItem＿＿option--active"
-          onClick={() => this.removeSelectedItem(item)}
-        >
-          {item}
-        </div> :
-        <div
-          className="searchBarItem＿＿option"
-          onClick={() => this.addSelectedItem(item)}
-        >
-          {item}
-        </div>
-        }
-      </div>
-    ));
-
     const optionBox = (
       <div className="searchBarItem＿＿box">
         <div
@@ -88,7 +55,7 @@ export default class SearchMultipalItem extends Component {
         >
           不限{this.props.name}
         </div>
-        {options}
+
         <div className="searchBarItem__confirm">
           <span onClick={() => this.cancelSelected()}>取消</span>
           <span onClick={() => {this.submitSearch(); this.closeOptionBox()}}>套用</span>
@@ -97,8 +64,7 @@ export default class SearchMultipalItem extends Component {
     );
 
     return (
-      <div className={this.state.selectedItem.length > 0 ? 'searchBarItem__active' : 'searchBarItem'}
-      ref={(node) => { this.node = node; }}>
+      <div className={this.state.selectedItem.length > 0 ? 'searchBarItem__active' : 'searchBarItem'}>
         <span onClick={() => this.handleClickCategory()} >
           {(() => {
               switch (this.state.selectedItem.length) {
@@ -115,10 +81,9 @@ export default class SearchMultipalItem extends Component {
   }
 }
 
-SearchMultipalItem.propTypes = {
+SearchBrandItem.propTypes = {
   name: PropTypes.string.isRequired,
   selectCategory: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleSelectItem: PropTypes.func.isRequired,
   submitSearch: PropTypes.func.isRequired,
 };

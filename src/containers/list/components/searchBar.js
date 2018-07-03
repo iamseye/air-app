@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchMultipalItem from './searchMultipalItem';
+import SearchBrandItem from './searchBrandItem';
 import * as searchActions from '../../../actions/searchAction';
 import './searchBar.css';
-//import api from '../../../utils/api';
 
 class SearchBar extends Component {
   state = {
@@ -19,18 +19,6 @@ class SearchBar extends Component {
     } else if (selectCategory === 'vehicleTypes') {
       this.props.searchActions.setSearchVehicleType(selectedItem);
     }
-    // console.log(selectedItem);
-    // const selectedArray = [];
-    // selectedArray.push(selectedItem);
-    // if (selectCategory === 'brand') {
-    //   // only set english brand into store
-    //   const selectedEnglishBrand = selectedItem.split(' ');
-    //   this.props.searchActions.setSearchBrand(selectedEnglishBrand[1]);
-    // } else if (selectCategory === 'vehicleTypes') {
-    //   this.props.searchActions.setSearchVehicleType(selectedArray);
-    // } else if (selectCategory === 'areas') {
-    //   this.props.searchActions.setSearchArea(selectedArray);
-    // }
   }
 
   render() {
@@ -47,6 +35,13 @@ class SearchBar extends Component {
           selectCategory="vehicleTypes"
           name="車型"
           options={this.props.vehicleTypeOptions}
+          handleSelectItem={this.handleSelectItem}
+          submitSearch={this.props.submitSearch}
+        />
+        <SearchBrandItem
+          selectCategory="brand"
+          name="車款"
+          brandOptions={this.props.brandOptions}
           handleSelectItem={this.handleSelectItem}
           submitSearch={this.props.submitSearch}
         />
