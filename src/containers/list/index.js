@@ -58,6 +58,7 @@ class List extends Component {
             seriesModel={item.car.data.series_model}
           />
         ))}
+        窩豪帥
       </div>
     );
   }
