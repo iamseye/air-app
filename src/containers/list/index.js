@@ -51,17 +51,21 @@ class List extends Component {
         <SearchBar
           submitSearch={this.submitSearch}
         />
-        { this.state.carArray.map((item, i) => (
-          <CarCard
-            key={item.id}
-            rentPrice={item.rent_price}
-            buyPrice={item.buy_price}
-            year={item.car.data.year}
-            brand={item.car.data.brand}
-            seriesModel={item.car.data.series_model}
-          />
-        ))}
-        窩豪帥
+
+        <div class="listSection__wraper">
+          <div class="cardSlider__list">
+          { this.state.carArray.map((item, i) => (
+            <CarCard
+              key={item.id}
+              rentPrice={item.rent_price}
+              buyPrice={item.buy_price}
+              year={item.car.data.year}
+              brand={item.car.data.brand}
+              seriesModel={item.car.data.series_model}
+            />
+          ))}
+          </div>
+        </div>
       </div>
     );
   }

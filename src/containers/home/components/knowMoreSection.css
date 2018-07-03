@@ -1,3 +1,7 @@
+.knowMoreSection h1, .knowMoreSection h2 {
+	color: #fff;
+}
+
 .knowMoreSection {
   background: url('../../../assets/img/knowmore__bg.jpg') center no-repeat;
 	background-size: cover;

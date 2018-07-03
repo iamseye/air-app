@@ -1,3 +1,7 @@
+.searchSection h1, .searchSection h2 {
+  color: #fff;
+}
+
 .home__section{
 	width: 100%;
 	padding: 75px 0;
