@@ -1,1 +1,5 @@
 @import '~antd/dist/antd.css';
+
+.ant-select-dropdown {
+	z-index: 99999999999 !important;
+}
