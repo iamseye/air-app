@@ -7,6 +7,7 @@ import Home from '../home';
 import List from '../list';
 import Header from '../header';
 import Footer from '../footer';
+import './style.css';
 
 const App = () => (
   <Router>

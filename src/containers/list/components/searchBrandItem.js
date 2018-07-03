@@ -10,7 +10,6 @@ export default class SearchBrandItem extends Component {
     showOptions: false,
     selectedItem: [],
   }
-
   handleSelectItem = (selectedItem) => this.props.handleSelectItem(this.props.selectCategory, selectedItem);
   submitSearch = () => this.props.submitSearch();
 
@@ -46,7 +45,12 @@ export default class SearchBrandItem extends Component {
     this.setState({ showOptions: !this.state.showOptions });
   }
 
+  handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+
   render() {
+
     const optionBox = (
       <div className="searchBarItem＿＿box">
         <div
@@ -55,6 +59,19 @@ export default class SearchBrandItem extends Component {
         >
           不限{this.props.name}
         </div>
+
+        <Select
+          showSearch
+          style={{ width: 200 }}
+          placeholder="Select a person"
+          optionFilterProp="children"
+          onChange={value => this.handleChange(value)}
+          filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+        >
+          <Select.Option value="jack">Jack</Select.Option>
+          <Select.Option value="lucy">Lucy</Select.Option>
+          <Select.Option value="tom">Tom</Select.Option>
+        </Select>
 
         <div className="searchBarItem__confirm">
           <span onClick={() => this.cancelSelected()}>取消</span>
