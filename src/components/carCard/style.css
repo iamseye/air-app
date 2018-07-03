@@ -1,7 +1,60 @@
-.carCard {
-  margin: 10px 0;
-  cursor: pointer;
+@media screen and ( min-width: 1601px ) {
+	.carCard {
+		width: calc( 100%/5 - 100px/5);
+	}
+
+	.carCard:nth-child(5n) {
+		margin-right: 0px;
+	}
 }
+
+@media screen and ( max-width: 1600px ) and ( min-width: 1441px ) {
+	.carCard {
+		width: calc( 100%/4 - 75px/4);
+	}
+
+	.carCard:nth-child(4n) {
+		margin-right: 0px;
+	}
+}
+
+@media screen and ( max-width: 1441px ) and ( min-width: 1025px ) {
+	.carCard {
+		width: calc( 100%/3 - 50px/3);
+	}
+
+	.carCard:nth-child(3n) {
+		margin-right: 0px;
+	}
+}
+
+@media screen and ( max-width: 1024px ) and ( min-width: 769px ) {
+	.carCard {
+		width: calc( 100%/2 - 25px/2);
+	}
+
+	.carCard:nth-child(2n) {
+		margin-right: 0px;
+	}
+}
+
+@media screen and ( max-width: 768px ) {
+	.carCard {
+		position: relative;
+		width: 100%;
+		cursor: pointer;
+	}
+}
+
+
+.carCard {
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 50px;
+	margin-right: 25px;
+	cursor: pointer;
+}
+
 .car__img {
 	position: relative;
 	height: 250px;
