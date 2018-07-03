@@ -31,6 +31,9 @@ class List extends Component {
       area: this.props.area,
       brand: this.props.brand,
       vehicle_type: this.props.vehicleType,
+      series: this.props.series,
+      series_model: this.props.seriesModel,
+      year: this.props.year
     };
 
     api.getSearchSellCars(params)
@@ -69,6 +72,9 @@ const mapStateToProps = state => ({
   brand: state.search.brand,
   vehicleType: state.search.vehicleType,
   area: state.search.area,
+  series: state.search.series,
+  seriesModel: state.search.seriesModel,
+  year: state.search.year,
 });
 
 const mapDispatchToProps = dispatch => ({

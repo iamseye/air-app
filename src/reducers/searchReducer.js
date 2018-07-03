@@ -5,12 +5,18 @@ import {
   SET_SEARCH_AREA_OPTIONS,
   SET_SEARCH_BRAND_OPTIONS,
   SET_SEARCH_VEHICLE_TYPE_OPTIONS,
+  SET_SEARCH_YEAR,
+  SET_SEARCH_SERIES,
+  SET_SEARCH_SERIES_MODEL,
 } from '../actions/searchAction';
 
 const initialState = {
-  brand: '',
   vehicleType: '',
   area: '',
+  brand: '',
+  series: '',
+  seriesModel: '',
+  year: '',
   brandOptions: [],
   vehicleTypeOptions: [],
   areaOptions: [],
@@ -27,6 +33,15 @@ export default (state = initialState, action) => {
 
     case SET_SEARCH_AREA:
       return { ...state, area: action.value };
+
+    case SET_SEARCH_YEAR:
+      return { ...state, year: action.value };
+
+    case SET_SEARCH_SERIES:
+      return { ...state, series: action.value };
+
+    case SET_SEARCH_SERIES_MODEL:
+      return { ...state, seriesModel: action.value };
 
     case SET_SEARCH_AREA_OPTIONS:
       return { ...state, areaOptions: action.value };

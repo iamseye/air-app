@@ -42,8 +42,6 @@ class SearchBar extends Component {
           selectCategory="brand"
           name="車款"
           brandOptions={this.props.brandOptions}
-          handleSelectItem={this.handleSelectItem}
-          submitSearch={this.props.submitSearch}
         />
       </div>
     );

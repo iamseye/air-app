@@ -25,6 +25,17 @@ const api = {
     });
     return response.json();
   },
+  getCarBrandOptions: async (params) => {
+    const url = `${userApi}/get-brand-options`;
+    const response = await fetch(proxyUrl + url, {
+      method: 'POST',
+      body: JSON.stringify(params), // data can be `string` or {object}!
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    });
+    return response.json();
+  },
 };
 
 export default api;

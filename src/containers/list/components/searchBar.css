@@ -134,3 +134,7 @@
 	border-top: #d2d2d2 1px solid;
 	color: #008fd2;
 }
+
+.searchBarItem＿＿box .ant-select {
+	margin: 5px 0;
+}
