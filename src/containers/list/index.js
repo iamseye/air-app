@@ -52,8 +52,8 @@ class List extends Component {
           submitSearch={this.submitSearch}
         />
 
-        <div class="listSection__wraper">
-          <div class="cardSlider__list">
+        <div className="listSection__wraper">
+          <div className="cardSlider__list">
           { this.state.carArray.map((item, i) => (
             <CarCard
               key={item.id}

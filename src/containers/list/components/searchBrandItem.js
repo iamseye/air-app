@@ -12,7 +12,6 @@ import api from '../../../utils/api';
 class SearchBrandItem extends Component {
   state = {
     showOptions: false,
-    selectedItem: [],
     seriesOptions: [],
     seriesModelOptions: [],
     yearOptions: [],
@@ -128,6 +127,7 @@ class SearchBrandItem extends Component {
           showSearch
           style={{ width: 200 }}
           placeholder="廠牌"
+          defaultValue={this.props.brand}
           optionFilterProp="children"
           onChange={value => this.selectBrand(value)}
         >
@@ -139,6 +139,7 @@ class SearchBrandItem extends Component {
           showSearch
           style={{ width: 200 }}
           placeholder="車系"
+          defaultValue={this.props.series}
           optionFilterProp="children"
           onChange={value => this.selectSeries(value)}
         >
@@ -150,6 +151,7 @@ class SearchBrandItem extends Component {
           showSearch
           style={{ width: 200 }}
           placeholder="車款"
+          defaultValue={this.props.seriesModel}
           optionFilterProp="children"
           onChange={value => this.selectSeriesModel(value)}
         >
@@ -162,6 +164,7 @@ class SearchBrandItem extends Component {
           style={{ width: 200 }}
           placeholder="年份"
           optionFilterProp="children"
+          defaultValue={this.props.year}
           onChange={value => this.selectYear(value)}
         >
           <Select.Option value="">不限年份</Select.Option>
@@ -176,17 +179,11 @@ class SearchBrandItem extends Component {
     );
 
     return (
-      <div className={this.state.selectedItem.length > 0 ? 'searchBarItem__active' : 'searchBarItem'}>
+      <div className={this.props.brand.length > 0 ? 'searchBarItem__active' : 'searchBarItem'}>
         <span onClick={() => this.handleClickCategory()} >
-          {(() => {
-              switch (this.state.selectedItem.length) {
-                case 0: return this.props.name;
-                case 1: return this.state.selectedItem[0];
-                default: return `${this.state.selectedItem.length} ${this.props.name}`;
-              }
-            })()}
+          { this.props.brand.length > 0 ? this.props.brand : this.props.name }
         </span>
-        { this.state.selectedItem.length > 0 ? '' : <Icon icon={ICONS.DROP_DOWN} size={18} /> }
+        { this.props.brand.length > 0 ? '' : <Icon icon={ICONS.DROP_DOWN} size={18} /> }
         { this.state.showOptions ? optionBox : '' }
       </div>
     );
@@ -204,6 +201,7 @@ const mapStateToProps = state => ({
   brand: state.search.brand,
   series: state.search.series,
   seriesModel: state.search.seriesModel,
+  year: state.search.year,
   brandOptions: state.search.brandOptions,
   vehicleTypeOptions: state.search.vehicleTypeOptions,
   areaOptions: state.search.areaOptions,
