@@ -131,7 +131,7 @@ class SearchBrandItem extends Component {
           optionFilterProp="children"
           onChange={value => this.selectBrand(value)}
         >
-          <Select.Option value="">不限廠牌</Select.Option>
+          <Select.Option value="">廠牌</Select.Option>
           { brandOptions }
         </Select>
 
@@ -143,7 +143,7 @@ class SearchBrandItem extends Component {
           optionFilterProp="children"
           onChange={value => this.selectSeries(value)}
         >
-          <Select.Option value="">不限車系</Select.Option>
+          <Select.Option value="">車系</Select.Option>
           { seriesOptions }
         </Select>
 
@@ -155,7 +155,7 @@ class SearchBrandItem extends Component {
           optionFilterProp="children"
           onChange={value => this.selectSeriesModel(value)}
         >
-          <Select.Option value="">不限車款</Select.Option>
+          <Select.Option value="">車款</Select.Option>
           { seriesModelOptions }
         </Select>
 
@@ -167,7 +167,7 @@ class SearchBrandItem extends Component {
           defaultValue={this.props.year}
           onChange={value => this.selectYear(value)}
         >
-          <Select.Option value="">不限年份</Select.Option>
+          <Select.Option value="">年份</Select.Option>
           { yearOptions }
         </Select>
 

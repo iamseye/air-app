@@ -1,6 +1,6 @@
 @import '~antd/dist/antd.css';
 
-.ant-select-dropdown {
+.ant-select-dropdown, .ant-calendar-picker-container  {
 	z-index: 99999999999 !important;
 }
 

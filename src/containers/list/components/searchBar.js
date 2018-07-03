@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchMultipalItem from './searchMultipalItem';
 import SearchBrandItem from './searchBrandItem';
+import SearchDates from './searchDates';
 import * as searchActions from '../../../actions/searchAction';
 import './searchBar.css';
 
@@ -41,6 +42,12 @@ class SearchBar extends Component {
         <SearchBrandItem
           selectCategory="brand"
           name="車款"
+          brandOptions={this.props.brandOptions}
+          submitSearch={this.props.submitSearch}
+        />
+        <SearchDates
+          selectCategory="dates"
+          name="體驗日期"
           brandOptions={this.props.brandOptions}
           submitSearch={this.props.submitSearch}
         />
