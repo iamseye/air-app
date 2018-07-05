@@ -33,7 +33,9 @@ class List extends Component {
       vehicle_type: this.props.vehicleType,
       series: this.props.series,
       series_model: this.props.seriesModel,
-      year: this.props.year
+      year: this.props.year,
+      start_date: new Date(this.props.startDate).getTime() / 1000,
+      end_date: new Date(this.props.endDate).getTime() / 1000,
     };
 
     api.getSearchSellCars(params)
@@ -79,6 +81,8 @@ const mapStateToProps = state => ({
   series: state.search.series,
   seriesModel: state.search.seriesModel,
   year: state.search.year,
+  startDate: state.search.startDate,
+  endDate: state.search.endDate,
 });
 
 const mapDispatchToProps = dispatch => ({

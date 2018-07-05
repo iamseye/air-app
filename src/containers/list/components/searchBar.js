@@ -47,8 +47,6 @@ class SearchBar extends Component {
         />
         <SearchDates
           selectCategory="dates"
-          name="體驗日期"
-          brandOptions={this.props.brandOptions}
           submitSearch={this.props.submitSearch}
         />
       </div>

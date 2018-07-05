@@ -7,6 +7,8 @@ export const SET_SEARCH_YEAR = 'SET_SEARCH_YEAR';
 export const SET_SEARCH_BRAND_OPTIONS = 'SET_SEARCH_BRAND_OPTIONS';
 export const SET_SEARCH_VEHICLE_TYPE_OPTIONS = 'SET_SEARCH_VEHICLE_TYPE_OPTIONS';
 export const SET_SEARCH_AREA_OPTIONS = 'SET_SEARCH_AREA_OPTIONS';
+export const SET_SEARCH_START_DATE = 'SET_SEARCH_START_DATE';
+export const SET_SEARCH_END_DATE = 'SET_SEARCH_END_DATE';
 
 export const setSearchBrand = value => ({
   type: SET_SEARCH_BRAND,
@@ -50,5 +52,15 @@ export const setSearchVehicleTypeOptions = value => ({
 
 export const setSearchAreaOptions = value => ({
   type: SET_SEARCH_AREA_OPTIONS,
+  value,
+});
+
+export const setSearchStartDate = value => ({
+  type: SET_SEARCH_START_DATE,
+  value,
+});
+
+export const setSearchEndDate = value => ({
+  type: SET_SEARCH_END_DATE,
   value,
 });
