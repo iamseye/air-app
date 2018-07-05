@@ -98,7 +98,7 @@ export default class SearchMultipalItem extends Component {
 
     return (
       <div className={this.state.selectedItem.length > 0 ? 'searchBarItem__active' : 'searchBarItem'}
-      ref={(node) => { this.node = node; }}>
+        ref={(node) => { this.node = node; }}>
         <span onClick={() => this.handleClickCategory()} >
           {(() => {
               switch (this.state.selectedItem.length) {

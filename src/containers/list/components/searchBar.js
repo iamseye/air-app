@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import SearchMultipalItem from './searchMultipalItem';
 import SearchBrandItem from './searchBrandItem';
 import SearchDates from './searchDates';
+import SearchPriceItem from './searchPriceItem';
 import * as searchActions from '../../../actions/searchAction';
 import './searchBar.css';
 
@@ -45,8 +46,11 @@ class SearchBar extends Component {
           brandOptions={this.props.brandOptions}
           submitSearch={this.props.submitSearch}
         />
+        <SearchPriceItem
+          name="單日體驗價格"
+          submitSearch={this.props.submitSearch}
+        />
         <SearchDates
-          selectCategory="dates"
           submitSearch={this.props.submitSearch}
         />
       </div>

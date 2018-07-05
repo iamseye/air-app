@@ -20,6 +20,7 @@ class List extends Component {
           this.props.searchActions.setSearchBrandOptions(json.data.vehicleBrand);
           this.props.searchActions.setSearchVehicleTypeOptions(json.data.vehicleType);
           this.props.searchActions.setSearchAreaOptions(json.data.area);
+          this.props.searchActions.setSearchPriceOptions(json.data.price);
         }
       });
 
@@ -36,6 +37,7 @@ class List extends Component {
       year: this.props.year,
       start_date: new Date(this.props.startDate).getTime() / 1000,
       end_date: new Date(this.props.endDate).getTime() / 1000,
+      price: this.props.price,
     };
 
     api.getSearchSellCars(params)
@@ -83,6 +85,7 @@ const mapStateToProps = state => ({
   year: state.search.year,
   startDate: state.search.startDate,
   endDate: state.search.endDate,
+  price: state.search.price,
 });
 
 const mapDispatchToProps = dispatch => ({

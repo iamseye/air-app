@@ -10,6 +10,8 @@ import {
   SET_SEARCH_SERIES_MODEL,
   SET_SEARCH_START_DATE,
   SET_SEARCH_END_DATE,
+  SET_SEARCH_PRICE,
+  SET_SEARCH_PRICE_OPTIONS,
 } from '../actions/searchAction';
 
 const initialState = {
@@ -19,9 +21,11 @@ const initialState = {
   series: '',
   seriesModel: '',
   year: '',
+  price: [],
   brandOptions: [],
   vehicleTypeOptions: [],
   areaOptions: [],
+  priceOptions: [],
   startDate: '',
   endDate: '',
 };
@@ -56,11 +60,17 @@ export default (state = initialState, action) => {
     case SET_SEARCH_VEHICLE_TYPE_OPTIONS:
       return { ...state, vehicleTypeOptions: action.value };
 
+    case SET_SEARCH_PRICE_OPTIONS:
+      return { ...state, priceOptions: action.value };
+
     case SET_SEARCH_START_DATE:
       return { ...state, startDate: action.value };
 
     case SET_SEARCH_END_DATE:
       return { ...state, endDate: action.value };
+
+    case SET_SEARCH_PRICE:
+      return { ...state, price: action.value };
 
     default:
       return state;
