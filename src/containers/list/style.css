@@ -28,3 +28,25 @@
 	align-items: flex-start;
 	width: 100%;
 }
+
+
+/****針對airbnb套件新增***/
+
+.ant-input {
+	height: 35px !important;
+	padding: 0 !important;
+	font-size: 16px !important;
+	border: #008fd2 1px solid !important;
+}
+
+.ant-input:hover {
+	background: #f2f2f2;
+}
+
+.ant-calendar-range-picker-input {
+	color: #008fd2 !important;
+}
+
+.ant-calendar-range-picker-separator {
+	line-height: 31px !important;
+}

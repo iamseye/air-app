@@ -68,7 +68,7 @@ class SearchPriceItem extends Component {
 
   render() {
     const optionBox = (
-      <div className="searchBarItem＿＿box">
+      <div className="searchBarItem__box">
         <Slider
           range
           defaultValue={this.props.priceOptions && this.props.priceOptions.length > 0 ? [this.props.priceOptions[0], this.props.priceOptions[1]] : [0, 0]}
