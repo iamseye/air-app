@@ -88,29 +88,31 @@
 
 .car__content{
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
 	align-items: flex-start;
 	margin-top: 10px;
 }
 
 .car__name {
-	flex: 3;
-	font-size: 16px;
-	line-height: 20px;
+	line-height: 30px;
 	transition: .3s;
 }
 
 .car__name span:first-child {
-	font-weight: 100;
+	font-size: 13px;
+	line-height: 23px;
+	padding: 0 5px;
+	border: #000 1px solid;
+	border-radius: 2px;
+	margin-right: 5px;
 }
 
 .car__name div {
-	font-size: 20px;
+	font-size: 25px;
 }
 
 .car__otherInfo{
-	flex: 2;
 	text-align: right;
 	line-height: 20px;
 	color: #008fd2;
