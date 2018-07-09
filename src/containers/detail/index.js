@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as searchActions from '../../actions/searchAction';
 import api from '../../utils/api';
 import './style.css';
 
@@ -12,6 +11,7 @@ class Detail extends Component {
     class: '',
     examination_date: '',
     examination: [],
+    accessories: [],
   }
 
   componentDidMount() {
@@ -29,7 +29,8 @@ class Detail extends Component {
             mileage: json.data.mileage,
             class: json.data.class,
             examination_date: json.data.examination_date,
-            examination: examination,
+            examination,
+            accessories: json.data.sell_car_accessory.data,
           });
         }
       });
@@ -144,23 +145,23 @@ class Detail extends Component {
               </div>
             </div>
 
-      <div className="detail__infoItem">
-        <h3>體驗保險</h3>
-        <p><span>乙式車險</span>、<span>失竊險</span>、<span>免追償</span><span className="insurance">詳細說明</span></p>
-      </div>
+            <div className="detail__infoItem">
+              <h3>體驗保險</h3>
+              <p><span>乙式車險</span>、<span>失竊險</span>、<span>免追償</span><span className="insurance">詳細說明</span></p>
+            </div>
 
-      <div className="detail__infoItem">
-        <h3>隨車配件</h3>
-        <ul className="detail__equipment">
-          <li><img src="/assets/img/icon_gps.svg" />GPS衛星導航</li>
-          <li><img src="/assets/img/icon_usb.svg" />USB充電線</li>
-          <li><img src="/assets/img/icon_aux.svg" />AUX音源線</li>
-        </ul>
-      </div>
+            <div className="detail__infoItem">
+              <h3>隨車配件</h3>
+              <ul className="detail__equipment">
+                { this.state.accessories.map((item, index) => (
+                  <li><img src={`/assets/img/icon_accessories_.svg`} alt="accessory_icon" />{ item.name }</li>
+                  ))
+                }
+              </ul>
+            </div>
 
-      </div>
-    </div>
-
+          </div>
+        </div>
       </div>
     );
   }
