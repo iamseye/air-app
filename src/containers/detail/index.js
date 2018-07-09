@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { DatePicker, TimePicker } from 'antd';
+import { DatePicker, TimePicker, Modal } from 'antd';
 import api from '../../utils/api';
+import CarExaminationModal from './components/carExaminationModal';
 import './style.css';
 
 class Detail extends Component {
@@ -17,6 +18,7 @@ class Detail extends Component {
     buyPrice: 0,
     carCenterAddress: '',
     pickUpAtHome: false,
+    showModal: false,
   }
 
   componentDidMount() {
@@ -67,6 +69,12 @@ class Detail extends Component {
 
   handleSubmit = () => {
 
+  }
+
+  showModal = () => {
+    this.setState({
+      showModal: true,
+    });
   }
 
   render() {
@@ -174,7 +182,7 @@ class Detail extends Component {
 
                 </div>
 
-                <div className="show__moreDetail"><a>更多鑑定細節</a></div>
+                <div className="show__moreDetail" onClick={() => this.showModal()}>更多鑑定細節</div>
               </div>
             </div>
 
@@ -250,9 +258,11 @@ class Detail extends Component {
 
               <div className="detail__goPayment" onClick={() => this.handleSubmit()}>預約體驗</div>
             </div>
-
           </div>
         </div>
+
+        {this.state.showModal ? <CarExaminationModal /> : ''}
+
       </div>
     );
   }
