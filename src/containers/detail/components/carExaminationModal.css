@@ -90,6 +90,7 @@
 	border-radius: 4px;
 	min-height: 200px;
 	overflow: hidden;
+	background-size: cover;
 }
 
 .detailMore__result--content h4 {
@@ -139,10 +140,12 @@
 
 .detailMore__photo--size1 {
 	width: calc( 50% - 25px/2 - 30px );
+	background-size: cover;
 }
 
 .detailMore__photo--size2 {
 	width: calc( 100%/3 - 50px/3 - 30px );
+	background-size: cover;
 }
 
 .detailMore__photo--text {
