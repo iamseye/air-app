@@ -7,6 +7,7 @@ import Home from '../home';
 import List from '../list';
 import Header from '../header';
 import Footer from '../footer';
+import Detail from '../detail';
 import './style.css';
 
 const App = () => (
@@ -15,6 +16,7 @@ const App = () => (
       <Header />
       <Route exact path="/" component={Home} />
       <Route exact path="/list" component={List} />
+      <Route exact path="/detail/:sellCarId" component={Detail} />
       <Footer />
     </div>
   </Router>

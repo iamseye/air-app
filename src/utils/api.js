@@ -36,6 +36,12 @@ const api = {
     });
     return response.json();
   },
+  getTheSellCar: async (id) => {
+    const url = `${userApi}/sellcars/${id}`;
+    const response = await fetch(proxyUrl + url);
+
+    return response.json();
+  },
 };
 
 export default api;

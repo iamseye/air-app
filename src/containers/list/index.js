@@ -58,15 +58,15 @@ class List extends Component {
 
         <div className="listSection__wraper">
           <div className="cardSlider__list">
-          { this.state.carArray.map((item, i) => (
-            <CarCard
-              key={item.id}
-              rentPrice={item.rent_price}
-              buyPrice={item.buy_price}
-              year={item.car.data.year}
-              brand={item.car.data.brand}
-              seriesModel={item.car.data.series_model}
-            />
+            { this.state.carArray.map((item, i) => (
+              <CarCard
+                key={item.id}
+                rentPrice={item.rent_price}
+                buyPrice={item.buy_price}
+                year={item.car.data.year}
+                brand={item.car.data.brand}
+                seriesModel={item.car.data.series_model}
+              />
           ))}
           </div>
         </div>
