@@ -15,6 +15,7 @@ class Detail extends Component {
     examination_date: '',
     examination: [],
     accessories: [],
+    equipment: [],
     rentPrice: 0,
     buyPrice: 0,
     carCenterAddress: '',
@@ -29,6 +30,7 @@ class Detail extends Component {
           const car = json.data.car.data;
           const carCenter = json.data.car_center.data;
           const examination = json.data.sell_car_examination.data;
+          const equipment = json.data.sell_car_equipment.data;
 
           this.setState({
             year: car.year,
@@ -38,6 +40,7 @@ class Detail extends Component {
             class: json.data.class,
             examination_date: json.data.examination_date,
             examination,
+            equipment,
             accessories: json.data.sell_car_accessory.data,
             rentPrice: json.data.rent_price,
             buyPrice: json.data.buy_price,
@@ -54,6 +57,12 @@ class Detail extends Component {
   showModal = () => {
     this.setState({
       showModal: true,
+    });
+  }
+
+  hideModal = () => {
+    this.setState({
+      showModal: false,
     });
   }
 
@@ -96,8 +105,8 @@ class Detail extends Component {
             <div className="detail__infoItem">
               <h3>隨車配件</h3>
               <ul className="detail__equipment">
-                { this.state.accessories.map((item, index) => (
-                  <li><img src={`/assets/img/icon_accessories_.svg`} alt="accessory_icon" />{ item.name }</li>
+                { this.state.accessories.map(item => (
+                  <li key={item.name}><img src={`/assets/img/icon_accessories_.svg`} alt="accessory_icon" />{ item.name }</li>
                   ))
                 }
               </ul>
@@ -114,7 +123,12 @@ class Detail extends Component {
 
         {this.state.showModal ?
           <CarExaminationModal
+            examination_date={this.state.examination_date}
+            classLevel={this.state.class}
+            mileage={this.state.mileage}
             examination={this.state.examination}
+            equipment={this.state.equipment}
+            hideModal={() => this.hideModal()}
           /> : ''}
 
       </div>

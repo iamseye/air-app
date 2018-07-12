@@ -169,3 +169,61 @@
 .detailMore__photo--text span {
 	color: red;
 }
+
+
+.detailFeature {
+	border-radius: 5px;
+	border: #b9b9b9 1px solid;
+	overflow: hidden;
+}
+
+.detailFeature h4 {
+	line-height: 45px;
+	text-align: center;
+	background: #f2f2f2;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.detailFeature ul, .detailFeature li {
+	padding: 0;
+	list-style-type: none;
+}
+
+.detailFeature > ul {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.detailFeature > ul > li{
+	width: calc( 100%/3 - 2px/3 - 50px );
+	padding: 0 25px 25px;
+	border-right: #b9b9b9 1px solid;
+	line-height: 35px;
+}
+
+.detailFeature > ul > li:last-child {
+	border-right: 0;
+}
+
+.detailFeature ul ul li {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.detailFeature ul ul li img, .detailFeature ul ul li div:last-child{
+	width: 20px;
+	text-align: center;
+	font-weight: 100;
+}
+
+.detailMoreClose {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 20px;
+	cursor: pointer;
+}

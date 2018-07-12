@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ExaminationSubSection from './examinationSubSection';
 
 class ExaminationSection extends Component {
   state={}
@@ -26,68 +27,8 @@ class ExaminationSection extends Component {
               <p>{this.props.mileage} km</p>
             </div>
           </div>
-          <div className="dentification__list">
-            <div className="dentification__list--item">
-              <div>事故鑑定</div>
-              <ul>
-                { this.props.examination.map((item, index) => {
-                   if (item.category === 'accident') {
-                     return (
-                       <li>
-                         <span>{item.title}</span>
-                         <span>
-                           {item.passed ?
-                             <img src="/assets/img/check.png" alt="check icon" /> : '-'
-                           }
-                         </span>
-                       </li>);
-                    }
-                  })
-                }
-              </ul>
-            </div>
 
-            <div className="dentification__list--item">
-              <div>系統鑑定</div>
-              <ul>
-                { this.props.examination.map((item, index) => {
-                   if (item.category === 'system') {
-                     return (
-                       <li>
-                         <span>{item.title}</span>
-                         <span>
-                           {item.passed ?
-                             <img src="/assets/img/check.png" alt="check icon" /> : '-'
-                           }
-                         </span>
-                       </li>);
-                    }
-                  })
-                }
-              </ul>
-            </div>
-
-            <div className="dentification__list--item">
-              <div>外觀鑑定</div>
-              <ul>
-                { this.props.examination.map((item, index) => {
-                   if (item.category === 'looking') {
-                     return (
-                       <li>
-                         <span>{item.title}</span>
-                         <span>
-                           {item.passed ?
-                             <img src="/assets/img/check.png" alt="check icon" /> : '-'
-                           }
-                         </span>
-                       </li>);
-                    }
-                  })
-                }
-              </ul>
-            </div>
-
-          </div>
+          <ExaminationSubSection examination={this.props.examination} />
 
           <div className="show__moreDetail" onClick={() => this.showModal()}>更多鑑定細節</div>
         </div>
@@ -100,7 +41,11 @@ ExaminationSection.propTypes = {
   examination_date: PropTypes.string.isRequired,
   classLevel: PropTypes.string.isRequired,
   mileage: PropTypes.number.isRequired,
-  examination: PropTypes.arrayOf(PropTypes.string).isRequired,
+  examination: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    pic_url: PropTypes.string.isRequired,
+  })).isRequired,
   showModal: PropTypes.func.isRequired,
 };
 
