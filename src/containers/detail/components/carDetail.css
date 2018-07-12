@@ -1,0 +1,29 @@
+.carFeature {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.carFeature ul {
+	width: calc( 100%/3 - 50px - 2px/3 );
+	padding:25px;
+	border-right:#989898 1px solid;
+	margin: 0;
+}
+
+.carFeature ul:last-child {
+	border-right: 0;
+}
+
+.carFeature ul li {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	list-style-type: none;
+	line-height: 35px;
+}
+
+.carFeature ul li div:last-child {
+	font-weight: 100;
+}

@@ -3,6 +3,7 @@ import api from '../../utils/api';
 import CarExaminationModal from './components/carExaminationModal';
 import ExaminationSection from './components/examinationSection';
 import PaymentCard from './components/paymentCard';
+import CarDetailSection from './components/carDetailSection';
 import './style.css';
 
 class Detail extends Component {
@@ -12,6 +13,14 @@ class Detail extends Component {
     description: '',
     mileage: 0,
     class: '',
+    outsideColor: '',
+    insideColor: '',
+    displacement: 0,
+    shiftSystem: '',
+    fuel: '',
+    doorNumber: 0,
+    passengerNumber: 0,
+    drivenMethod: '',
     examination_date: '',
     examination: [],
     accessories: [],
@@ -31,14 +40,23 @@ class Detail extends Component {
           const carCenter = json.data.car_center.data;
           const examination = json.data.sell_car_examination.data;
           const equipment = json.data.sell_car_equipment.data;
+          const sellCar = json.data;
 
           this.setState({
             year: car.year,
             name: `${car.brand} ${car.brand_ch} ${car.series}`,
-            description: json.data.description,
-            mileage: json.data.mileage,
-            class: json.data.class,
-            examination_date: json.data.examination_date,
+            description: sellCar.description,
+            mileage: sellCar.mileage,
+            class: sellCar.class,
+            outsideColor: sellCar.outside_color,
+            insideColor: sellCar.inside_color,
+            displacement: sellCar.displacement,
+            shiftSystem: sellCar.shift_system,
+            fuel: sellCar.fuel,
+            doorNumber: sellCar.door_number,
+            passengerNumber: sellCar.passenger_number,
+            drivenMethod: sellCar.driven_method,
+            examination_date: sellCar.examination_date,
             examination,
             equipment,
             accessories: json.data.sell_car_accessory.data,
@@ -88,6 +106,18 @@ class Detail extends Component {
                 {this.state.description}
               </p>
             </div>
+
+            <CarDetailSection
+              year={this.state.year}
+              outsideColor={this.state.outsideColor}
+              insideColor={this.state.insideColor}
+              displacement={this.state.displacement}
+              shiftSystem={this.state.shiftSystem}
+              fuel={this.state.fuel}
+              doorNumber={this.state.doorNumber}
+              passengerNumber={this.state.passengerNumber}
+              drivenMethod={this.state.drivenMethod}
+            />
 
             <ExaminationSection
               examination_date={this.state.examination_date}
