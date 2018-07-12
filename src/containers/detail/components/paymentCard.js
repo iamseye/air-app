@@ -1,28 +1,42 @@
 import React, { Component } from 'react';
 import { DatePicker, TimePicker } from 'antd';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as orderActions from '../../../actions/orderAction';
 
 class PaymentCard extends Component {
   state = {
     pickUpAtHome: false,
+    endTime: '',
   }
 
   handleSubmit = () => this.props.handleSubmit();
 
   pickStartDate(date, dateString) {
-    console.log(date, dateString);
+    this.props.orderActions.setStartDate(dateString);
   }
 
   pickEndDate(date, dateString) {
-    console.log(date, dateString);
+    this.props.orderActions.setEndDate(dateString);
   }
 
   pickStartTime(time, timeString) {
-    console.log(time, timeString);
+    this.props.orderActions.setStartTime(timeString);
+    this.props.orderActions.setEndTime(timeString);
+    this.setState({ endTime: timeString });
   }
 
-  pickEndTime(time, timeString) {
-    console.log(time, timeString);
+  editHomeAddress(value) {
+    this.props.orderActions.setHomeAdress(value);
+    this.setState({ homeAddress: value });
+  }
+
+  editPromoCode(value) {
+    this.props.orderActions.setPromoCode(value);
+    this.setState({ promoCode: value });
   }
 
   selectPickUpLocation = () => {
@@ -51,7 +65,11 @@ class PaymentCard extends Component {
         <div className="detail__select">
           <DatePicker onChange={this.pickEndDate.bind(this)} />
 
-          <TimePicker format="HH:mm" onChange={this.pickEndTime.bind(this)} />
+          { this.state.endTime !== '' ?
+            <TimePicker format="HH:mm" disabled value={moment(this.state.endTime, 'HH:mm')} /> :
+            <TimePicker format="HH:mm" disabled />
+          }
+
         </div>
 
         <div className="detail__alert">
@@ -72,10 +90,10 @@ class PaymentCard extends Component {
           <div className="detail__positionContent">
             { this.state.pickUpAtHome ?
               <div>
-                <input placeholder="請輸入地址" value="" />
+                <input type="text" placeholder="請輸入地址" value={this.props.homeAddress} onChange={e => this.editHomeAddress(e.target.value)} />
               </div> :
               <div>
-                <input readOnly value={this.state.carCenterAddress} />
+                <div>{this.props.carCenterAddress}</div>
               </div> }
           </div>
           { this.state.pickUpAtHome ?
@@ -84,9 +102,13 @@ class PaymentCard extends Component {
             </div> : '' }
         </div>
 
-        <input className="detail__code" placeholder="請輸入優惠代碼" />
+        <input type="text" className="detail__code" placeholder="請輸入優惠代碼" value={this.props.promoCode} onChange={e => this.editPromoCode(e.target.value)} />
 
-        <div className="detail__goPayment" onClick={() => this.handleSubmit()}>預約體驗</div>
+        <Link to="/pay">
+          <div className="detail__goPayment" onClick={() => this.handleSubmit()}>
+            預約體驗
+          </div>
+        </Link>
       </div>
     );
   }
@@ -95,8 +117,18 @@ class PaymentCard extends Component {
 PaymentCard.propTypes = {
   rentPrice: PropTypes.number.isRequired,
   buyPrice: PropTypes.number.isRequired,
-  carCenterAddress: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  carCenterAddress: PropTypes.string.isRequired,
 };
 
-export default PaymentCard;
+
+const mapStateToProps = state => ({
+  promoCode: state.order.promoCode,
+  homeAddress: state.order.homeAddress,
+});
+
+const mapDispatchToProps = dispatch => ({
+  orderActions: bindActionCreators(orderActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentCard);
