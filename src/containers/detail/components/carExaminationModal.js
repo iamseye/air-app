@@ -7,13 +7,26 @@ const _ = require('lodash');
 
 class CarExaminationModal extends Component {
   state = {};
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleOutsideClick, false);
+  }
+
   hideModal = () => this.props.hideModal();
+
+  handleOutsideClick = (e) => {
+    // ignore clicks on the component itself
+    if (this.node.contains(e.target)) {
+      return;
+    }
+    document.removeEventListener('click', this.handleOutsideClick, false);
+    this.hideModal();
+  }
 
   render() {
     return (
       <div className="detailMoreFilter">
-        <div className="detailMore__content">
-
+        <div className="detailMore__content" ref={(node) => { this.node = node; }}>
           <div className="detailMore__item">
             <h3>鑑定等級 {this.props.classLevel}  CLASS <a className="moreBTN">詳細說明</a></h3>
             <div className="detailMore__result">
