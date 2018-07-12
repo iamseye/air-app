@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import searchReducer from './reducers/searchReducer';
 import styleReducer from './reducers/styleReducer';
+import orderReducer from './reducers/orderReducer';
 
 export const history = createHistory();
 
@@ -16,6 +17,7 @@ const middleware = [
 const reducer = combineReducers({
   route: routerReducer,
   search: searchReducer,
+  order: orderReducer,
   style: styleReducer,
 });
 

@@ -3,7 +3,7 @@ import { DatePicker, TimePicker } from 'antd';
 import PropTypes from 'prop-types';
 
 class PaymentCard extends Component {
-  state={
+  state = {
     pickUpAtHome: false,
   }
 
@@ -75,7 +75,7 @@ class PaymentCard extends Component {
                 <input placeholder="請輸入地址" value="" />
               </div> :
               <div>
-                <input readOnly value={this.props.carCenterAddress} />
+                <input readOnly value={this.state.carCenterAddress} />
               </div> }
           </div>
           { this.state.pickUpAtHome ?

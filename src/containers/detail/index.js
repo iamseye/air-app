@@ -70,6 +70,7 @@ class Detail extends Component {
 
   handleSubmit = () => {
 
+    console.log('submit');
   }
 
   showModal = () => {
