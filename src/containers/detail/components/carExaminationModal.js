@@ -32,13 +32,12 @@ class CarExaminationModal extends Component {
             <div className="detailMore__result">
               <div className="detailMore__result--content">
                 <h4>
-                  <div>2016</div>
-                  <div>BENZ C250</div>
+                  <div>{this.props.year}</div>
+                  <div>{this.props.name}</div>
                 </h4>
                 <ul>
-                  <li><div>鑑定里程</div><div>65,876</div></li>
-                  <li><div>鑑定日期</div><div>2018-05-06</div></li>
-                  <li><div>鑑定對象</div><div>2016 BENZ C250</div></li>
+                  <li><div>鑑定里程</div><div>{this.props.mileage}</div></li>
+                  <li><div>鑑定日期</div><div>{this.props.examination_date}</div></li>
                 </ul>
               </div>
               <div
@@ -86,11 +85,11 @@ class CarExaminationModal extends Component {
               <ul>
                 { _.chunk(this.props.equipment.filter(item => (item.category === 'outside')), 4)
                 .map((array, arrayIndex) => (
-                  <li>
+                  <li key={array[0].title}>
                     <ul id={arrayIndex}>
-                      {array.map((item, index) => (
-                        <li>
-                          <div id={index}>{item.title}</div>
+                      {array.map(item => (
+                        <li key={item.title}>
+                          <div>{item.title}</div>
                           <div>
                             {item.has_equipment ?
                               <img src="/assets/img/check.png" alt="check icon" /> :
@@ -108,11 +107,11 @@ class CarExaminationModal extends Component {
               <ul>
                 { _.chunk(this.props.equipment.filter(item => (item.category === 'inside')), 4)
                 .map((array, arrayIndex) => (
-                  <li>
+                  <li key={array[0].title}>
                     <ul id={arrayIndex}>
-                      {array.map((item, index) => (
-                        <li>
-                          <div id={index}>{item.title}</div>
+                      {array.map(item => (
+                        <li key={item.title}>
+                          <div>{item.title}</div>
                           <div>
                             {item.has_equipment ?
                               <img src="/assets/img/check.png" alt="check icon" /> :
@@ -130,11 +129,11 @@ class CarExaminationModal extends Component {
               <ul>
                 { _.chunk(this.props.equipment.filter(item => (item.category === 'safety')), 3)
                 .map((array, arrayIndex) => (
-                  <li>
+                  <li key={array[0].title}>
                     <ul id={arrayIndex}>
-                      {array.map((item, index) => (
-                        <li>
-                          <div id={index}>{item.title}</div>
+                      {array.map(item => (
+                        <li key={item.title}>
+                          <div>{item.title}</div>
                           <div>
                             {item.has_equipment ?
                               <img src="/assets/img/check.png" alt="check icon" /> :
@@ -158,11 +157,21 @@ class CarExaminationModal extends Component {
 }
 
 CarExaminationModal.propTypes = {
-  examination: PropTypes.arrayOf(PropTypes.string).isRequired,
-  equipment: PropTypes.arrayOf(PropTypes.string).isRequired,
+  examination: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    pic_url: PropTypes.string.isRequired,
+  })).isRequired,
+  equipment: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    has_equipment: PropTypes.number.isRequired,
+  })).isRequired,
   examination_date: PropTypes.string.isRequired,
   classLevel: PropTypes.string.isRequired,
   mileage: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   hideModal: PropTypes.func.isRequired,
 };
 

@@ -128,6 +128,8 @@ class Detail extends Component {
             mileage={this.state.mileage}
             examination={this.state.examination}
             equipment={this.state.equipment}
+            year={this.state.year}
+            name={this.state.name}
             hideModal={() => this.hideModal()}
           /> : ''}
 
