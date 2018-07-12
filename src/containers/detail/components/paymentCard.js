@@ -13,8 +13,6 @@ class PaymentCard extends Component {
     endTime: '',
   }
 
-  handleSubmit = () => this.props.handleSubmit();
-
   pickStartDate(date, dateString) {
     this.props.orderActions.setStartDate(dateString);
   }
@@ -105,7 +103,7 @@ class PaymentCard extends Component {
         <input type="text" className="detail__code" placeholder="請輸入優惠代碼" value={this.props.promoCode} onChange={e => this.editPromoCode(e.target.value)} />
 
         <Link to="/pay">
-          <div className="detail__goPayment" onClick={() => this.handleSubmit()}>
+          <div className="detail__goPayment">
             預約體驗
           </div>
         </Link>
@@ -117,7 +115,6 @@ class PaymentCard extends Component {
 PaymentCard.propTypes = {
   rentPrice: PropTypes.number.isRequired,
   buyPrice: PropTypes.number.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   carCenterAddress: PropTypes.string.isRequired,
 };
 

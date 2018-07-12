@@ -68,10 +68,6 @@ class Detail extends Component {
       });
   }
 
-  handleSubmit = () => {
-    console.log('submit');
-  }
-
   showModal = () => {
     this.setState({
       showModal: true,
@@ -148,7 +144,6 @@ class Detail extends Component {
           rentPrice={this.state.rentPrice}
           buyPrice={this.state.buyPrice}
           carCenterAddress={this.state.carCenterAddress}
-          handleSubmit={() => this.handleSubmit()}
         />
 
         {this.state.showModal ?
