@@ -32,7 +32,9 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    api.getTheSellCar(1)
+    const sellCarId = this.props.match.params.sellCarId;
+
+    api.getTheSellCar(sellCarId)
       .then((json) => {
         if (json && json.data && json.data.car && json.data.car.data && json.data.car_center.data && json.data.sell_car_accessory.data) {
           console.log(json.data);

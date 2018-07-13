@@ -9,7 +9,7 @@ const slideStyle = {
 
 const CarCard = props => (
   <div className="carCard">
-    <Link to="/detail/1">
+    <Link to={`/detail/${props.sellCarId}`}>
       <div className="car__img" style={slideStyle}>
         <div className="car__price">
           <span>最低體驗價</span>

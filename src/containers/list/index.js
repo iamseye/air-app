@@ -61,6 +61,7 @@ class List extends Component {
             { this.state.carArray.map((item, i) => (
               <CarCard
                 key={item.id}
+                sellCarId={item.id}
                 rentPrice={item.rent_price}
                 buyPrice={item.buy_price}
                 year={item.car.data.year}
