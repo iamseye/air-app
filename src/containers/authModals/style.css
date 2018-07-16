@@ -1,0 +1,293 @@
+body{
+	/* background: url('../images/haha.jpg') center; */
+	background-size: cover;
+}
+
+.login__area {
+	position: fixed;
+	top:0;
+	left:0;
+	/* width: 100%; 這裏設100%會點不到外面*/
+	/* height: 100%; */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255,255,255,0.75);
+	overflow-y: scroll;
+}
+
+.login__box {
+	position: relative;
+	padding:50px;
+	border-radius: 5px;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+	background: #fff;
+}
+
+.login__box.welcome {
+	padding: 200px 50px 50px;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+	/* background: url('../images/welcome.jpg'); */
+	background-size: cover;
+	color: #fff;
+}
+
+.login__box.finish {
+	padding: 200px 50px 50px;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+	/* background: url('../images/finish.jpg'); */
+	background-size: cover;
+	color: #fff;
+}
+
+.login__box > div {
+	width: 375px;
+	margin-bottom: 10px;
+}
+
+.login__item--title p {
+	font-size: 16px;
+}
+
+.login__item--input input[type="email"],
+.login__item--input input[type="text"],
+.login__item--input input[type="password"] {
+	width: 100%;
+	height: 55px;
+	padding: 0 15px;
+	line-height: 55px;
+	border: #989898 1px solid;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+.login__item--input input[type="email"].readOnly{
+	background: #f2f2f2;
+	color: #b9b9b9;
+}
+
+.login__item--input2 {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: flex-start;
+	padding:0 50px;
+	width: calc( 100% - 100px ) !important;
+	margin-bottom: 25px !important;
+}
+
+input.verificationCode {
+	width: 55px;
+	height: 55px;
+	line-height: 55px;
+	text-align: center;
+	border: #989898 1px solid;
+	border-radius: 5px;
+	font-size: 25px;
+}
+
+.login__alert--hide {
+	display: none;
+}
+
+.login__alert--show {
+	line-height: 35px;
+	margin-bottom: 10px;
+	padding-left: 16px;
+	font-size: 13px;
+	color: red;
+}
+
+.login__item--button1 button {
+	width: 100%;
+	height: 55px;
+	line-height: 55px;
+	border-radius: 5px;
+	border:0;
+	background: #008FD2;
+	color: #fff;
+	font-size: 16px;
+	transition: background-color .3s ease;
+}
+
+::placeholder {
+	color: #b9b9b9;
+}
+
+.login__item--button1  button.normal:hover {
+	background: #006eb7;
+}
+
+.login__item--button1  button.notyet {
+	background: #b9b9b9;
+}
+
+.login__item--notice1 {
+	text-align: center;
+	height: 15px;
+	margin:10px 0px 25px !important;
+	border-bottom: #b9b9b9 1px solid;
+}
+
+.login__item--notice1 span {
+	background: #fff;
+	color: #b9b9b9;
+	padding:0 5px;
+	line-height: 30px;
+	font-size: 13px;
+}
+
+.login__item--button2 {
+	display: flex;
+	justify-content: space-between;
+}
+
+.login__item--button2 button {
+	width: calc(50% - 5px);
+	height: 55px;
+	line-height: 55px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+	border:0;
+}
+
+button.fb {
+	background: #4267b2;
+}
+
+button.google {
+	background: #f14336;
+}
+
+button.other {
+	background: #fff;
+	border:1px solid #b9b9b9;
+	color: #b9b9b9;
+}
+
+button.other:hover {
+	background:#fff;
+	border:1px solid #989898;
+	color: #989898;
+}
+
+.login__item--notice2 {
+	text-align: center;
+	min-height: 30px;
+	line-height: 30px;
+	margin:10px 0px;
+	color: #b9b9b9;
+	font-size: 13px;
+}
+
+.login__item--notice2 .red {
+	color: red;
+}
+
+.login__item--notice2 a {
+	color: #008FD2;
+}
+
+.login__item--notice2 a:hover {
+	color: #006eb7;
+}
+
+.login__close {
+	position: absolute;
+	top: 58px;
+	right: 50px;
+	width: 20px !important;
+	height: 20px;
+	cursor: pointer;
+	/* background: url('../images/close.svg') center no-repeat; */
+	background-size: cover;
+}
+
+.statusDot__list {
+	width: 100%;
+	height: 55px;
+	margin-bottom: 25px;
+	display: flex;
+	justify-content: center;
+}
+
+.statusDot__list div {
+	width: 10px;
+	height: 10px;
+	border: #b9b9b9 2px solid;
+	margin: 0 5px;
+	border-radius: 15px;
+}
+
+.statusDot__thisStep {
+	background: #b9b9b9;
+}
+
+.login__item--description {
+	display: flex;
+	flex-direction: column;
+}
+
+.login__item--description .logo {
+	margin-bottom: 10px;
+}
+
+.login__item--description h3 {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.login__item--description p {
+	margin-bottom: 25px;
+	font-size: 16px;
+}
+
+.login__item--back {
+	height: 55px;
+	line-height: 37px;
+}
+
+.login__item--back img {
+	transform: rotate(90deg);
+	position: relative;
+	top: -1px;
+}
+
+.login__item--back a {
+	color: #008FD2;
+}
+
+.login__item--back a:hover {
+	color: #006eb7;
+}
+
+@media screen and ( min-width: 1201px ) {
+
+}
+
+@media screen and ( max-width: 1200px ) {
+
+}
+
+
+
+@media screen and ( min-width: 1601px ) {
+
+}
+
+@media screen and ( max-width: 1600px ) and ( min-width: 1441px ) {
+
+}
+
+@media screen and ( max-width: 1441px ) and ( min-width: 1025px ) {
+
+}
+
+@media screen and ( max-width: 1024px ) and ( min-width: 769px ) {
+
+}
+
+@media screen and ( max-width: 768px ) {
+
+}

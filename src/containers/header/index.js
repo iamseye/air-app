@@ -12,6 +12,9 @@ class Header extends Component {
   state = {
   }
 
+  registerSubmit() {
+    console.log('submit register form');
+  }
   render() {
     const { authActions } = this.props;
     const { isRegisterModalShow } = this.props;
@@ -30,6 +33,7 @@ class Header extends Component {
         <RegisterModal
           isOpen={isRegisterModalShow}
           hideRegisterModal={() => authActions.hideRegisterModal()}
+          registerSubmit={() => this.registerSubmit()}
         />
       </div>
     );

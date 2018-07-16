@@ -2,6 +2,7 @@ import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
+import { reducer as formReducer } from 'redux-form';
 import searchReducer from './reducers/searchReducer';
 import styleReducer from './reducers/styleReducer';
 import orderReducer from './reducers/orderReducer';
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   order: orderReducer,
   style: styleReducer,
   auth: authReducer,
+  form: formReducer,
 });
 
 if (process.env.NODE_ENV === 'development') {
