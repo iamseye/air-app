@@ -141,11 +141,13 @@ class Detail extends Component {
             </div>
           </div>
 
-        <PaymentCard
-          rentPrice={this.state.rentPrice}
-          buyPrice={this.state.buyPrice}
-          carCenterAddress={this.state.carCenterAddress}
-        />
+          <PaymentCard
+            rentPrice={this.state.rentPrice}
+            buyPrice={this.state.buyPrice}
+            carCenterAddress={this.state.carCenterAddress}
+          />
+
+        </div>
 
         {this.state.showModal ?
           <CarExaminationModal
