@@ -140,7 +140,6 @@ class Detail extends Component {
               </ul>
             </div>
           </div>
-        </div>
 
         <PaymentCard
           rentPrice={this.state.rentPrice}
