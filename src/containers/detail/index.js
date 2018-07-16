@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as orderActions from '../../actions/orderAction';
 import api from '../../utils/api';
 import CarExaminationModal from './components/carExaminationModal';
 import ExaminationSection from './components/examinationSection';
@@ -29,6 +33,8 @@ class Detail extends Component {
     buyPrice: 0,
     carCenterAddress: '',
     showModal: false,
+    canSubmitToPay: false,
+    sellCarId: '',
   }
 
   componentDidMount() {
@@ -65,6 +71,7 @@ class Detail extends Component {
             rentPrice: json.data.rent_price,
             buyPrice: json.data.buy_price,
             carCenterAddress: carCenter.address,
+            sellCarId
           });
         }
       });
@@ -82,7 +89,19 @@ class Detail extends Component {
     });
   }
 
+  submitToPay = () => {
+    if (this.props.startDate && this.props.endDate && this.props.startTime) {
+      this.setState({
+        canSubmitToPay: true,
+      });
+    }
+  }
+
   render() {
+    if (this.state.canSubmitToPay) {
+      return <Redirect to={`/pay/${this.state.sellCarId}`} />;
+    }
+
     return (
       <div className="detail">
         <div className="detail__banner">
@@ -145,6 +164,7 @@ class Detail extends Component {
             rentPrice={this.state.rentPrice}
             buyPrice={this.state.buyPrice}
             carCenterAddress={this.state.carCenterAddress}
+            submitToPay={() => this.submitToPay()}
           />
 
         </div>
@@ -166,4 +186,14 @@ class Detail extends Component {
   }
 }
 
-export default Detail;
+const mapStateToProps = state => ({
+  startDate: state.order.startDate,
+  endDate: state.order.endDate,
+  startTime: state.order.startTime,
+});
+
+const mapDispatchToProps = dispatch => ({
+  orderActions: bindActionCreators(orderActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);
