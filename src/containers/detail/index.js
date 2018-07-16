@@ -112,14 +112,15 @@ class Detail extends Component {
               </ul>
             </div>
           </div>
-        </div>
 
-        <PaymentCard
-          rentPrice={this.state.rentPrice}
-          buyPrice={this.state.buyPrice}
-          carCenterAddress={this.state.carCenterAddress}
-          handleSubmit={() => this.handleSubmit()}
-        />
+          <PaymentCard
+            rentPrice={this.state.rentPrice}
+            buyPrice={this.state.buyPrice}
+            carCenterAddress={this.state.carCenterAddress}
+            handleSubmit={() => this.handleSubmit()}
+          />
+
+        </div>
 
         {this.state.showModal ?
           <CarExaminationModal

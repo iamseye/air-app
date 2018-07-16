@@ -47,7 +47,7 @@
 	justify-content: space-between;
 	align-items: flex-start;
 	width: calc( 100% - 50px);
-	max-width: 1150px;
+	max-width: 1250px;
 	padding: 50px 25px;
 	margin: 0 auto;
 }
@@ -169,6 +169,7 @@
 	text-align: center;
 	border: #b9b9b9 1px solid;
 	border-radius: 3px;
+	margin-bottom: 10px;
 }
 
 .dentification__list--item ul {
@@ -233,7 +234,7 @@
 .payment_info {
 	display: flex;
 	flex-direction: column;
-	width: 330px;
+	width: 400px;
 	height: auto;
 	padding: 25px 35px;
 	border-radius: 5px;
@@ -279,6 +280,27 @@
 	border: #006eb7 1px solid;
 }
 
+.detail__select {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.detail__select span span {
+	margin-top: -11px;
+}
+
+.detail__select input {
+	padding: 0 10px !important;
+	margin-bottom: 10px;
+}
+
+.detail__select .ant-time-picker-input {
+	height: 35px;
+	font-size: 16px;
+	border: #008fd2 1px solid !important;
+}
+
 .detail__dateSelect, .detail__timeSelect {
 	display: flex;
 	flex-direction: row;
@@ -290,6 +312,13 @@
 	border-radius: 5px;
 	margin-bottom: 10px;
 	color: #b9b9b9;
+}
+
+.detail__alert {
+	font-size: 13px;
+	text-align: center;
+	margin-bottom: 15px;
+	color: #008fd2;
 }
 
 .detail__positionSelect {
