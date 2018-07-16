@@ -5,6 +5,7 @@ import createHistory from 'history/createBrowserHistory';
 import searchReducer from './reducers/searchReducer';
 import styleReducer from './reducers/styleReducer';
 import orderReducer from './reducers/orderReducer';
+import authReducer from './reducers/authReducer';
 
 export const history = createHistory();
 
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   search: searchReducer,
   order: orderReducer,
   style: styleReducer,
+  auth: authReducer,
 });
 
 if (process.env.NODE_ENV === 'development') {
