@@ -117,7 +117,6 @@ PaymentCard.propTypes = {
   buyPrice: PropTypes.number.isRequired,
   carCenterAddress: PropTypes.string.isRequired,
   submitToPay: PropTypes.func.isRequired,
-  showErrorMessage: PropTypes.bool.isRequired,
 };
 
 

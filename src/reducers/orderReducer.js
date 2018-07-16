@@ -15,7 +15,7 @@ const initialState = {
   endTime: '',
   homeAddress: '',
   promoCode: '',
-  isUseInsurance: false,
+  isUseInsurance: true,
 };
 
 

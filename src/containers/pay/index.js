@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as orderActions from '../../actions/orderAction';
+import PaymentCard from './paymentCard';
 import api from '../../utils/api';
 import './style.css';
 
@@ -20,6 +24,10 @@ class Pay extends Component {
   //     });
   // }
 
+  useInsurance = (isUseInsurance) => {
+    this.props.orderActions.setIsUseInsurance(isUseInsurance);
+  }
+
   render() {
     return (
       <div className="payment">
@@ -31,7 +39,10 @@ class Pay extends Component {
               <h3>選擇保險</h3>
 
               <div className="payment__content--insurance">
-                <div className="payment__content--item selected">
+                <div
+                  className={this.props.isUseInsurance ? 'payment__content--item selected' : 'payment__content--item'}
+                  onClick={() => this.useInsurance(true)}
+                >
                   <h4><div>乙式保險</div><div>NT$ <span>250</span></div></h4>
                   <ul>
                     <li><div>・保障車輛自體或與其他車輛碰撞之損失</div><img src="/assets/img/check.png" alt="check icon" /></li>
@@ -41,7 +52,10 @@ class Pay extends Component {
                   </ul>
                 </div>
 
-                <div className="payment__content--item">
+                <div
+                  className={this.props.isUseInsurance ? 'payment__content--item' : 'payment__content--item selected'}
+                  onClick={() => this.useInsurance(false)}
+                >
                   <h4>不需要保險</h4>
                   <p>我願意承擔體驗過程中發生的所有意外。</p>
                 </div>
@@ -70,31 +84,22 @@ class Pay extends Component {
 
           </div>
 
-          <div className="payment_list">
-            <div
-              className="payment_list--photo"
-              style={{ backgroundImage: 'url(https://aircnc.com.tw/upload/users/album/source_img/2018-05-22-791-15449.jpg)' }}
-            />
-            <div className="payment_list--content">
-              <h3><div>2016</div><div>Benz C250</div></h3>
-              <ul>
-                <li><div>體驗費用<span>x 1日</span></div><div>7,500</div></li>
-                <li><div>保險費用<span>x 1日</span></div><div>750</div></li>
-                <li><div>加急費用</div><div>1,125</div></li>
-                <li><div>長租優惠</div><div>- 100</div></li>
-                <li><div>代碼優惠</div><div>- 500</div></li>
-              </ul>
-              <ul>
-                <li><div className="paymentCheck">使用電子錢包折抵</div><div> - <span>2,500</span></div></li>
-                <li><div className="paymentCheck">使用優惠點數折抵</div><div> - <span>500</span></div></li>
-              </ul>
-              <div className="totalPrice">體驗總額 NT$ 5,500</div>
-            </div>
-          </div>
+          <PaymentCard />
         </div>
       </div>
     );
   }
 }
 
-export default Pay;
+const mapStateToProps = state => ({
+  startDate: state.order.startDate,
+  endDate: state.order.endDate,
+  startTime: state.order.startTime,
+  isUseInsurance: state.order.isUseInsurance,
+});
+
+const mapDispatchToProps = dispatch => ({
+  orderActions: bindActionCreators(orderActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pay);
