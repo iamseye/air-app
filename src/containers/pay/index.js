@@ -78,7 +78,7 @@ class Pay extends Component {
             </div>
 
             <div className="payment__infoItem">
-              <div className="paymentCheck">我同意<a>使用規則</a></div>
+              <div className="paymentCheck"><input id="rule" type="checkbox" /><label for="rule">我同意</label><a>使用規則</a></div>
               <div className="paymentBTN">確認並付款</div>
             </div>
 
