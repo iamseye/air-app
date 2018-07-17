@@ -50,14 +50,14 @@ const renderField = ({
 
 class RegisterModal extends Component {
   state = {
-
   }
+
   render() {
-    const { handleSubmit, hideRegisterModal, isOpen, registerSubmit, invalid, submitting, registerErrorMessage } = this.props
+    const { handleSubmit, hideModal, isOpen, registerSubmit, invalid, submitting, registerErrorMessage } = this.props
     return (
       <Modal
         isOpen={isOpen}
-        onRequestClose={() => hideRegisterModal()}
+        onRequestClose={() => hideModal()}
         className="login__area"
       >
         <div className="login__box">
@@ -123,7 +123,7 @@ class RegisterModal extends Component {
 }
 
 RegisterModal.propTypes = {
-  hideRegisterModal: PropTypes.func.isRequired,
+  hideModal: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   registerSubmit: PropTypes.func.isRequired,
   registerErrorMessage: PropTypes.string.isRequired,

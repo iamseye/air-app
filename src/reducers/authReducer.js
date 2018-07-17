@@ -1,31 +1,18 @@
 import {
-  SHOW_REGSITER_MODAL,
-  HIDE_REGSITER_MODAL,
-  SHOW_LOGIN_MODAL,
-  HIDE_LOGIN_MODAL,
   SIGNUP_USER,
+  SHOW_MODAL,
 } from '../actions/authActions';
 
 const initialState = {
   user: {},
-  isRegisterModalShow: false,
-  isLoginModalShow: false,
+  showModal: '',
 };
 
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SHOW_REGSITER_MODAL:
-      return { ...state, isRegisterModalShow: true };
-
-    case HIDE_REGSITER_MODAL:
-      return { ...state, isRegisterModalShow: false };
-
-    case SHOW_LOGIN_MODAL:
-      return { ...state, isLoginModalShow: true };
-
-    case HIDE_LOGIN_MODAL:
-      return { ...state, isLoginModalShow: false };
+    case SHOW_MODAL:
+      return { ...state, showModal: action.value };
 
     case SIGNUP_USER:
       console.log('sign up user');

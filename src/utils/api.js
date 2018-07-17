@@ -46,7 +46,7 @@ const api = {
     const url = `${userApi}/register`;
     const response = await fetch(proxyUrl + url, {
       method: 'POST',
-      body: params, // data can be `string` or {object}!
+      body: JSON.stringify(params), // data can be `string` or {object}!
       headers: new Headers({
         'Content-Type': 'application/json',
         Accept: 'application/json',
