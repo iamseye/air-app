@@ -57,10 +57,19 @@ class Header extends Component {
         />
 
         <WelcomeModal
-          isOpen={showModal === 'welcomeModal'}
+          isOpen={true}
           hideModal={() => authActions.showModal('')}
           title="歡迎使用 CocarMaster"
           content="在CocarMaster車創網上面的車源皆是由真實車主提供的自家用車，為確保體驗以及購賣流程的品質，請協助我們完成剩下的幾項步驟，才能正式啟用您的帳號。"
+          backgroundImage="/assets/img/welcome.jpg"
+        />
+
+        <WelcomeModal
+          isOpen={showModal === 'registerSuccessModal'}
+          hideModal={() => authActions.showModal('')}
+          title="歡迎加入 CocarMaster"
+          content="恭喜你完成註冊！記得去信箱收件，點擊註冊信裡的連結，即可正式啟用帳、開始探索平台上的車源，並且盡情享受CocarMaster創新的購新體驗！"
+          backgroundImage="/assets/img/finish.jpg"
         />
       </div>
     );
