@@ -42,6 +42,18 @@ const api = {
 
     return response.json();
   },
+  signUp: async (params) => {
+    const url = `${userApi}/register`;
+    const response = await fetch(proxyUrl + url, {
+      method: 'POST',
+      body: params, // data can be `string` or {object}!
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    });
+    return response.json();
+  },
 };
 
 export default api;

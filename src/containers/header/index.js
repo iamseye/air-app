@@ -3,18 +3,37 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as authActions from '../../actions/authActions';
-import RegisterModal from '../authModals/RegisterModal';
-import './style.css';
-import Modal from 'react-modal';
+import RegisterModal from '../authModals/registerModal';
+import WelcomeModal from '../authModals/components/welcomeModal';
 
+import api from '../../utils/api';
+import './style.css';
 
 class Header extends Component {
   state = {
+    registerErrorMessage: '',
+    registerSuccess: false,
   }
 
-  registerSubmit() {
+  registerSubmit(values) {
     console.log('submit register form');
+
+    api.signUp(values)
+      .then((json) => {
+        if (json && json.data) {
+          this.props.authActions.signupUser(json.data);
+          this.props.authActions.hideRegisterModal();
+          this.setState({ registerSuccess: true });
+        } else if (json && json.errors) {
+          if (json.errors.email) {
+            this.setState({
+              registerErrorMessage: '此帳號已被註冊!',
+            });
+          }
+        }
+      });
   }
+
   render() {
     const { authActions } = this.props;
     const { isRegisterModalShow } = this.props;
@@ -33,8 +52,12 @@ class Header extends Component {
         <RegisterModal
           isOpen={isRegisterModalShow}
           hideRegisterModal={() => authActions.hideRegisterModal()}
-          registerSubmit={() => this.registerSubmit()}
+          registerSubmit={values => this.registerSubmit(values)}
+          signUp={values => authActions.signUp(values)}
+          registerErrorMessage={this.state.registerErrorMessage}
         />
+
+        <WelcomeModal />
       </div>
     );
   }

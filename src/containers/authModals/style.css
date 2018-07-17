@@ -27,8 +27,11 @@ body{
 .login__box.welcome {
 	padding: 200px 50px 50px;
 	box-shadow: 0 5px 10px rgba(0,0,0,0.25);
-	/* background: url('../images/welcome.jpg'); */
 	background-size: cover;
+	color: #fff;
+}
+
+.login__box.welcome h3 {
 	color: #fff;
 }
 

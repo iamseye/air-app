@@ -3,9 +3,11 @@ import {
   HIDE_REGSITER_MODAL,
   SHOW_LOGIN_MODAL,
   HIDE_LOGIN_MODAL,
+  SIGNUP_USER,
 } from '../actions/authActions';
 
 const initialState = {
+  user: {},
   isRegisterModalShow: false,
   isLoginModalShow: false,
 };
@@ -25,6 +27,15 @@ export default (state = initialState, action) => {
     case HIDE_LOGIN_MODAL:
       return { ...state, isLoginModalShow: false };
 
+    case SIGNUP_USER:
+      console.log('sign up user');
+      console.log(action.value);
+      return {
+        ...state,
+        name: action.value.name,
+        email: action.value.email,
+        id: action.value.id,
+      };
     default:
       return state;
   }

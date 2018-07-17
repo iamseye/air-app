@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import './style.css';
 
@@ -27,8 +28,6 @@ const validate = (values) => {
   } else if (values.rePassword !== values.password) {
     errors.rePassword = '密碼輸入不一致';
   }
-
-  console.log(errors);
   return errors;
 };
 
@@ -54,7 +53,7 @@ class RegisterModal extends Component {
 
   }
   render() {
-    const { hideRegisterModal, isOpen, registerSubmit, invalid, submitting } = this.props
+    const { handleSubmit, hideRegisterModal, isOpen, registerSubmit, invalid, submitting, registerErrorMessage } = this.props
     return (
       <Modal
         isOpen={isOpen}
@@ -65,7 +64,9 @@ class RegisterModal extends Component {
           <div className="login__item--title">
             <h3>註冊</h3>
           </div>
-          <form onSubmit={() => registerSubmit}>
+          <form
+            onSubmit={handleSubmit(values => registerSubmit(values))}
+          >
             <div className="login__item--input">
               <Field
                 component={renderField}
@@ -93,12 +94,13 @@ class RegisterModal extends Component {
             <div className="login__item--input">
               <Field
                 component={renderField}
-                name="rePassword"
+                name="password_confirmation"
                 type="password"
                 label="再次輸入密碼"
               />
             </div>
             <div className="login__item--button1" >
+              {registerErrorMessage !== '' ? <div className="login__alert--show">{registerErrorMessage}</div> : ''}
               <button type="submit" className={invalid ? 'notyet' : ''} disabled={invalid || submitting}>成為會員</button>
             </div>
           </form>
@@ -120,6 +122,12 @@ class RegisterModal extends Component {
   }
 }
 
+RegisterModal.propTypes = {
+  hideRegisterModal: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  registerSubmit: PropTypes.func.isRequired,
+  registerErrorMessage: PropTypes.string.isRequired,
+};
 
 export default reduxForm({
   form: 'register',
