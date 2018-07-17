@@ -11,6 +11,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
+	z-index: 999999999;
 }
 
 .detailMoreFilter::-webkit-scrollbar {
@@ -95,6 +96,7 @@
 
 .detailMore__result--content h4 {
 	line-height: 25px;
+	margin-bottom: 15px;
 }
 
 .detailMore__result--content h4 div:first-child {
@@ -197,7 +199,7 @@
 }
 
 .detailFeature > ul > li{
-	width: calc( 100%/3 - 2px/3 - 50px );
+	width: calc( 100%/3 - 2px/3 );
 	padding: 0 25px 25px;
 	border-right: #b9b9b9 1px solid;
 	line-height: 35px;

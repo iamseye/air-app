@@ -5,7 +5,7 @@
 }
 
 .carFeature ul {
-	width: calc( 100%/3 - 50px - 2px/3 );
+	width: calc( 100%/3 - 2px/3 );
 	padding:25px;
 	border-right:#989898 1px solid;
 	margin: 0;

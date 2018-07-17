@@ -43,7 +43,7 @@ class PaymentCard extends Component {
 
   render() {
     return (
-      <div className="payment_info">
+      <div className="payment_info--detail">
         <div className="detail__price">
           <span>短租體驗價 NT$</span><div>{this.props.rentPrice}</div><span>/日</span>
         </div>
