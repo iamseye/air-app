@@ -57,7 +57,7 @@ class Header extends Component {
         />
 
         <WelcomeModal
-          isOpen={true}
+          isOpen={showModal === 'welcomesModal'}
           hideModal={() => authActions.showModal('')}
           title="歡迎使用 CocarMaster"
           content="在CocarMaster車創網上面的車源皆是由真實車主提供的自家用車，為確保體驗以及購賣流程的品質，請協助我們完成剩下的幾項步驟，才能正式啟用您的帳號。"
