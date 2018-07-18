@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as authActions from '../../actions/authActions';
 import RegisterModal from '../authModals/registerModal';
 import WelcomeModal from '../authModals/components/welcomeModal';
+import VerifyPhoneModal from '../authModals/verifyPhoneModal';
 
 import api from '../../utils/api';
 import './style.css';
@@ -15,8 +16,7 @@ class Header extends Component {
   }
 
   registerSubmit(values) {
-    console.log('submit register form');
-    console.log(values);
+    console.log('===== submit register form =======');
     api.signUp(values)
       .then((json) => {
         if (json && json.data) {
@@ -33,6 +33,24 @@ class Header extends Component {
       });
   }
 
+  verifyPhone = (phoneNumber) => {
+    console.log('===== verify phone =======');
+    console.log(phoneNumber);
+    const params = {
+      mobile: phoneNumber,
+      user_id: this.props.userId,
+    };
+
+    api.sendVerifySMS(params)
+      .then((json) => {
+        if (json && json.data) {
+          console.log(json.data);
+          this.props.authActions.showModal('welcomeModal');
+        } else if (json && json.error && json.message) {
+          console.log(json.message);
+        }
+      });
+  }
 
   render() {
     const { authActions, showModal } = this.props;
@@ -57,11 +75,18 @@ class Header extends Component {
         />
 
         <WelcomeModal
-          isOpen={showModal === 'welcomesModal'}
+          isOpen={showModal === 'welcomeModal'}
           hideModal={() => authActions.showModal('')}
           title="歡迎使用 CocarMaster"
           content="在CocarMaster車創網上面的車源皆是由真實車主提供的自家用車，為確保體驗以及購賣流程的品質，請協助我們完成剩下的幾項步驟，才能正式啟用您的帳號。"
           backgroundImage="/assets/img/welcome.jpg"
+          nextStepAction={() => authActions.showModal('verifyPhoneModal')}
+        />
+
+        <VerifyPhoneModal
+          isOpen={showModal === 'verifyPhoneModal'}
+          hideModal={() => authActions.showModal('')}
+          verifyPhone={value => this.verifyPhone(value)}
         />
 
         <WelcomeModal
@@ -70,6 +95,7 @@ class Header extends Component {
           title="歡迎加入 CocarMaster"
           content="恭喜你完成註冊！記得去信箱收件，點擊註冊信裡的連結，即可正式啟用帳、開始探索平台上的車源，並且盡情享受CocarMaster創新的購新體驗！"
           backgroundImage="/assets/img/finish.jpg"
+          nextStepAction={() => authActions.showModal('verifyPhoneModal')}
         />
       </div>
     );
@@ -79,6 +105,7 @@ class Header extends Component {
 const mapStateToProps = state => ({
   isRegisterModalShow: state.auth.isRegisterModalShow,
   showModal: state.auth.showModal,
+  userId: state.auth.user.id,
 });
 
 const mapDispatchToProps = dispatch => ({

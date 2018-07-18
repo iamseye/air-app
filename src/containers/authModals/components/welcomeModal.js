@@ -16,7 +16,7 @@ const WelcomeModal = props => (
         <p>{props.content}</p>
       </div>
       <div className="login__item--button1">
-        <button className="normal">下一步</button>
+        <button className="normal" onClick={() => props.nextStepAction()}>下一步</button>
       </div>
     </div>
   </Modal>
@@ -28,6 +28,7 @@ WelcomeModal.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   backgroundImage: PropTypes.string.isRequired,
+  nextStepAction: PropTypes.func.isRequired,
 };
 
 export default WelcomeModal;
