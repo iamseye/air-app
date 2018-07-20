@@ -1,10 +1,16 @@
 import {
   SIGNUP_USER,
   SHOW_MODAL,
+  SET_MOBILE,
 } from '../actions/authActions';
 
 const initialState = {
-  user: {},
+  user: {
+    name: '',
+    email: '',
+    id: '',
+    mobile: '',
+  },
   showModal: '',
 };
 
@@ -14,14 +20,18 @@ export default (state = initialState, action) => {
     case SHOW_MODAL:
       return { ...state, showModal: action.value };
 
+    case SET_MOBILE:
+      return { ...state, user: { mobile: action.value } };
+
     case SIGNUP_USER:
       console.log('sign up user');
-      console.log(action.value);
       return {
         ...state,
-        name: action.value.name,
-        email: action.value.email,
-        id: action.value.id,
+        user: {
+          name: action.value.name,
+          email: action.value.email,
+          id: action.value.id,
+        },
       };
     default:
       return state;

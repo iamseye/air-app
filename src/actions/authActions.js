@@ -1,6 +1,6 @@
 export const SHOW_MODAL = 'SHOW_MODAL';
-
 export const SIGNUP_USER = 'SIGNUP_USER';
+export const SET_MOBILE = 'SET_MOBILE';
 
 export const showModal = value => ({
   type: SHOW_MODAL,
@@ -9,6 +9,11 @@ export const showModal = value => ({
 
 export const signupUser = value => ({
   type: SIGNUP_USER,
+  value,
+});
+
+export const setMobile = value => ({
+  type: SET_MOBILE,
   value,
 });
 

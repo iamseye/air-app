@@ -6,6 +6,7 @@ import * as authActions from '../../actions/authActions';
 import RegisterModal from '../authModals/registerModal';
 import WelcomeModal from '../authModals/components/welcomeModal';
 import VerifyPhoneModal from '../authModals/verifyPhoneModal';
+import VerifySMSCodeModal from '../authModals/verifySMSCodeModal';
 
 import api from '../../utils/api';
 import './style.css';
@@ -45,6 +46,7 @@ class Header extends Component {
       .then((json) => {
         if (json && json.data) {
           console.log(json.data);
+          this.props.authActions.setMobile(phoneNumber);
           this.props.authActions.showModal('welcomeModal');
         } else if (json && json.error && json.message) {
           console.log(json.message);
@@ -53,7 +55,7 @@ class Header extends Component {
   }
 
   render() {
-    const { authActions, showModal } = this.props;
+    const { authActions, showModal, mobile } = this.props;
 
     return (
       <div className="header">
@@ -89,6 +91,12 @@ class Header extends Component {
           verifyPhone={value => this.verifyPhone(value)}
         />
 
+        <VerifySMSCodeModal
+          isOpen={showModal === 'verifySMSCodeModal'}
+          hideModal={() => authActions.showModal('')}
+          mobile={mobile}
+        />
+
         <WelcomeModal
           isOpen={showModal === 'registerSuccessModal'}
           hideModal={() => authActions.showModal('')}
@@ -106,6 +114,7 @@ const mapStateToProps = state => ({
   isRegisterModalShow: state.auth.isRegisterModalShow,
   showModal: state.auth.showModal,
   userId: state.auth.user.id,
+  mobile: state.auth.user.mobile,
 });
 
 const mapDispatchToProps = dispatch => ({
