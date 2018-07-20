@@ -21,7 +21,7 @@ class VerifyPhoneModal extends Component {
   }
 
   render() {
-    const { isOpen, hideModal, verifyPhone } = this.props;
+    const { isOpen, hideModal, verifyPhone, errorMessage } = this.props;
     return (
       <Modal
         isOpen={isOpen}
@@ -39,6 +39,7 @@ class VerifyPhoneModal extends Component {
             { this.state.errorFormate ? <div className="login__alert--show">請輸入正確的手機格式</div> : ''}
           </div>
           <div className="login__item--button1">
+            {errorMessage !== '' ? <div className="login__alert--show">{errorMessage}</div> : ''}
             { this.state.errorFormate || !this.state.phoneNumber ?
               <button className="notyet">成為會員</button> :
               <button className="normal" onClick={() => verifyPhone(this.state.phoneNumber)}>成為會員</button>
@@ -54,6 +55,7 @@ VerifyPhoneModal.propTypes = {
   hideModal: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   verifyPhone: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 export default VerifyPhoneModal;

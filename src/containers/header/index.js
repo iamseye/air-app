@@ -13,7 +13,7 @@ import './style.css';
 
 class Header extends Component {
   state = {
-    registerErrorMessage: '',
+    errorMessage: '',
   }
 
   registerSubmit(values) {
@@ -27,7 +27,7 @@ class Header extends Component {
         } else if (json && json.errors) {
           if (json.errors.email) {
             this.setState({
-              registerErrorMessage: '此帳號已被註冊!',
+              errorMessage: '此帳號已被註冊!',
             });
           }
         }
@@ -42,16 +42,40 @@ class Header extends Component {
       user_id: this.props.userId,
     };
 
-    api.sendVerifySMS(params)
+    api.sendVerifySMSCode(params)
       .then((json) => {
-        if (json && json.data) {
-          console.log(json.data);
+        if (json && json.status === 'ok') {
           this.props.authActions.setMobile(phoneNumber);
-          this.props.authActions.showModal('welcomeModal');
-        } else if (json && json.error && json.message) {
+          this.props.authActions.showModal('verifySMSCodeModal');
+        } else if (json && json.status === 'error' && json.message) {
           console.log(json.message);
+          this.setState({
+            errorMessage: json.message,
+          });
         }
       });
+  }
+
+  verifySMS = (code) => {
+    console.log('===== verify SMS =======');
+    console.log(code);
+    // const params = {
+    //   mobile: phoneNumber,
+    //   user_id: this.props.userId,
+    // };
+    //
+    // api.sendVerifySMSCode(params)
+    //   .then((json) => {
+    //     if (json && json.status === 'ok') {
+    //       this.props.authActions.setMobile(phoneNumber);
+    //       this.props.authActions.showModal('verifySMSCodeModal');
+    //     } else if (json && json.status === 'error' && json.message) {
+    //       console.log(json.message);
+    //       this.setState({
+    //         errorMessage: json.message,
+    //       });
+    //     }
+    //   });
   }
 
   render() {
@@ -73,7 +97,7 @@ class Header extends Component {
           hideModal={() => authActions.showModal('')}
           registerSubmit={values => this.registerSubmit(values)}
           signUp={values => authActions.signUp(values)}
-          registerErrorMessage={this.state.registerErrorMessage}
+          errorMessage={this.state.errorMessage}
         />
 
         <WelcomeModal
@@ -89,12 +113,14 @@ class Header extends Component {
           isOpen={showModal === 'verifyPhoneModal'}
           hideModal={() => authActions.showModal('')}
           verifyPhone={value => this.verifyPhone(value)}
+          errorMessage={this.state.errorMessage}
         />
 
         <VerifySMSCodeModal
-          isOpen={showModal === 'verifySMSCodeModal'}
+          isOpen={true}
           hideModal={() => authActions.showModal('')}
           mobile={mobile}
+          verifySMS={value => this.verifySMS(value)}
         />
 
         <WelcomeModal

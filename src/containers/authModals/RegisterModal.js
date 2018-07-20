@@ -53,7 +53,7 @@ class RegisterModal extends Component {
   }
 
   render() {
-    const { handleSubmit, hideModal, isOpen, registerSubmit, invalid, submitting, registerErrorMessage } = this.props
+    const { handleSubmit, hideModal, isOpen, registerSubmit, invalid, submitting, errorMessage } = this.props
     return (
       <Modal
         isOpen={isOpen}
@@ -100,7 +100,7 @@ class RegisterModal extends Component {
               />
             </div>
             <div className="login__item--button1" >
-              {registerErrorMessage !== '' ? <div className="login__alert--show">{registerErrorMessage}</div> : ''}
+              {errorMessage !== '' ? <div className="login__alert--show">{errorMessage}</div> : ''}
               <button type="submit" className={invalid ? 'notyet' : ''} disabled={invalid || submitting}>成為會員</button>
             </div>
           </form>
@@ -126,7 +126,7 @@ RegisterModal.propTypes = {
   hideModal: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   registerSubmit: PropTypes.func.isRequired,
-  registerErrorMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 export default reduxForm({

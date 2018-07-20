@@ -54,7 +54,7 @@ const api = {
     });
     return response.json();
   },
-  sendVerifySMS: async (params) => {
+  sendVerifySMSCode: async (params) => {
     const url = `${userApi}/send-mobile-verification-code`;
     const response = await fetch(proxyUrl + url, {
       method: 'POST',
