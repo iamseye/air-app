@@ -13,7 +13,7 @@ const CarCard = props => (
       <div className="car__img" style={slideStyle}>
         <div className="car__price">
           <span>最低體驗價</span>
-          <div>NT$ {props.rentPrice / 2}</div>
+          <div>NT$ {props.rentPrice}</div>
         </div>
       </div>
       <div className="car__content">
