@@ -59,23 +59,22 @@ class Header extends Component {
   verifySMS = (code) => {
     console.log('===== verify SMS =======');
     console.log(code);
-    // const params = {
-    //   mobile: phoneNumber,
-    //   user_id: this.props.userId,
-    // };
-    //
-    // api.sendVerifySMSCode(params)
-    //   .then((json) => {
-    //     if (json && json.status === 'ok') {
-    //       this.props.authActions.setMobile(phoneNumber);
-    //       this.props.authActions.showModal('verifySMSCodeModal');
-    //     } else if (json && json.status === 'error' && json.message) {
-    //       console.log(json.message);
-    //       this.setState({
-    //         errorMessage: json.message,
-    //       });
-    //     }
-    //   });
+    const params = {
+      mobile: this.props.mobile,
+      code,
+    };
+
+    api.sendVerifySMSCode(params)
+      .then((json) => {
+        if (json && json.status === 'ok') {
+
+        } else if (json && json.status === 'error' && json.message) {
+          console.log(json.message);
+          this.setState({
+            errorMessage: json.message,
+          });
+        }
+      });
   }
 
   render() {
@@ -121,6 +120,7 @@ class Header extends Component {
           hideModal={() => authActions.showModal('')}
           mobile={mobile}
           verifySMS={value => this.verifySMS(value)}
+          errorMessage={this.state.errorMessage}
         />
 
         <WelcomeModal

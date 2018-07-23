@@ -191,11 +191,11 @@ button.other:hover {
 	color: red;
 }
 
-.login__item--notice2 a {
+.login__item--notice2 span {
 	color: #008FD2;
 }
 
-.login__item--notice2 a:hover {
+.login__item--notice2 span:hover {
 	color: #006eb7;
 }
 
