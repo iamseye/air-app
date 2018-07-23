@@ -13,7 +13,6 @@ import './style.css';
 
 class Header extends Component {
   state = {
-    errorMessage: '',
   }
 
   registerSubmit(values) {
@@ -26,9 +25,7 @@ class Header extends Component {
           this.props.authActions.showModal('welcomeModal');
         } else if (json && json.errors) {
           if (json.errors.email) {
-            this.setState({
-              errorMessage: '此帳號已被註冊!',
-            });
+            this.props.authActions.setErrorMessage('此帳號已被註冊!');
           }
         }
       });
@@ -49,9 +46,7 @@ class Header extends Component {
           this.props.authActions.showModal('verifySMSCodeModal');
         } else if (json && json.status === 'error' && json.message) {
           console.log(json.message);
-          this.setState({
-            errorMessage: json.message,
-          });
+          this.props.authActions.setErrorMessage(json.message);
         }
       });
   }
@@ -64,21 +59,39 @@ class Header extends Component {
       code,
     };
 
+    api.verifySMS(params)
+      .then((json) => {
+        if (json && json.status === 'ok') {
+          this.props.authActions.showModal('verifySMSCodeModal');
+        } else if (json && json.status === 'error' && json.message) {
+          console.log(json.message);
+          this.props.authActions.setErrorMessage(json.message);
+        }
+      });
+  }
+
+  reSendSMS = () => {
+    console.log('===== resend SMS =======');
+
+    const params = {
+      mobile: this.props.mobile,
+      user_id: this.props.userId,
+      resend: true,
+    };
+
     api.sendVerifySMSCode(params)
       .then((json) => {
         if (json && json.status === 'ok') {
-
+          this.props.authActions.showModal('verifySMSCodeModal');
         } else if (json && json.status === 'error' && json.message) {
           console.log(json.message);
-          this.setState({
-            errorMessage: json.message,
-          });
+          this.props.authActions.setErrorMessage(json.message);
         }
       });
   }
 
   render() {
-    const { authActions, showModal, mobile } = this.props;
+    const { authActions, showModal, mobile, errorMessage } = this.props;
 
     return (
       <div className="header">
@@ -96,7 +109,7 @@ class Header extends Component {
           hideModal={() => authActions.showModal('')}
           registerSubmit={values => this.registerSubmit(values)}
           signUp={values => authActions.signUp(values)}
-          errorMessage={this.state.errorMessage}
+          errorMessage={errorMessage}
         />
 
         <WelcomeModal
@@ -112,15 +125,17 @@ class Header extends Component {
           isOpen={showModal === 'verifyPhoneModal'}
           hideModal={() => authActions.showModal('')}
           verifyPhone={value => this.verifyPhone(value)}
-          errorMessage={this.state.errorMessage}
+          errorMessage={errorMessage}
         />
 
         <VerifySMSCodeModal
-          isOpen={true}
+          isOpen={showModal === 'verifySMSCodeModal'}
           hideModal={() => authActions.showModal('')}
           mobile={mobile}
           verifySMS={value => this.verifySMS(value)}
-          errorMessage={this.state.errorMessage}
+          errorMessage={errorMessage}
+          changePhone={() => authActions.showModal('verifyPhoneModal')}
+          reSendSMS={() => this.reSendSMS()}
         />
 
         <WelcomeModal
@@ -139,8 +154,9 @@ class Header extends Component {
 const mapStateToProps = state => ({
   isRegisterModalShow: state.auth.isRegisterModalShow,
   showModal: state.auth.showModal,
-  userId: state.auth.user.id,
-  mobile: state.auth.user.mobile,
+  userId: state.auth.id,
+  mobile: state.auth.mobile,
+  errorMessage: state.auth.errorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({

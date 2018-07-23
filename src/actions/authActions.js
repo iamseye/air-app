@@ -1,6 +1,8 @@
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const SIGNUP_USER = 'SIGNUP_USER';
 export const SET_MOBILE = 'SET_MOBILE';
+export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
+
 
 export const showModal = value => ({
   type: SHOW_MODAL,
@@ -17,6 +19,11 @@ export const setMobile = value => ({
   value,
 });
 
+export const setErrorMessage = value => ({
+  type: SET_ERROR_MESSAGE,
+  value,
+});
+
 export const signUp = (value) => {
   const userApi = 'https://staging.api.cocarmaster.com/api';
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
@@ -28,7 +35,7 @@ export const signUp = (value) => {
     headers: new Headers({
       'Content-Type': 'application/json',
     }),
-  }) // country_code could be any in those we support
+  })
     .then(res => res.json())
     .then((json) => {
       if (json && json.data) {

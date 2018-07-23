@@ -27,7 +27,6 @@ class VerifySMSCodeModal extends Component {
   }
 
   focusInput = (n, e) => {
-    console.log('onKeyPress');
     switch (n) {
       case 1:
         this.textInput2.focus();
@@ -67,7 +66,7 @@ class VerifySMSCodeModal extends Component {
   }
 
   render() {
-    const { isOpen, hideModal, mobile, errorMessage } = this.props;
+    const { isOpen, hideModal, mobile, errorMessage, changePhone, reSendSMS } = this.props;
     return (
       <Modal
         isOpen={isOpen}
@@ -121,11 +120,11 @@ class VerifySMSCodeModal extends Component {
             { errorMessage !== '' ?
               <div>
                 <div className="red">{errorMessage}</div>
-                <div><span>重新發送驗證碼</span></div>
+                <div onClick={() => reSendSMS()}><span>重新發送驗證碼</span></div>
               </div> :
               <div>請於 <span>180</span> 秒內輸入</div>
             }
-            <div><span>更改電話號碼</span></div>
+            <div onClick={() => changePhone()}><span>更改電話號碼</span></div>
           </div>
         </div>
       </Modal>
@@ -139,6 +138,7 @@ VerifySMSCodeModal.propTypes = {
   mobile: PropTypes.string.isRequired,
   verifySMS: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,
+  changePhone: PropTypes.func.isRequired,
 };
 
 export default VerifySMSCodeModal;
