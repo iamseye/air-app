@@ -66,12 +66,13 @@ class VerifySMSCodeModal extends Component {
   }
 
   render() {
-    const { isOpen, hideModal, mobile, errorMessage, changePhone, reSendSMS } = this.props;
+    const { isOpen, hideModal, mobile, errorMessage, showChangePhone, reSendSMS } = this.props;
     return (
       <Modal
         isOpen={isOpen}
         onRequestClose={() => hideModal()}
         className="login__area"
+        ariaHideApp={false}
       >
         <div className="login__box">
           <ProcessDots step={2} />
@@ -124,7 +125,7 @@ class VerifySMSCodeModal extends Component {
               </div> :
               <div>請於 <span>180</span> 秒內輸入</div>
             }
-            <div onClick={() => changePhone()}><span>更改電話號碼</span></div>
+            <div onClick={() => showChangePhone()}><span>更改電話號碼</span></div>
           </div>
         </div>
       </Modal>
@@ -138,7 +139,7 @@ VerifySMSCodeModal.propTypes = {
   mobile: PropTypes.string.isRequired,
   verifySMS: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,
-  changePhone: PropTypes.func.isRequired,
+  showChangePhone: PropTypes.func.isRequired,
 };
 
 export default VerifySMSCodeModal;

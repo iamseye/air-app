@@ -3,6 +3,7 @@ import {
   SHOW_MODAL,
   SET_MOBILE,
   SET_ERROR_MESSAGE,
+  SET_EMAIL,
 } from '../actions/authActions';
 
 const initialState = {
@@ -25,6 +26,9 @@ export default (state = initialState, action) => {
 
     case SET_MOBILE:
       return { ...state, mobile: action.value };
+
+    case SET_EMAIL:
+      return { ...state, email: action.value };
 
     case SIGNUP_USER:
       console.log('sign up user');

@@ -7,6 +7,7 @@ import RegisterModal from '../authModals/registerModal';
 import WelcomeModal from '../authModals/components/welcomeModal';
 import VerifyPhoneModal from '../authModals/verifyPhoneModal';
 import VerifySMSCodeModal from '../authModals/verifySMSCodeModal';
+import EmailModal from '../authModals/emailModal';
 
 import api from '../../utils/api';
 import './style.css';
@@ -32,6 +33,7 @@ class Header extends Component {
   }
 
   verifyPhone = (phoneNumber) => {
+    console.log(this.props.email);
     console.log('===== verify phone =======');
     console.log(phoneNumber);
     const params = {
@@ -62,7 +64,7 @@ class Header extends Component {
     api.verifySMS(params)
       .then((json) => {
         if (json && json.status === 'ok') {
-          this.props.authActions.showModal('verifySMSCodeModal');
+          this.props.authActions.showModal('emailModal');
         } else if (json && json.status === 'error' && json.message) {
           console.log(json.message);
           this.props.authActions.setErrorMessage(json.message);
@@ -90,8 +92,29 @@ class Header extends Component {
       });
   }
 
+  sendValidiationEmail = (updateEmail) => {
+    const email = this.props.email;
+    console.log(email);
+    console.log(updateEmail);
+    const params = {
+      email,
+      updateEmail,
+    };
+
+    api.sendValidiationEmail(params)
+      .then((json) => {
+        if (json && json.status === 'ok') {
+          this.props.authActions.setEmail(updateEmail);
+          this.props.authActions.showModal('registerSuccessModal');
+        } else if (json && json.status === 'error' && json.message) {
+          console.log(json.message);
+          this.props.authActions.setErrorMessage(json.message);
+        }
+      });
+  }
+
   render() {
-    const { authActions, showModal, mobile, errorMessage } = this.props;
+    const { authActions, showModal, mobile, errorMessage, email } = this.props;
 
     return (
       <div className="header">
@@ -117,6 +140,7 @@ class Header extends Component {
           hideModal={() => authActions.showModal('')}
           title="歡迎使用 CocarMaster"
           content="在CocarMaster車創網上面的車源皆是由真實車主提供的自家用車，為確保體驗以及購賣流程的品質，請協助我們完成剩下的幾項步驟，才能正式啟用您的帳號。"
+          buttonText="下一步"
           backgroundImage="/assets/img/welcome.jpg"
           nextStepAction={() => authActions.showModal('verifyPhoneModal')}
         />
@@ -134,8 +158,16 @@ class Header extends Component {
           mobile={mobile}
           verifySMS={value => this.verifySMS(value)}
           errorMessage={errorMessage}
-          changePhone={() => authActions.showModal('verifyPhoneModal')}
+          showChangePhone={() => authActions.showModal('verifyPhoneModal')}
           reSendSMS={() => this.reSendSMS()}
+        />
+
+        <EmailModal
+          isOpen={showModal === 'emailModal'}
+          hideModal={() => authActions.showModal('')}
+          errorMessage={errorMessage}
+          email={email}
+          sendValidiationEmail={value => this.sendValidiationEmail(value)}
         />
 
         <WelcomeModal
@@ -143,8 +175,9 @@ class Header extends Component {
           hideModal={() => authActions.showModal('')}
           title="歡迎加入 CocarMaster"
           content="恭喜你完成註冊！記得去信箱收件，點擊註冊信裡的連結，即可正式啟用帳、開始探索平台上的車源，並且盡情享受CocarMaster創新的購新體驗！"
+          buttonText="開始探索"
           backgroundImage="/assets/img/finish.jpg"
-          nextStepAction={() => authActions.showModal('verifyPhoneModal')}
+          nextStepAction={() => authActions.showModal('')}
         />
       </div>
     );
@@ -157,6 +190,7 @@ const mapStateToProps = state => ({
   userId: state.auth.id,
   mobile: state.auth.mobile,
   errorMessage: state.auth.errorMessage,
+  email: state.auth.email,
 });
 
 const mapDispatchToProps = dispatch => ({

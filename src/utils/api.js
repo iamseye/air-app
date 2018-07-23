@@ -78,6 +78,18 @@ const api = {
     });
     return response.json();
   },
+  sendValidiationEmail: async (params) => {
+    const url = `${userApi}/send-verification-email`;
+    const response = await fetch(proxyUrl + url, {
+      method: 'POST',
+      body: JSON.stringify(params), // data can be `string` or {object}!
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    });
+    return response.json();
+  },
 };
 
 export default api;

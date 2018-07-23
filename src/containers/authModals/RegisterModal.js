@@ -59,6 +59,7 @@ class RegisterModal extends Component {
         isOpen={isOpen}
         onRequestClose={() => hideModal()}
         className="login__area"
+        ariaHideApp={false}
       >
         <div className="login__box">
           <div className="login__item--title">

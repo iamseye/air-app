@@ -8,6 +8,7 @@ const WelcomeModal = props => (
     isOpen={props.isOpen}
     onRequestClose={() => props.hideModal()}
     className="login__area"
+    ariaHideApp={false}
   >
     <div className="login__box welcome" style={{ backgroundImage: `url(${props.backgroundImage})` }}>
       <div className="login__item--description">
@@ -16,7 +17,7 @@ const WelcomeModal = props => (
         <p>{props.content}</p>
       </div>
       <div className="login__item--button1">
-        <button className="normal" onClick={() => props.nextStepAction()}>下一步</button>
+        <button className="normal" onClick={() => props.nextStepAction()}>{props.buttonText}</button>
       </div>
     </div>
   </Modal>
@@ -29,6 +30,7 @@ WelcomeModal.propTypes = {
   content: PropTypes.string.isRequired,
   backgroundImage: PropTypes.string.isRequired,
   nextStepAction: PropTypes.func.isRequired,
+  buttonText: PropTypes.string.isRequired,
 };
 
 export default WelcomeModal;
