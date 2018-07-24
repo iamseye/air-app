@@ -9,6 +9,7 @@ import Header from '../header';
 import Footer from '../footer';
 import Detail from '../detail';
 import Pay from '../pay';
+import EmailVerifyCompleted from '../completed/emailVerify';
 import './style.css';
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
       <Route exact path="/list" component={List} />
       <Route exact path="/detail/:sellCarId" component={Detail} />
       <Route exact path="/pay/:sellCarId" component={Pay} />
+      <Route exact path="/emailVerifyCompleted" component={EmailVerifyCompleted} />
       <Footer />
     </div>
   </Router>
