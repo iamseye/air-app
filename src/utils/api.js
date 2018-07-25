@@ -90,6 +90,18 @@ const api = {
     });
     return response.json();
   },
+  login: async (params) => {
+    const url = `${userApi}/login`;
+    const response = await fetch(proxyUrl + url, {
+      method: 'POST',
+      body: JSON.stringify(params), // data can be `string` or {object}!
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    });
+    return response.json();
+  },
 };
 
 export default api;

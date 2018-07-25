@@ -8,12 +8,30 @@ import WelcomeModal from '../authModals/components/welcomeModal';
 import VerifyPhoneModal from '../authModals/verifyPhoneModal';
 import VerifySMSCodeModal from '../authModals/verifySMSCodeModal';
 import EmailModal from '../authModals/emailModal';
+import LoginMethodModal from '../authModals/loginMethodModal';
+import LoginModal from '../authModals/loginModal';
 
 import api from '../../utils/api';
 import './style.css';
 
 class Header extends Component {
   state = {
+  }
+
+  loginSubmit(values) {
+    console.log('login submit ');
+    console.log(values);
+
+    api.login(values)
+      .then((json) => {
+        if (json && json.data) {
+          console.log(json.data);
+          this.props.authActions.loginUser(json.data);
+          this.props.authActions.showModal('');
+        } else if (json && json.errors) {
+          this.props.authActions.setErrorMessage(json.message);
+        }
+      });
   }
 
   registerSubmit(values) {
@@ -124,7 +142,7 @@ class Header extends Component {
           <li><Link to="/">預約體驗</Link></li>
           <li><Link to="/">如何使用?</Link></li>
           <li><Link to="#" onClick={() => authActions.showModal('registerModal')}>註冊</Link></li>
-          <li><Link to="/">登入</Link></li>
+          <li><Link to="#" onClick={() => authActions.showModal('loginMethodModal')}>登入</Link></li>
         </ul>
 
         <RegisterModal
@@ -133,6 +151,7 @@ class Header extends Component {
           registerSubmit={values => this.registerSubmit(values)}
           signUp={values => authActions.signUp(values)}
           errorMessage={errorMessage}
+          openLoginModal={() => authActions.showModal('loginModal')}
         />
 
         <WelcomeModal
@@ -178,6 +197,20 @@ class Header extends Component {
           buttonText="開始探索"
           backgroundImage="/assets/img/finish.jpg"
           nextStepAction={() => authActions.showModal('')}
+        />
+
+        <LoginMethodModal
+          isOpen={showModal === 'loginMethodModal'}
+          hideModal={() => authActions.showModal('')}
+          openLoginModal={() => authActions.showModal('loginModal')}
+        />
+
+        <LoginModal
+          isOpen={showModal === 'loginModal'}
+          hideModal={() => authActions.showModal('')}
+          loginSubmit={values => this.loginSubmit(values)}
+          errorMessage={errorMessage}
+          openRegisterModal={() => authActions.showModal('registerModal')}
         />
       </div>
     );

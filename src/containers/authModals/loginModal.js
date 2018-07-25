@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
 import SocialAction from './components/socialAction';
+import { Field, reduxForm } from 'redux-form';
 import './style.css';
 
 const validate = (values) => {
@@ -14,20 +14,8 @@ const validate = (values) => {
     errors.email = 'Email格式不符';
   }
 
-  if (!values.name) {
-    errors.name = '必填欄位';
-  }
-
   if (!values.password) {
     errors.password = '必填欄位';
-  } else if (values.password.length < 8) {
-    errors.password = '請輸入8位數包含數字及英文的密碼';
-  }
-
-  if (!values.rePassword) {
-    errors.rePassword = '必填欄位';
-  } else if (values.rePassword !== values.password) {
-    errors.rePassword = '密碼輸入不一致';
   }
   return errors;
 };
@@ -48,13 +36,13 @@ const renderField = ({
   </div>
 );
 
-
-class RegisterModal extends Component {
+class LoginModal extends Component {
   state = {
   }
 
   render() {
-    const { handleSubmit, hideModal, isOpen, registerSubmit, invalid, submitting, errorMessage, openLoginModal } = this.props
+    const { handleSubmit, isOpen, hideModal, loginSubmit, errorMessage, openRegisterModal, invalid, submitting } = this.props;
+
     return (
       <Modal
         isOpen={isOpen}
@@ -64,25 +52,18 @@ class RegisterModal extends Component {
       >
         <div className="login__box">
           <div className="login__item--title">
-            <h3>註冊</h3>
+            <h3>登入</h3>
           </div>
+
           <form
-            onSubmit={handleSubmit(values => registerSubmit(values))}
+            onSubmit={handleSubmit(values => loginSubmit(values))}
           >
             <div className="login__item--input">
               <Field
                 component={renderField}
                 name="email"
                 type="email"
-                label="請輸入e-mail作為帳號"
-              />
-            </div>
-            <div className="login__item--input">
-              <Field
-                component={renderField}
-                name="name"
-                type="text"
-                label="請輸入真實姓名"
+                label="請輸入e-mail"
               />
             </div>
             <div className="login__item--input">
@@ -90,44 +71,33 @@ class RegisterModal extends Component {
                 component={renderField}
                 name="password"
                 type="password"
-                label="設定密碼"
+                label="輸入密碼"
               />
             </div>
-            <div className="login__item--input">
-              <Field
-                component={renderField}
-                name="password_confirmation"
-                type="password"
-                label="再次輸入密碼"
-              />
-            </div>
-            <div className="login__item--button1" >
+            <div className="login__item--button1">
               {errorMessage !== '' ? <div className="login__alert--show">{errorMessage}</div> : ''}
-              <button type="submit" className={invalid ? 'notyet' : ''} disabled={invalid || submitting}>成為會員</button>
+              <button type="submit" className={invalid ? 'notyet' : ''} disabled={invalid || submitting}>CocarMaster帳號 登入</button>
             </div>
           </form>
-
           <SocialAction />
-
           <div className="login__item--notice2">
-            <span>已經有CocarMaster帳號了？</span><span onClick={() => openLoginModal()}>登入</span>
+            <span>忘記密碼</span>｜<span>還沒有CocarMaster帳號？</span><span onClick={() => openRegisterModal()}>註冊</span>
           </div>
-          <div className="login__close"></div>
         </div>
       </Modal>
     );
   }
 }
 
-RegisterModal.propTypes = {
+LoginModal.propTypes = {
   hideModal: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  registerSubmit: PropTypes.func.isRequired,
+  loginSubmit: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,
-  openLoginModal: PropTypes.func.isRequired,
+  openRegisterModal: PropTypes.func.isRequired,
 };
 
 export default reduxForm({
-  form: 'register',
+  form: 'login',
   validate,
-})(RegisterModal);
+})(LoginModal);

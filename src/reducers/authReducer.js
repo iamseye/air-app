@@ -1,5 +1,6 @@
 import {
   SIGNUP_USER,
+  LOGIN_USER,
   SHOW_MODAL,
   SET_MOBILE,
   SET_ERROR_MESSAGE,
@@ -37,6 +38,17 @@ export default (state = initialState, action) => {
         name: action.value.name,
         email: action.value.email,
         id: action.value.id,
+      };
+
+    case LOGIN_USER:
+      return {
+        ...state,
+        id: action.value.id,
+        name: action.value.name,
+        email: action.value.email,
+        token: action.value.api_token,
+        mobile: action.value.mobile,
+        is_seller: action.value.mobile,
       };
     default:
       return state;
