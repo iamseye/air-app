@@ -5,6 +5,7 @@ import {
   SET_MOBILE,
   SET_ERROR_MESSAGE,
   SET_EMAIL,
+  SET_LOGINED,
 } from '../actions/authActions';
 
 const initialState = {
@@ -14,6 +15,9 @@ const initialState = {
   mobile: '',
   showModal: '',
   errorMessage: '',
+  token: '',
+  is_seller: false,
+  logined: false,
 };
 
 
@@ -40,6 +44,10 @@ export default (state = initialState, action) => {
         id: action.value.id,
       };
 
+    case SET_LOGINED:
+      return { ...state, logined: true };
+
+
     case LOGIN_USER:
       return {
         ...state,
@@ -50,6 +58,7 @@ export default (state = initialState, action) => {
         mobile: action.value.mobile,
         is_seller: action.value.mobile,
       };
+
     default:
       return state;
   }

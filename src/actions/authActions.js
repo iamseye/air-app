@@ -4,6 +4,7 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const SET_MOBILE = 'SET_MOBILE';
 export const SET_EMAIL = 'SET_EMAIL';
 export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
+export const SET_LOGINED = 'SET_LOGINED';
 
 export const showModal = value => ({
   type: SHOW_MODAL,
@@ -20,6 +21,10 @@ export const loginUser = value => ({
   value,
 });
 
+export const setLogined = value => ({
+  type: SET_LOGINED,
+  value,
+});
 
 export const setMobile = value => ({
   type: SET_MOBILE,

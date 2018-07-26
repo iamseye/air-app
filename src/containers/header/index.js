@@ -27,6 +27,7 @@ class Header extends Component {
         if (json && json.data) {
           console.log(json.data);
           this.props.authActions.loginUser(json.data);
+          localStorage.setItem('USER_TOKEN', json.data.api_token);
           this.props.authActions.showModal('');
         } else if (json && json.errors) {
           this.props.authActions.setErrorMessage(json.message);
