@@ -133,17 +133,21 @@ class Header extends Component {
   }
 
   render() {
-    const { authActions, showModal, mobile, errorMessage, email } = this.props;
+    const { authActions, showModal, mobile, errorMessage, email, logined } = this.props;
 
     return (
       <div className="header">
-        <img src="/assets/img/headerlogo.svg" alt="" />
+        <img src="/assets/img/headerlogo.svg" alt="logo" />
         <ul className="mainMenu">
           <li className="active"><Link to="/">我要賣車</Link></li>
           <li><Link to="/">預約體驗</Link></li>
           <li><Link to="/">如何使用?</Link></li>
-          <li><Link to="#" onClick={() => authActions.showModal('registerModal')}>註冊</Link></li>
+          { !logined ?
+            <li><Link to="#" onClick={() => authActions.showModal('registerModal')}>註冊</Link></li>
+          : '' }
+          { !logined ?
           <li><Link to="#" onClick={() => authActions.showModal('loginMethodModal')}>登入</Link></li>
+          : <img src="/assets/img/headerlogo.svg" alt="logo" /> }
         </ul>
 
         <RegisterModal
@@ -225,6 +229,7 @@ const mapStateToProps = state => ({
   mobile: state.auth.mobile,
   errorMessage: state.auth.errorMessage,
   email: state.auth.email,
+  logined: state.auth.logined,
 });
 
 const mapDispatchToProps = dispatch => ({
