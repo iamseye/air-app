@@ -21,6 +21,7 @@ class App extends Component {
 
   componentDidMount() {
     if (localStorage.getItem('USER_TOKEN')) {
+      this.props.authActions.setAuthUer(localStorage.getItem('USER_TOKEN'));
       this.props.authActions.setLogined();
     }
   }

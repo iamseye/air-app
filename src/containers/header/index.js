@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Avatar } from 'antd';
 import * as authActions from '../../actions/authActions';
 import RegisterModal from '../authModals/registerModal';
 import WelcomeModal from '../authModals/components/welcomeModal';
@@ -133,7 +134,7 @@ class Header extends Component {
   }
 
   render() {
-    const { authActions, showModal, mobile, errorMessage, email, logined } = this.props;
+    const { authActions, showModal, mobile, errorMessage, email, logined, name } = this.props;
 
     return (
       <div className="header">
@@ -147,7 +148,7 @@ class Header extends Component {
           : '' }
           { !logined ?
           <li><Link to="#" onClick={() => authActions.showModal('loginMethodModal')}>登入</Link></li>
-          : <img src="/assets/img/headerlogo.svg" alt="logo" /> }
+          : <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{name}</Avatar> }
         </ul>
 
         <RegisterModal
@@ -230,6 +231,7 @@ const mapStateToProps = state => ({
   errorMessage: state.auth.errorMessage,
   email: state.auth.email,
   logined: state.auth.logined,
+  name: state.auth.name,
 });
 
 const mapDispatchToProps = dispatch => ({

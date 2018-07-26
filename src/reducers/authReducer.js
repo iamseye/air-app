@@ -55,8 +55,8 @@ export default (state = initialState, action) => {
         name: action.value.name,
         email: action.value.email,
         token: action.value.api_token,
-        mobile: action.value.mobile,
-        is_seller: action.value.mobile,
+        mobile: action.value.mobile ? action.value.mobile : '',
+        is_seller: action.value.is_seller,
       };
 
     default:
