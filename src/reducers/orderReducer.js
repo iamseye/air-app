@@ -7,6 +7,7 @@ import {
   SET_PROMO_CODE,
   SET_IS_USE_INSURANCE,
   SET_ORDER_DETAIL,
+  SET_TOTAL_PRICE,
 } from '../actions/orderAction';
 
 const initialState = {
@@ -17,7 +18,21 @@ const initialState = {
   homeAddress: '',
   promoCode: '',
   isUseInsurance: true,
-  orderDetail: {},
+  orderDetail: {
+    car_year: 0,
+    car_name: '',
+    pickup_place: '',
+    pickup_price: 0,
+    rent_days: 0,
+    insurance_price: 0,
+    emergency_fee: 0,
+    promo_code_discount: 0,
+    long_rent_discount: 0,
+    rent_price: 0,
+    total_price: 0,
+    start_date: '',
+    end_date: '',
+  },
 };
 
 
@@ -47,6 +62,14 @@ export default (state = initialState, action) => {
     case SET_ORDER_DETAIL:
       return { ...state, orderDetail: action.value };
 
+    case SET_TOTAL_PRICE:
+      return {
+        ...state,
+        orderDetail: {
+          ...state.orderDetail,
+          total_price: action.value,
+        },
+      };
 
     default:
       return state;

@@ -116,6 +116,19 @@ const api = {
     });
     return response.json();
   },
+  placeOrder: async (params) => {
+    const url = `${userApi}/create-rent-order`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    });
+    //return response;
+  },
 };
 
 export default api;
