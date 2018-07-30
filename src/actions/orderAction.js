@@ -5,6 +5,7 @@ export const SET_END_TIME = 'SET_END_TIME';
 export const SET_HOME_ADDRESS = 'SET_HOME_ADDRESS';
 export const SET_PROMO_CODE = 'SET_PROMO_CODE';
 export const SET_IS_USE_INSURANCE = 'SET_IS_USE_INSURANCE';
+export const SET_ORDER_DETAIL = 'SET_ORDER_DETAIL';
 
 export const setStartDate = value => ({
   type: SET_START_DATE,
@@ -38,5 +39,10 @@ export const setPromoCode = value => ({
 
 export const setIsUseInsurance = value => ({
   type: SET_IS_USE_INSURANCE,
+  value,
+});
+
+export const setOrderDetail = value => ({
+  type: SET_ORDER_DETAIL,
   value,
 });

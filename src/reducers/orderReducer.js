@@ -6,6 +6,7 @@ import {
   SET_HOME_ADDRESS,
   SET_PROMO_CODE,
   SET_IS_USE_INSURANCE,
+  SET_ORDER_DETAIL,
 } from '../actions/orderAction';
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   homeAddress: '',
   promoCode: '',
   isUseInsurance: true,
+  orderDetail: {},
 };
 
 
@@ -41,6 +43,10 @@ export default (state = initialState, action) => {
 
     case SET_IS_USE_INSURANCE:
       return { ...state, isUseInsurance: action.value };
+
+    case SET_ORDER_DETAIL:
+      return { ...state, orderDetail: action.value };
+
 
     default:
       return state;

@@ -36,8 +36,8 @@ class PaymentCard extends Component {
             <li><div>代碼優惠</div><div>- 500</div></li>
           </ul>
           <ul>
-            <li><div className="paymentCheck"><input id="package" type="checkbox" /><label for="package">使用電子錢包折抵</label></div><div> - <span>2,500</span></div></li>
-            <li><div className="paymentCheck"><input id="point" type="checkbox" /><label for="point">使用優惠點數折抵</label></div><div> - <span>500</span></div></li>
+            <li><div className="paymentCheck"><input id="package" type="checkbox" /><label htmlFor="package">使用電子錢包折抵</label></div><div> - <span>2,500</span></div></li>
+            <li><div className="paymentCheck"><input id="point" type="checkbox" /><label htmlFor="point">使用優惠點數折抵</label></div><div> - <span>500</span></div></li>
           </ul>
           <div className="totalPrice">體驗總額 NT$ 5,500</div>
         </div>

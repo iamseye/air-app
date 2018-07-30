@@ -10,19 +10,25 @@ class Pay extends Component {
   state = {
   }
 
-  // componentDidMount() {
-  //   api.getTheSellCar(1)
-  //     .then((json) => {
-  //       if (json && json.data) {
-  //         console.log(json.data);
-  //
-  //
-  //         this.setState({
-  //
-  //         });
-  //       }
-  //     });
-  // }
+  componentDidMount() {
+    const sellCarId = this.props.match.params.sellCarId ? this.props.match.params.sellCarId : 0;
+
+    const params = {
+      sell_car_id: sellCarId,
+      pickup_home_address: this.props.homeAddress,
+      start_date: this.props.startDate,
+      end_date: this.props.endDate,
+      promo_code: this.props.promoCode,
+    };
+
+    api.getPaymentDetail(params)
+      .then((json) => {
+        if (json && json.data) {
+          console.log(json.data);
+          this.props.orderActions.setOrderDetail(json.data);
+        }
+      });
+  }
 
   useInsurance = (isUseInsurance) => {
     this.props.orderActions.setIsUseInsurance(isUseInsurance);
@@ -78,7 +84,7 @@ class Pay extends Component {
             </div>
 
             <div className="payment__infoItem">
-              <div className="paymentCheck"><input id="rule" type="checkbox" /><label for="rule">我同意</label><a>使用規則</a></div>
+              <div className="paymentCheck"><input id="rule" type="checkbox" /><label htmlFor="rule">我同意</label><a>使用規則</a></div>
               <div className="paymentBTN">確認並付款</div>
             </div>
 
@@ -96,6 +102,8 @@ const mapStateToProps = state => ({
   endDate: state.order.endDate,
   startTime: state.order.startTime,
   isUseInsurance: state.order.isUseInsurance,
+  homeAddress: state.order.homeAddress,
+  promoCode: state.order.promoCode,
 });
 
 const mapDispatchToProps = dispatch => ({
