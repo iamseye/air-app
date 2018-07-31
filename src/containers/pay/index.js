@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as orderActions from '../../actions/orderAction';
 import PaymentCard from './paymentCard';
 import PaymentCreditCard from './paymentCreditCard';
+import PayModal from './payModal';
 import api from '../../utils/api';
 import './style.css';
 
@@ -15,6 +16,8 @@ class Pay extends Component {
     promoCode: '',
     pickupHomeAddress: '',
     sellCarId: '',
+    returnHTML: '',
+    isOpen: false,
   }
 
   componentDidMount() {
@@ -57,20 +60,26 @@ class Pay extends Component {
     }
   }
 
+  createMarkup(text) {
+    return { __html: text };
+  }
   submitPayment() {
     const params = {
       user_id: 1,
       sell_car_id: this.state.sellCarId,
       is_pickup_at_car_center: true,
-      start_date: '2018-08-01',
-      end_date: '2018-08-02',
-      pickup_time: 1300,
+      start_date: this.state.startDate,
+      end_date: this.state.endDate,
+      start_time: this.state.startTime,
       buy_insurance: true,
     };
 
     api.placeOrder(params)
-      .then(() => {
-        console.log('place');
+      .then((text) => {
+        this.setState({
+          isOpen: true,
+          returnHTML: text,
+        });
       }).catch(() => {
         console.log('error');
       });
@@ -135,6 +144,12 @@ class Pay extends Component {
             isUseInsurance={this.props.isUseInsurance}
           />
         </div>
+
+        <PayModal
+          isOpen={this.state.isOpen}
+          returnHTML={this.state.returnHTML}
+          hideModal={() => { this.setState({ isOpen: false }); }}
+        />
       </div>
     );
   }

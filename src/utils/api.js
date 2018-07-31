@@ -127,7 +127,19 @@ const api = {
         Authorization: `Bearer ${token}`,
       }),
     });
-    //return response;
+    return response.text();
+  },
+  payCreditCard: async (params) => {
+    const url = process.env.REACT_APP_PAYMENT_API;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    });
+    return response.json();
   },
 };
 
