@@ -3,29 +3,77 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as orderActions from '../../actions/orderAction';
 import PaymentCard from './paymentCard';
+import PaymentCreditCard from './paymentCreditCard';
 import api from '../../utils/api';
 import './style.css';
 
 class Pay extends Component {
   state = {
+    startTime: '',
+    startDate: '',
+    endDate: '',
+    promoCode: '',
+    pickupHomeAddress: '',
+    sellCarId: '',
   }
 
-  // componentDidMount() {
-  //   api.getTheSellCar(1)
-  //     .then((json) => {
-  //       if (json && json.data) {
-  //         console.log(json.data);
-  //
-  //
-  //         this.setState({
-  //
-  //         });
-  //       }
-  //     });
-  // }
+  componentDidMount() {
+    const sellCarId = this.props.match.params.sellCarId ? this.props.match.params.sellCarId : 0;
+    const url = new URL(window.location.href);
+
+    this.setState({
+      sellCarId,
+      startTime: this.props.startTime || url.searchParams.get('startTime'),
+      startDate: url.searchParams.get('startDate'),
+      endDate: url.searchParams.get('endDate'),
+      promoCode: url.searchParams.get('promoCode'),
+      pickupHomeAddress: url.searchParams.get('homeAddress'),
+    });
+    const params = {
+      sell_car_id: sellCarId,
+      pickup_home_address: this.props.homeAddress || url.searchParams.get('homeAddress'),
+      start_date: this.props.startDate || url.searchParams.get('startDate'),
+      end_date: this.props.endDate || url.searchParams.get('endDate'),
+      promo_code: this.props.promoCode || url.searchParams.get('promoCode'),
+    };
+
+    api.getPaymentDetail(params)
+      .then((json) => {
+        if (json && json.data) {
+          console.log(json.data);
+          this.props.orderActions.setOrderDetail(json.data);
+          this.props.orderActions.setTotalPrice(json.data.total_price);
+        }
+      });
+  }
 
   useInsurance = (isUseInsurance) => {
     this.props.orderActions.setIsUseInsurance(isUseInsurance);
+
+    if (!isUseInsurance) {
+      this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.insurancePrice);
+    } else {
+      this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.insurancePrice);
+    }
+  }
+
+  submitPayment() {
+    const params = {
+      user_id: 1,
+      sell_car_id: this.state.sellCarId,
+      is_pickup_at_car_center: true,
+      start_date: '2018-08-01',
+      end_date: '2018-08-02',
+      pickup_time: 1300,
+      buy_insurance: true,
+    };
+
+    api.placeOrder(params)
+      .then(() => {
+        console.log('place');
+      }).catch(() => {
+        console.log('error');
+      });
   }
 
   render() {
@@ -62,29 +110,30 @@ class Pay extends Component {
               </div>
             </div>
 
-            <div className="payment__infoItem">
-              <h3>選擇付款信用卡</h3>
-              <div className="payment__content">
-                <div className="payment__content--item selected">
-                  <h4><div>發卡銀行</div><div>玉山銀行</div></h4>
-                  <ul>
-                    <li><div>付款類型</div><div>MasterCard</div></li>
-                    <li><div>信用卡號</div><div>5211-29XX-XXXX-8682</div></li>
-                    <li><div>有效期限</div><div>09-2024</div></li>
-                  </ul>
-                </div>
-                <div className="payment__content--item">新增信用卡</div>
-              </div>
-            </div>
+            <PaymentCreditCard />
 
             <div className="payment__infoItem">
-              <div className="paymentCheck"><input id="rule" type="checkbox" /><label for="rule">我同意</label><a>使用規則</a></div>
-              <div className="paymentBTN">確認並付款</div>
+              <div className="paymentCheck"><input id="rule" type="checkbox" /><label htmlFor="rule">我同意</label><span>使用規則</span></div>
+              <div className="paymentBTN" onClick={() => this.submitPayment()}>確認並付款</div>
             </div>
 
           </div>
-
-          <PaymentCard />
+          <PaymentCard
+            carName={this.props.orderDetail.car_name}
+            carYear={this.props.orderDetail.car_year}
+            pickupPrice={this.props.orderDetail.pickup_price}
+            rentDays={this.props.orderDetail.rent_days}
+            insurancePrice={this.props.orderDetail.insurance_price}
+            emergencyFee={this.props.orderDetail.emergency_fee}
+            promoCodeDiscount={this.props.orderDetail.promo_code_discount}
+            longRentDiscount={this.props.orderDetail.long_rent_discount}
+            rentPrice={this.props.orderDetail.rent_price}
+            totalPrice={this.props.orderDetail.total_price}
+            startDate={this.props.orderDetail.start_date}
+            endDate={this.props.orderDetail.end_date}
+            startTime={this.state.startTime}
+            isUseInsurance={this.props.isUseInsurance}
+          />
         </div>
       </div>
     );
@@ -96,6 +145,11 @@ const mapStateToProps = state => ({
   endDate: state.order.endDate,
   startTime: state.order.startTime,
   isUseInsurance: state.order.isUseInsurance,
+  homeAddress: state.order.homeAddress,
+  promoCode: state.order.promoCode,
+  orderDetail: state.order.orderDetail,
+  totalPrice: state.order.orderDetail.total_price,
+  insurancePrice: state.order.orderDetail.insurance_price,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -21,17 +21,22 @@ export const loginUser = value => ({
   value,
 });
 
-export const setAuthUer = (value) => {
+export const setLogined = () => ({
+  type: SET_LOGINED,
+});
+
+export const setAuthUser = () => {
+  console.log('call auth')
   const userApi = 'https://staging.api.cocarmaster.com/api';
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const token = localStorage.getItem('USER_TOKEN') ? localStorage.getItem('USER_TOKEN') : '';
   const url = `${userApi}/get-auth-user`;
 
-  return dispatch => fetch(proxyUrl + url, {
+  return dispatch => fetch(url, {
     method: 'POST',
-    body: JSON.stringify(value), // data can be `string` or {object}!
+    body: JSON.stringify(token),
     headers: new Headers({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${value}`,
+      Authorization: `Bearer ${token}`,
     }),
   })
     .then(res => res.json())
@@ -40,15 +45,12 @@ export const setAuthUer = (value) => {
         console.log('logined');
         console.log(json.data);
         dispatch(loginUser(json.data));
-      } else {
-        console.log('set login error');
+        dispatch(setLogined());
       }
+    }).catch(() => {
+      console.log('error');
     });
 };
-
-export const setLogined = () => ({
-  type: SET_LOGINED,
-});
 
 export const setMobile = value => ({
   type: SET_MOBILE,

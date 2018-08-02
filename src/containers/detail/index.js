@@ -38,7 +38,7 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    const sellCarId = this.props.match.params.sellCarId;
+    const sellCarId = this.props.match.params.sellCarId ? this.props.match.params.sellCarId : 0;
 
     api.getTheSellCar(sellCarId)
       .then((json) => {
@@ -99,7 +99,7 @@ class Detail extends Component {
 
   render() {
     if (this.state.canSubmitToPay) {
-      return <Redirect to={`/pay/${this.state.sellCarId}`} />;
+      return <Redirect to={`/pay/${this.state.sellCarId}?startDate=${this.props.startDate}&endDate=${this.props.endDate}&startTime=${this.props.startTime}&promoCode=${this.props.promoCode}&homeAddress=${this.props.homeAddress}`} />;
     }
 
     return (
@@ -190,6 +190,8 @@ const mapStateToProps = state => ({
   startDate: state.order.startDate,
   endDate: state.order.endDate,
   startTime: state.order.startTime,
+  promoCode: state.order.promoCode,
+  homeAddress: state.order.homeAddress,
 });
 
 const mapDispatchToProps = dispatch => ({
