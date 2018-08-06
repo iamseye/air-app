@@ -139,7 +139,7 @@ class Header extends Component {
 
     return (
       <div className="header">
-        <img src="/assets/img/headerlogo.svg" alt="logo" />
+        <Link to="/" className="header__logo"> <img src="/assets/img/headerlogo.svg" alt="logo" /> </Link>
         <ul className="mainMenu">
           <li className="active"><Link to="/">我要賣車</Link></li>
           <li><Link to="/">預約體驗</Link></li>

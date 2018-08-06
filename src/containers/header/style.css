@@ -17,6 +17,10 @@
 	height: 35px;
 }
 
+.header .header__logo {
+	display: flex;
+}
+
 .mainMenu {
 	display: flex;
 	flex-direction: row;
