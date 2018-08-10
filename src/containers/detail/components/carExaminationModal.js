@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './carExaminationModal.css';
+import Modal from 'react-modal';
 import ExaminationSubSection from './examinationSubSection';
 
 const _ = require('lodash');
@@ -14,18 +15,14 @@ class CarExaminationModal extends Component {
 
   hideModal = () => this.props.hideModal();
 
-  handleOutsideClick = (e) => {
-    // ignore clicks on the component itself
-    if (this.node.contains(e.target)) {
-      return;
-    }
-    document.removeEventListener('click', this.handleOutsideClick, false);
-    this.hideModal();
-  }
-
   render() {
     return (
-      <div className="detailMoreFilter">
+      <Modal
+        isOpen={this.props.isOpen}
+        onRequestClose={() => this.props.hideModal}
+        className="detailMoreFilter"
+        ariaHideApp={false}
+      >
         <div className="detailMore__content" ref={(node) => { this.node = node; }}>
           <div className="detailMore__item">
             <h3>鑑定等級 {this.props.classLevel}  CLASS <a className="moreBTN">詳細說明</a></h3>
@@ -151,7 +148,7 @@ class CarExaminationModal extends Component {
           </div>
           <img className="detailMoreClose" src="/assets/img/close.svg" alt="cross icon" onClick={ () => this.hideModal()} />
         </div>
-      </div>
+      </Modal>
     );
   }
 }
@@ -173,6 +170,7 @@ CarExaminationModal.propTypes = {
   year: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   hideModal: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default CarExaminationModal;

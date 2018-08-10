@@ -169,17 +169,17 @@ class Detail extends Component {
 
         </div>
 
-        {this.state.showModal ?
-          <CarExaminationModal
-            examination_date={this.state.examination_date}
-            classLevel={this.state.class}
-            mileage={this.state.mileage}
-            examination={this.state.examination}
-            equipment={this.state.equipment}
-            year={this.state.year}
-            name={this.state.name}
-            hideModal={() => this.hideModal()}
-          /> : ''}
+        <CarExaminationModal
+          examination_date={this.state.examination_date}
+          classLevel={this.state.class}
+          mileage={this.state.mileage}
+          examination={this.state.examination}
+          equipment={this.state.equipment}
+          year={this.state.year}
+          name={this.state.name}
+          isOpen={this.state.showModal}
+          hideModal={() => this.hideModal()}
+        />
 
       </div>
     );
