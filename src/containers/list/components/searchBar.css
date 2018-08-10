@@ -10,7 +10,7 @@
 	width: 100%;
 	max-width: 100%;
 	padding: 3px 50px 0;
-	z-index: 9999;
+	z-index: 2;
 	box-shadow: 0 0 0 rgba(0,0,0,0);
 	border-radius: 0;
 }

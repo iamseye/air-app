@@ -27,7 +27,7 @@ class SearchMultiSelect extends Component {
     return (
       <Select
         mode="multiple"
-        style={{ width: '60%' }}
+        style={{ width: '200px' }}
         placeholder={`搜尋${name}`}
         onChange={this.handleChange}
       >

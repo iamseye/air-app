@@ -12,7 +12,7 @@ const CarCard = props => (
     <Link to={`/detail/${props.sellCarId}`}>
       <div className="car__img" style={slideStyle}>
         <div className="car__price">
-          <span>最低體驗價</span>
+          <span>單日體驗價</span>
           <div>NT$ {props.rentPrice}</div>
         </div>
       </div>

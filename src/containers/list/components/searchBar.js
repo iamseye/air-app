@@ -6,6 +6,7 @@ import SearchCascader from './searchCascader';
 import SearchDates from './searchDates';
 import SearchPriceItem from './searchPriceItem';
 import SearchMultiSelect from './searchMultiSelect';
+import SearchSlider from './searchSlider';
 
 import * as searchActions from '../../../actions/searchAction';
 import './searchBar.css';
@@ -23,18 +24,10 @@ class SearchBar extends Component {
   }
 
   handleSelectBrand = (valueArray) => {
-    if (valueArray[0]) {
-      this.props.searchActions.setSearchBrand(valueArray[0]);
-    }
-    if (valueArray[1]) {
-      this.props.searchActions.setSearchSeries(valueArray[1]);
-    }
-    if (valueArray[2]) {
-      this.props.searchActions.setSearchSeriesModel(valueArray[2]);
-    }
-    if (valueArray[3]) {
-      this.props.searchActions.setSearchYear(valueArray[3]);
-    }
+    this.props.searchActions.setSearchBrand(valueArray[0] ? valueArray[0] : '');
+    this.props.searchActions.setSearchSeries(valueArray[1] ? valueArray[1] : '');
+    this.props.searchActions.setSearchSeriesModel(valueArray[2] ? valueArray[2] : '');
+    this.props.searchActions.setSearchYear(valueArray[3] ? valueArray[3] : '');
   }
 
   componentDidUpdate(prevProps) {
@@ -43,7 +36,8 @@ class SearchBar extends Component {
         this.props.brand !== prevProps.brand ||
         this.props.series !== prevProps.series ||
         this.props.seriesModel !== prevProps.seriesModel ||
-        this.props.year !== prevProps.year
+        this.props.year !== prevProps.year ||
+        this.props.price !== prevProps.price
     ) {
       this.props.submitSearch();
     }
@@ -69,10 +63,13 @@ class SearchBar extends Component {
           handleSelectBrand={this.handleSelectBrand}
         />
 
-        <SearchPriceItem
+        <SearchSlider
           name="單日體驗價格"
           submitSearch={this.props.submitSearch}
+          defaultOptions={this.props.priceOptions}
         />
+
+
         <SearchDates
           submitSearch={this.props.submitSearch}
         />
@@ -92,9 +89,11 @@ const mapStateToProps = state => ({
   series: state.search.series,
   seriesModel: state.search.seriesModel,
   year: state.search.year,
+  price: state.search.price,
   brandOptions: state.search.brandOptions,
   vehicleTypeOptions: state.search.vehicleTypeOptions,
   areaOptions: state.search.areaOptions,
+  priceOptions: state.search.priceOptions,
 });
 
 const mapDispatchToProps = dispatch => ({
