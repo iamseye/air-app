@@ -12,6 +12,7 @@ class PaymentCard extends Component {
     pickUpAtHome: false,
     endTime: '',
     top: 100,
+    clickedSubmit: false,
   }
 
   submitToPay = () => this.props.submitToPay();
@@ -108,7 +109,11 @@ class PaymentCard extends Component {
               </div> : '' }
           </div>
 
-          <div className="detail__goPayment" onClick={() => this.submitToPay()}>
+          { !this.state.canSubmitToPay && this.state.clickedSubmit ?
+            <span>請輸入日期與時間</span> : ''
+          }
+
+          <div className="detail__goPayment" onClick={() => {this.submitToPay(); { this.setState({ clickedSubmit: true }); }} }>
             預約體驗
           </div>
         </div>

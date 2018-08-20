@@ -105,6 +105,10 @@ class Detail extends Component {
       this.setState({
         canSubmitToPay: true,
       });
+    } else {
+      this.setState({
+        canSubmitToPay: false,
+      });
     }
   }
 
@@ -179,6 +183,7 @@ class Detail extends Component {
             carUnavailable={this.state.carUnavailable}
             availableFrom={this.state.availableFrom}
             availableTo={this.state.availableTo}
+            canSubmitToPay={this.state.canSubmitToPay}
           />
 
         </div>
