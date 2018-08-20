@@ -168,7 +168,7 @@ class Detail extends Component {
               <h3>隨車配件</h3>
               <ul className="detail__equipment">
                 { this.state.accessories.map(item => (
-                  <li key={item.name}><img src={`/assets/img/icon_accessories_.svg`} alt="accessory_icon" />{ item.name }</li>
+                  <li key={item.name}><img src={`/assets/img/icon_accessories_${item.name}.svg`} alt="accessory_icon" />{ item.name }</li>
                   ))
                 }
               </ul>
