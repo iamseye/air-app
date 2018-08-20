@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DatePicker, TimePicker } from 'antd';
+import { DatePicker, TimePicker, Affix } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ class PaymentCard extends Component {
   state = {
     pickUpAtHome: false,
     endTime: '',
+    top: 100,
   }
 
   submitToPay = () => this.props.submitToPay();
@@ -45,6 +46,7 @@ class PaymentCard extends Component {
 
   render() {
     return (
+      <Affix offsetTop={this.state.top}>
       <div className="payment_info--detail">
         <div className="detail__price">
           <span>短租體驗價 NT$</span><div>{this.props.rentPrice}</div><span>/日</span>
@@ -108,6 +110,7 @@ class PaymentCard extends Component {
           預約體驗
         </div>
       </div>
+      </Affix>
     );
   }
 }
