@@ -114,7 +114,7 @@ class Detail extends Component {
 
   render() {
     if (this.state.canSubmitToPay) {
-      return <Redirect to={`/pay/${this.state.sellCarId}?startDate=${this.props.startDate}&endDate=${this.props.endDate}&startTime=${this.props.startTime}&promoCode=${this.props.promoCode}&homeAddress=${this.props.homeAddress}`} />;
+      return <Redirect to={`/pay/${this.state.sellCarId}?startDate=${this.props.startDate}&endDate=${this.props.endDate}&startTime=${this.props.startTime}&homeAddress=${this.props.homeAddress}`} />;
     }
 
     return (

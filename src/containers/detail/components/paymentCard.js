@@ -13,12 +13,27 @@ class PaymentCard extends Component {
     endTime: '',
     top: 100,
     clickedSubmit: false,
+    startDate: '',
   }
 
   submitToPay = () => this.props.submitToPay();
 
-  disabledDate(current) {
+  disabledStartDate(current) {
     let unavailableDates = (current && current < moment().endOf('day'));
+    this.props.carUnavailable.map((item) => {
+      unavailableDates = unavailableDates || (current > moment(item.from) && current < moment(item.to));
+    });
+
+    return unavailableDates || current < moment(this.props.availableFrom) || current > moment(this.props.availableTo);
+  }
+
+  disabledEndDate(current) {
+    let unavailableDates = (current && current < moment().endOf('day'));
+
+    if (this.state.startDate) {
+      unavailableDates = unavailableDates || (current < moment(this.state.startDate));
+    }
+
     this.props.carUnavailable.map((item) => {
       unavailableDates = unavailableDates || (current > moment(item.from) && current < moment(item.to));
     });
@@ -28,6 +43,7 @@ class PaymentCard extends Component {
 
   pickStartDate(date, dateString) {
     this.props.orderActions.setStartDate(dateString);
+    this.setState({ startDate: dateString });
   }
 
   pickEndDate(date, dateString) {
@@ -64,13 +80,13 @@ class PaymentCard extends Component {
           </div>
 
           <div className="detail__select">
-            <DatePicker onChange={this.pickStartDate.bind(this)} disabledDate={current => this.disabledDate(current)} />
+            <DatePicker onChange={this.pickStartDate.bind(this)} disabledDate={current => this.disabledStartDate(current)} />
 
             <TimePicker format="HH:mm" onChange={this.pickStartTime.bind(this)} />
           </div>
 
           <div className="detail__select">
-            <DatePicker onChange={this.pickEndDate.bind(this)} disabledDate={current => this.disabledDate(current)} />
+            <DatePicker onChange={this.pickEndDate.bind(this)} disabledDate={current => this.disabledEndDate(current)} />
 
             { this.state.endTime !== '' ?
               <TimePicker format="HH:mm" disabled value={moment(this.state.endTime, 'HH:mm')} /> :

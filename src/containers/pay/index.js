@@ -37,7 +37,6 @@ class Pay extends Component {
       pickup_home_address: this.props.homeAddress || url.searchParams.get('homeAddress'),
       start_date: this.props.startDate || url.searchParams.get('startDate'),
       end_date: this.props.endDate || url.searchParams.get('endDate'),
-      promo_code: this.props.promoCode || url.searchParams.get('promoCode'),
     };
 
     api.getPaymentDetail(params)
