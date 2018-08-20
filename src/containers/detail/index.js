@@ -35,6 +35,9 @@ class Detail extends Component {
     showModal: false,
     canSubmitToPay: false,
     sellCarId: '',
+    availableFrom: '',
+    availableTo: '',
+    carUnavailable: [],
   }
 
   componentDidMount() {
@@ -49,10 +52,17 @@ class Detail extends Component {
           const examination = json.data.sell_car_examination.data;
           const equipment = json.data.sell_car_equipment.data;
           const sellCar = json.data;
+          let carUnavailable = [];
+
+          if (json.data.car_unavailable_dates && json.data.car_unavailable_dates.data) {
+            carUnavailable = json.data.car_unavailable_dates.data;
+          }
 
           this.setState({
             year: car.year,
             name: `${car.brand} ${car.brand_ch} ${car.series}`,
+            availableFrom: json.data.available_from,
+            availableTo: json.data.available_to,
             description: sellCar.description,
             mileage: sellCar.mileage,
             class: sellCar.class,
@@ -71,7 +81,8 @@ class Detail extends Component {
             rentPrice: json.data.rent_price,
             buyPrice: json.data.buy_price,
             carCenterAddress: carCenter.address,
-            sellCarId
+            sellCarId,
+            carUnavailable,
           });
         }
       });
@@ -165,6 +176,9 @@ class Detail extends Component {
             buyPrice={this.state.buyPrice}
             carCenterAddress={this.state.carCenterAddress}
             submitToPay={() => this.submitToPay()}
+            carUnavailable={this.state.carUnavailable}
+            availableFrom={this.state.availableFrom}
+            availableTo={this.state.availableTo}
           />
 
         </div>
