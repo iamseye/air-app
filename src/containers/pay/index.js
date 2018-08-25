@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as orderActions from '../../actions/orderAction';
 import PaymentCard from './paymentCard';
+import PaymentDiscount from './paymentDiscount';
 import PaymentCreditCard from './paymentCreditCard';
 import PayModal from './payModal';
 import api from '../../utils/api';
@@ -89,6 +90,22 @@ class Pay extends Component {
       <div className="payment">
 
         <div className="payment__wraper">
+          <PaymentCard
+            carName={this.props.orderDetail.car_name}
+            carYear={this.props.orderDetail.car_year}
+            pickupPrice={this.props.orderDetail.pickup_price}
+            rentDays={this.props.orderDetail.rent_days}
+            insurancePrice={this.props.orderDetail.insurance_price}
+            emergencyFee={this.props.orderDetail.emergency_fee}
+            promoCodeDiscount={this.props.orderDetail.promo_code_discount}
+            longRentDiscount={this.props.orderDetail.long_rent_discount}
+            rentPrice={this.props.orderDetail.rent_price}
+            totalPrice={this.props.orderDetail.total_price}
+            startDate={this.props.orderDetail.start_date}
+            endDate={this.props.orderDetail.end_date}
+            startTime={this.state.startTime}
+            isUseInsurance={this.props.isUseInsurance}
+          />
           <div className="payment_info">
 
             <div className="payment__infoItem">
@@ -118,7 +135,7 @@ class Pay extends Component {
               </div>
             </div>
 
-            <PaymentCreditCard />
+            <PaymentDiscount />
 
             <div className="payment__infoItem">
               <div className="paymentCheck"><input id="rule" type="checkbox" /><label htmlFor="rule">我同意</label><span>使用規則</span></div>
@@ -126,22 +143,6 @@ class Pay extends Component {
             </div>
 
           </div>
-          <PaymentCard
-            carName={this.props.orderDetail.car_name}
-            carYear={this.props.orderDetail.car_year}
-            pickupPrice={this.props.orderDetail.pickup_price}
-            rentDays={this.props.orderDetail.rent_days}
-            insurancePrice={this.props.orderDetail.insurance_price}
-            emergencyFee={this.props.orderDetail.emergency_fee}
-            promoCodeDiscount={this.props.orderDetail.promo_code_discount}
-            longRentDiscount={this.props.orderDetail.long_rent_discount}
-            rentPrice={this.props.orderDetail.rent_price}
-            totalPrice={this.props.orderDetail.total_price}
-            startDate={this.props.orderDetail.start_date}
-            endDate={this.props.orderDetail.end_date}
-            startTime={this.state.startTime}
-            isUseInsurance={this.props.isUseInsurance}
-          />
         </div>
 
         <PayModal
