@@ -6,6 +6,9 @@ import {
   SET_HOME_ADDRESS,
   SET_PROMO_CODE,
   SET_IS_USE_INSURANCE,
+  SET_IS_USE_POINT,
+  SET_IS_USE_WALLET,
+  SET_IS_USE_PROMOCODE,
   SET_ORDER_DETAIL,
   SET_TOTAL_PRICE,
 } from '../actions/orderAction';
@@ -18,6 +21,9 @@ const initialState = {
   homeAddress: '',
   promoCode: '',
   isUseInsurance: true,
+  isUseWallet: false,
+  isUsePoint: false,
+  isUsePromocode: false,
   orderDetail: {
     car_year: 0,
     car_name: '',
@@ -32,6 +38,8 @@ const initialState = {
     total_price: 0,
     start_date: '',
     end_date: '',
+    user_points: 0,
+    user_wallets: 0,
   },
 };
 
@@ -58,6 +66,15 @@ export default (state = initialState, action) => {
 
     case SET_IS_USE_INSURANCE:
       return { ...state, isUseInsurance: action.value };
+
+    case SET_IS_USE_WALLET:
+      return { ...state, isUseWallet: action.value };
+
+    case SET_IS_USE_POINT:
+      return { ...state, isUsePoint: action.value };
+
+    case SET_IS_USE_PROMOCODE:
+      return { ...state, isUsePromocode: action.value };
 
     case SET_ORDER_DETAIL:
       return { ...state, orderDetail: action.value };

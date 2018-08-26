@@ -1,43 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox, Button, Input } from 'antd';
+import { Checkbox, Button } from 'antd';
 
 class PaymentDiscount extends Component {
   state = {
-    checkedPointDiscount: false,
-    checkedWalletDiscount: false,
   }
 
-  checkedPointDiscount() {
-    this.setState({ checkedPointDiscount: !this.state.checkedPointDiscount });
-  }
+  checkedDiscount = discountType => this.props.checkedDiscount(discountType);
 
-  checkedWalletDiscount() {
-    this.setState({ checkedWalletDiscount: !this.state.checkedWalletDiscount });
-  }
 
   render() {
+    const { userWallets, userPoints, isUsePoint, isUseWallet, isUsePromocode, promoCodeDiscount } = this.props
+
     return (
       <div className="payment__infoItem">
         <h3>選擇優惠</h3>
 
         <div className="payment__content--offer">
           <ul>
-            <li>
-              <div className="paymentCheck">
-                <Checkbox checked={this.state.checkedWalletDiscount} onChange={() => this.checkedWalletDiscount()}>
-                  使用電子錢包折抵 - <span>500</span>
-                </Checkbox>
-              </div>
-            </li>
+            { userWallets !== 0 ?
+              <li>
+                <div className="paymentCheck">
+                  <Checkbox checked={isUseWallet} onChange={() => this.checkedDiscount('WALLET')}>
+                    使用電子錢包折抵 - <span>{userWallets}</span>
+                  </Checkbox>
+                </div>
+              </li>
+            : ''}
 
-            <li>
-              <div className="paymentCheck">
-                <Checkbox checked={this.state.checkedPointDiscount} onChange={() => this.checkedPointDiscount()}>
-                  使用優惠點數折抵 - <span>500</span>
-                </Checkbox>
-              </div>
-            </li>
+            { userPoints !== 0 ?
+              <li>
+                <div className="paymentCheck">
+                  <Checkbox checked={isUsePoint} onChange={() => this.checkedDiscount('POINT')}>
+                    使用優惠點數折抵 - <span>{userPoints}</span>
+                  </Checkbox>
+                </div>
+              </li>
+            : '' }
+
             <li>
               <div className="paymentCheck">
                 <label htmlFor="promoCode">使用代碼優惠</label>
@@ -47,8 +47,9 @@ class PaymentDiscount extends Component {
             </li>
             <li>
               <div className="paymentCheck">
-                <span>使用代碼優惠 - 500</span>
-                <Button>取消</Button>
+                <Checkbox checked={isUsePromocode} onChange={() => this.checkedDiscount('PROMOCODE')}>
+                  使用代碼優惠 - <span>{promoCodeDiscount}</span>
+                </Checkbox>
               </div>
             </li>
           </ul>
@@ -59,6 +60,12 @@ class PaymentDiscount extends Component {
 }
 
 PaymentDiscount.propTypes = {
+  userWallets: PropTypes.number.isRequired,
+  userPoints: PropTypes.number.isRequired,
+  isUsePoint: PropTypes.bool.isRequired,
+  isUseWallet: PropTypes.bool.isRequired,
+  isUsePromocode: PropTypes.bool.isRequired,
+  checkedDiscount: PropTypes.func.isRequired,
 
 };
 

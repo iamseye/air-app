@@ -14,8 +14,6 @@ class Pay extends Component {
     startTime: '',
     startDate: '',
     endDate: '',
-    promoCode: '',
-    pickupHomeAddress: '',
     sellCarId: '',
     returnHTML: '',
     isOpen: false,
@@ -30,9 +28,8 @@ class Pay extends Component {
       startTime: this.props.startTime || url.searchParams.get('startTime'),
       startDate: url.searchParams.get('startDate'),
       endDate: url.searchParams.get('endDate'),
-      promoCode: url.searchParams.get('promoCode'),
-      pickupHomeAddress: url.searchParams.get('homeAddress'),
     });
+
     const params = {
       sell_car_id: sellCarId,
       pickup_home_address: this.props.homeAddress || url.searchParams.get('homeAddress'),
@@ -60,9 +57,42 @@ class Pay extends Component {
     }
   }
 
+  checkedDiscount = (discountType) => {
+    if (discountType === 'POINT') {
+      this.props.orderActions.setIsUsePoint(!this.props.isUsePoint);
+
+      if (!this.props.isUsePoint) {
+        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.userPoints);
+      } else {
+        this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.userPoints);
+      }
+    }
+
+    if (discountType === 'WALLET') {
+      this.props.orderActions.setIsUseWallet(!this.props.isUseWallet);
+
+      if (!this.props.isUseWallet) {
+        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.userWallets);
+      } else {
+        this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.userWallets);
+      }
+    }
+
+    if (discountType === 'PROMOCODE') {
+      this.props.orderActions.setIsUsePromoCode(!this.props.isUsePromocode);
+
+      if (!this.props.isUsePromocode) {
+        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.promoCodeDiscount);
+      } else {
+        this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.promoCodeDiscount);
+      }
+    }
+  }
+
   createMarkup(text) {
     return { __html: text };
   }
+
   submitPayment() {
     const params = {
       user_id: 1,
@@ -97,7 +127,6 @@ class Pay extends Component {
             rentDays={this.props.orderDetail.rent_days}
             insurancePrice={this.props.orderDetail.insurance_price}
             emergencyFee={this.props.orderDetail.emergency_fee}
-            promoCodeDiscount={this.props.orderDetail.promo_code_discount}
             longRentDiscount={this.props.orderDetail.long_rent_discount}
             rentPrice={this.props.orderDetail.rent_price}
             totalPrice={this.props.orderDetail.total_price}
@@ -105,6 +134,12 @@ class Pay extends Component {
             endDate={this.props.orderDetail.end_date}
             startTime={this.state.startTime}
             isUseInsurance={this.props.isUseInsurance}
+            userWallets={this.props.userWallets}
+            userPoints={this.props.userPoints}
+            promoCodeDiscount={this.props.promoCodeDiscount}
+            isUsePoint={this.props.isUsePoint}
+            isUseWallet={this.props.isUseWallet}
+            isUsePromocode={this.props.isUsePromocode}
           />
           <div className="payment_info">
 
@@ -135,7 +170,15 @@ class Pay extends Component {
               </div>
             </div>
 
-            <PaymentDiscount />
+            <PaymentDiscount
+              userWallets={this.props.userWallets}
+              userPoints={this.props.userPoints}
+              promoCodeDiscount={this.props.promoCodeDiscount}
+              checkedDiscount={this.checkedDiscount}
+              isUsePoint={this.props.isUsePoint}
+              isUseWallet={this.props.isUseWallet}
+              isUsePromocode={this.props.isUsePromocode}
+            />
 
             <div className="payment__infoItem">
               <div className="paymentCheck"><input id="rule" type="checkbox" /><label htmlFor="rule">我同意</label><span>使用規則</span></div>
@@ -160,11 +203,17 @@ const mapStateToProps = state => ({
   endDate: state.order.endDate,
   startTime: state.order.startTime,
   isUseInsurance: state.order.isUseInsurance,
+  isUseWallet: state.order.isUseWallet,
+  isUsePoint: state.order.isUsePoint,
+  isUsePromocode: state.order.isUsePromocode,
   homeAddress: state.order.homeAddress,
   promoCode: state.order.promoCode,
   orderDetail: state.order.orderDetail,
   totalPrice: state.order.orderDetail.total_price,
   insurancePrice: state.order.orderDetail.insurance_price,
+  userWallets: state.order.orderDetail.user_wallets,
+  userPoints: state.order.orderDetail.user_points,
+  promoCodeDiscount: state.order.orderDetail.promo_code_discount,
 });
 
 const mapDispatchToProps = dispatch => ({

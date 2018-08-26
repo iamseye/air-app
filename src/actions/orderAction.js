@@ -5,6 +5,9 @@ export const SET_END_TIME = 'SET_END_TIME';
 export const SET_HOME_ADDRESS = 'SET_HOME_ADDRESS';
 export const SET_PROMO_CODE = 'SET_PROMO_CODE';
 export const SET_IS_USE_INSURANCE = 'SET_IS_USE_INSURANCE';
+export const SET_IS_USE_WALLET = 'SET_IS_USE_WALLET';
+export const SET_IS_USE_POINT = 'SET_IS_USE_POINT';
+export const SET_IS_USE_PROMOCODE = 'SET_IS_USE_PROMOCODE';
 export const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 export const SET_ORDER_DETAIL = 'SET_ORDER_DETAIL';
 
@@ -40,6 +43,21 @@ export const setPromoCode = value => ({
 
 export const setIsUseInsurance = value => ({
   type: SET_IS_USE_INSURANCE,
+  value,
+});
+
+export const setIsUseWallet = value => ({
+  type: SET_IS_USE_WALLET,
+  value,
+});
+
+export const setIsUsePoint = value => ({
+  type: SET_IS_USE_POINT,
+  value,
+});
+
+export const setIsUsePromoCode = value => ({
+  type: SET_IS_USE_PROMOCODE,
   value,
 });
 

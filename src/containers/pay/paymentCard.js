@@ -9,6 +9,7 @@ class PaymentCard extends Component {
     const {
       carName, carYear, pickupPrice, rentDays, insurancePrice, isUseInsurance,
       emergencyFee, promoCodeDiscount, longRentDiscount, rentPrice, totalPrice,
+      userWallets, userPoints, isUsePoint, isUseWallet, isUsePromocode
     } = this.props;
 
     return (
@@ -29,12 +30,14 @@ class PaymentCard extends Component {
               <li><div>取車費用</div><div>{pickupPrice}</div></li> : '' }
             { longRentDiscount !== 0 ?
               <li><div>長租優惠</div><div>- {longRentDiscount}</div></li> : '' }
-            { promoCodeDiscount !== 0 ?
-              <li><div>代碼優惠</div><div>- {promoCodeDiscount}</div></li> : '' }
           </ul>
           <ul>
-            <li><div className="paymentCheck"><input id="package" type="checkbox" /><label htmlFor="package">使用電子錢包折抵</label></div><div> - <span>2,500</span></div></li>
-            <li><div className="paymentCheck"><input id="point" type="checkbox" /><label htmlFor="point">使用優惠點數折抵</label></div><div> - <span>500</span></div></li>
+            { isUsePromocode && promoCodeDiscount !== 0 ?
+              <li><div>代碼優惠</div><div>- {promoCodeDiscount}</div></li> : '' }
+            { isUseWallet && userWallets !== 0 ?
+              <li><div>代碼優惠</div><div>- {userWallets}</div></li> : '' }
+            { isUsePoint && userPoints !== 0 ?
+              <li><div>代碼優惠</div><div>- {userPoints}</div></li> : '' }
           </ul>
           <div className="totalPrice">體驗總額 NT$ {totalPrice}</div>
         </div>
@@ -55,9 +58,11 @@ PaymentCard.propTypes = {
   rentPrice: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
   isUseInsurance: PropTypes.bool.isRequired,
-  startTime: PropTypes.string.isRequired,
-  startDate: PropTypes.string.isRequired,
-  endDate: PropTypes.string.isRequired,
+  isUsePoint: PropTypes.bool.isRequired,
+  isUseWallet: PropTypes.bool.isRequired,
+  isUsePromocode: PropTypes.bool.isRequired,
+  userWallets: PropTypes.number.isRequired,
+  userPoints: PropTypes.number.isRequired,
 };
 
 export default PaymentCard;
