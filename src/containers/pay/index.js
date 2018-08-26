@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Checkbox } from 'antd';
 import * as orderActions from '../../actions/orderAction';
 import PaymentCard from './paymentCard';
 import PaymentDiscount from './paymentDiscount';
 import PaymentCreditCard from './paymentCreditCard';
-import PayModal from './payModal';
 import api from '../../utils/api';
 import './style.css';
 
@@ -15,8 +15,7 @@ class Pay extends Component {
     startDate: '',
     endDate: '',
     sellCarId: '',
-    returnHTML: '',
-    isOpen: false,
+    checkedAgree: false,
   }
 
   componentDidMount() {
@@ -45,6 +44,42 @@ class Pay extends Component {
           this.props.orderActions.setTotalPrice(json.data.total_price);
         }
       });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isUsePromocode !== this.props.isUsePromocode) {
+      if (!this.props.isUsePromocode) {
+        this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.promoCodeDiscount);
+        this.props.orderActions.setPromoCodeDiscount(0);
+      } else {
+        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.promoCodeDiscount);
+      }
+    }
+  }
+
+  getPromoCode = (promoCode) => {
+    api.getPromoCodePrice({ promo_code: promoCode })
+      .then((json) => {
+        if (json && json.data) {
+          console.log(json.data);
+          let discountAmount = 0;
+          if (json.data.amount && json.data.amount !== 0) {
+            discountAmount = json.data.amount;
+          }
+          if (json.data.percentage && json.data.percentage !== 0) {
+            discountAmount =  this.props.totalPrice * (json.data.percentage / 100);
+          }
+          this.props.orderActions.setPromoCodeDiscount(discountAmount);
+          this.props.orderActions.setIsUsePromoCode(true);
+          this.props.orderActions.setErrorMessage('');
+        } else if (json && json.status === 'error') {
+          this.props.orderActions.setErrorMessage(json.message);
+        }
+      });
+  }
+
+  cancelPromoCode = () => {
+    this.props.orderActions.setIsUsePromoCode(false);
   }
 
   useInsurance = (isUseInsurance) => {
@@ -77,20 +112,6 @@ class Pay extends Component {
         this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.userWallets);
       }
     }
-
-    if (discountType === 'PROMOCODE') {
-      this.props.orderActions.setIsUsePromoCode(!this.props.isUsePromocode);
-
-      if (!this.props.isUsePromocode) {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.promoCodeDiscount);
-      } else {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.promoCodeDiscount);
-      }
-    }
-  }
-
-  createMarkup(text) {
-    return { __html: text };
   }
 
   submitPayment() {
@@ -151,7 +172,10 @@ class Pay extends Component {
                   className={this.props.isUseInsurance ? 'payment__content--item selected' : 'payment__content--item'}
                   onClick={() => this.useInsurance(true)}
                 >
-                  <h4><div>乙式保險</div><div>NT$ <span>250</span></div></h4>
+                  <h4>
+                    <div>乙式保險</div>
+                    <div>NT$ <span>{this.props.orderDetail.insurance_price}</span></div>
+                  </h4>
                   <ul>
                     <li><div>・保障車輛自體或與其他車輛碰撞之損失</div><img src="/assets/img/check.png" alt="check icon" /></li>
                     <li><div>・保障火災、閃電、爆炸或墜落物造成之損失</div><img src="/assets/img/check.png" alt="check icon" /></li>
@@ -178,21 +202,24 @@ class Pay extends Component {
               isUsePoint={this.props.isUsePoint}
               isUseWallet={this.props.isUseWallet}
               isUsePromocode={this.props.isUsePromocode}
+              getPromoCode={this.getPromoCode}
+              cancelPromoCode={this.cancelPromoCode}
+              errorMessage={this.props.errorMessage}
             />
 
             <div className="payment__infoItem">
-              <div className="paymentCheck"><input id="rule" type="checkbox" /><label htmlFor="rule">我同意</label><span>使用規則</span></div>
-              <div className="paymentBTN" onClick={() => this.submitPayment()}>確認並付款</div>
+              <Checkbox
+                checked={this.state.checkedAgree}
+                onChange={() => { this.setState({ checkedAgree: !this.state.checkedAgree }); }}
+              >
+                <label htmlFor="rule">我同意</label><span>使用規則</span>
+              </Checkbox>
+              <div className="paymentBTN" onClick={() => this.submitPayment()}>前往付款</div>
             </div>
 
           </div>
         </div>
 
-        <PayModal
-          isOpen={this.state.isOpen}
-          returnHTML={this.state.returnHTML}
-          hideModal={() => { this.setState({ isOpen: false }); }}
-        />
       </div>
     );
   }
@@ -214,6 +241,7 @@ const mapStateToProps = state => ({
   userWallets: state.order.orderDetail.user_wallets,
   userPoints: state.order.orderDetail.user_points,
   promoCodeDiscount: state.order.orderDetail.promo_code_discount,
+  errorMessage: state.order.errorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({

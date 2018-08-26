@@ -4,13 +4,16 @@ import { Checkbox, Button } from 'antd';
 
 class PaymentDiscount extends Component {
   state = {
+    promoCode: '',
   }
 
   checkedDiscount = discountType => this.props.checkedDiscount(discountType);
+  getPromoCode = promoCode => this.props.getPromoCode(promoCode);
+  cancelPromoCode = () => this.props.cancelPromoCode();
 
 
   render() {
-    const { userWallets, userPoints, isUsePoint, isUseWallet, isUsePromocode, promoCodeDiscount } = this.props
+    const { userWallets, userPoints, isUsePoint, isUseWallet, isUsePromocode, promoCodeDiscount, errorMessage } = this.props
 
     return (
       <div className="payment__infoItem">
@@ -38,20 +41,33 @@ class PaymentDiscount extends Component {
               </li>
             : '' }
 
-            <li>
-              <div className="paymentCheck">
-                <label htmlFor="promoCode">使用代碼優惠</label>
-                <input type="text" placeholder="請輸入優惠代碼" name="promoCode" />
-                <Button>兌換</Button>
-              </div>
-            </li>
-            <li>
-              <div className="paymentCheck">
-                <Checkbox checked={isUsePromocode} onChange={() => this.checkedDiscount('PROMOCODE')}>
+            { promoCodeDiscount === 0 ?
+              <li>
+                <div className="paymentCheck">
+                  <label htmlFor="promoCode">使用代碼優惠</label>
+                  <input
+                    type="text"
+                    placeholder="請輸入優惠代碼"
+                    name="promoCode"
+                    value={this.state.promoCode}
+                    onInput={(e) => { this.setState({ promoCode: e.target.value }); }}
+                    readOnly={promoCodeDiscount !== 0 ? 'readOnly' : ''}
+                  />
+                  <Button onClick={() => this.getPromoCode(this.state.promoCode)}>兌換</Button>
+                </div>
+              </li>
+            : ''}
+            { errorMessage !== '' ?
+              <li><div>{errorMessage}</div></li>
+            : ''}
+            { promoCodeDiscount !== 0 ?
+              <li>
+                <div className="paymentCheck">
                   使用代碼優惠 - <span>{promoCodeDiscount}</span>
-                </Checkbox>
-              </div>
-            </li>
+                  <Button onClick={() => this.cancelPromoCode()}>更換</Button>
+                </div>
+              </li>
+            : '' }
           </ul>
         </div>
       </div>
@@ -66,7 +82,10 @@ PaymentDiscount.propTypes = {
   isUseWallet: PropTypes.bool.isRequired,
   isUsePromocode: PropTypes.bool.isRequired,
   checkedDiscount: PropTypes.func.isRequired,
-
+  getPromoCode: PropTypes.func.isRequired,
+  cancelPromoCode: PropTypes.func.isRequired,
+  promoCodeDiscount: PropTypes.number.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 export default PaymentDiscount;

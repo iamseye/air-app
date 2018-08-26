@@ -116,6 +116,18 @@ const api = {
     });
     return response.json();
   },
+  getPromoCodePrice: async (params) => {
+    const url = `${userApi}/get-promo-code-price`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    });
+    return response.json();
+  },
   placeOrder: async (params) => {
     const url = `${userApi}/create-rent-order`;
     const response = await fetch(url, {

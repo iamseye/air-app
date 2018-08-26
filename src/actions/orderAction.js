@@ -10,6 +10,9 @@ export const SET_IS_USE_POINT = 'SET_IS_USE_POINT';
 export const SET_IS_USE_PROMOCODE = 'SET_IS_USE_PROMOCODE';
 export const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 export const SET_ORDER_DETAIL = 'SET_ORDER_DETAIL';
+export const SET_PROMO_CODE_DISCOUNT = 'SET_PROMO_CODE_DISCOUNT';
+export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
+
 
 export const setStartDate = value => ({
   type: SET_START_DATE,
@@ -68,5 +71,15 @@ export const setOrderDetail = value => ({
 
 export const setTotalPrice = value => ({
   type: SET_TOTAL_PRICE,
+  value,
+});
+
+export const setPromoCodeDiscount = value => ({
+  type: SET_PROMO_CODE_DISCOUNT,
+  value,
+});
+
+export const setErrorMessage = value => ({
+  type: SET_ERROR_MESSAGE,
   value,
 });

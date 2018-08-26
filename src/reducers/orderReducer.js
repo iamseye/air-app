@@ -11,6 +11,8 @@ import {
   SET_IS_USE_PROMOCODE,
   SET_ORDER_DETAIL,
   SET_TOTAL_PRICE,
+  SET_PROMO_CODE_DISCOUNT,
+  SET_ERROR_MESSAGE,
 } from '../actions/orderAction';
 
 const initialState = {
@@ -41,6 +43,7 @@ const initialState = {
     user_points: 0,
     user_wallets: 0,
   },
+  errorMessage: '',
 };
 
 
@@ -87,6 +90,18 @@ export default (state = initialState, action) => {
           total_price: action.value,
         },
       };
+
+    case SET_PROMO_CODE_DISCOUNT:
+      return {
+        ...state,
+        orderDetail: {
+          ...state.orderDetail,
+          promo_code_discount: action.value,
+        },
+      };
+
+    case SET_ERROR_MESSAGE:
+      return { ...state, errorMessage: action.value };
 
     default:
       return state;
