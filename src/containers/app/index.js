@@ -11,6 +11,7 @@ import Header from '../header';
 import Footer from '../footer';
 import Detail from '../detail';
 import Pay from '../pay';
+import PayConfirm from '../payConfirm';
 import EmailVerifyCompleted from '../completed/emailVerify';
 import './style.css';
 import * as authActions from '../../actions/authActions';
@@ -34,6 +35,7 @@ class App extends Component {
           <Route exact path="/list" component={List} />
           <Route exact path="/detail/:sellCarId" component={Detail} />
           <Route exact path="/pay/:sellCarId" component={Pay} />
+          <Route exact path="/payConfirm" component={PayConfirm} />
           <Route exact path="/emailVerifyCompleted" component={EmailVerifyCompleted} />
           <Footer />
         </div>

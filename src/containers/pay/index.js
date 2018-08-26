@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Checkbox } from 'antd';
 import * as orderActions from '../../actions/orderAction';
 import PaymentCard from './paymentCard';
 import PaymentDiscount from './paymentDiscount';
-import PaymentCreditCard from './paymentCreditCard';
 import api from '../../utils/api';
 import './style.css';
 
@@ -16,6 +16,8 @@ class Pay extends Component {
     endDate: '',
     sellCarId: '',
     checkedAgree: false,
+    goConfirmPay: false,
+    showErrorAgreeMessage: false,
   }
 
   componentDidMount() {
@@ -49,10 +51,12 @@ class Pay extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.isUsePromocode !== this.props.isUsePromocode) {
       if (!this.props.isUsePromocode) {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.promoCodeDiscount);
+        this.props.orderActions.setTotalPrice(this.props.totalPrice !== 0 ?
+          this.props.totalPrice + this.props.promoCodeDiscount : this.props.promoCodeDiscount);
         this.props.orderActions.setPromoCodeDiscount(0);
       } else {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.promoCodeDiscount);
+        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.promoCodeDiscount >= 0 ?
+          this.props.totalPrice - this.props.promoCodeDiscount : 0);
       }
     }
   }
@@ -67,7 +71,9 @@ class Pay extends Component {
             discountAmount = json.data.amount;
           }
           if (json.data.percentage && json.data.percentage !== 0) {
-            discountAmount =  this.props.totalPrice * (json.data.percentage / 100);
+            discountAmount =  this.props.orderDetail.rent_price
+              * this.props.orderDetail.rent_days
+              * (json.data.percentage / 100);
           }
           this.props.orderActions.setPromoCodeDiscount(discountAmount);
           this.props.orderActions.setIsUsePromoCode(true);
@@ -86,9 +92,11 @@ class Pay extends Component {
     this.props.orderActions.setIsUseInsurance(isUseInsurance);
 
     if (!isUseInsurance) {
-      this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.insurancePrice);
+      this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.insurancePrice >= 0 ?
+        this.props.totalPrice - this.props.insurancePrice : 0);
     } else {
-      this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.insurancePrice);
+      this.props.orderActions.setTotalPrice(this.props.totalPrice !== 0 ?
+        this.props.totalPrice + this.props.insurancePrice : this.props.insurancePrice);
     }
   }
 
@@ -97,9 +105,11 @@ class Pay extends Component {
       this.props.orderActions.setIsUsePoint(!this.props.isUsePoint);
 
       if (!this.props.isUsePoint) {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.userPoints);
+        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.userPoints >= 0 ?
+          this.props.totalPrice - this.props.userPoints : 0);
       } else {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.userPoints);
+        this.props.orderActions.setTotalPrice(this.props.totalPrice !== 0 ?
+          this.props.totalPrice + this.props.userPoints : this.props.userPoints);
       }
     }
 
@@ -107,39 +117,35 @@ class Pay extends Component {
       this.props.orderActions.setIsUseWallet(!this.props.isUseWallet);
 
       if (!this.props.isUseWallet) {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.userWallets);
+        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.userWallets >= 0 ?
+          this.props.totalPrice - this.props.userWallets : 0);
       } else {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice + this.props.userWallets);
+        this.props.orderActions.setTotalPrice(this.props.totalPrice !== 0 ?
+          this.props.totalPrice + this.props.userWallets : this.props.userWallets);
       }
     }
   }
 
-  submitPayment() {
-    const params = {
-      user_id: 1,
-      sell_car_id: this.state.sellCarId,
-      is_pickup_at_car_center: true,
-      start_date: this.state.startDate,
-      end_date: this.state.endDate,
-      start_time: this.state.startTime,
-      buy_insurance: true,
-    };
-
-    api.placeOrder(params)
-      .then((text) => {
-        this.setState({
-          isOpen: true,
-          returnHTML: text,
-        });
-      }).catch(() => {
-        console.log('error');
-      });
+  clickAgree() {
+    this.setState({ checkedAgree: !this.state.checkedAgree }, () => {
+      if (this.state.checkedAgree) {
+        this.setState({ showErrorAgreeMessage: false });
+      }
+    });
   }
-
+  goConfirmPay() {
+    if (this.state.checkedAgree) {
+      this.setState({ goConfirmPay: true });
+    } else {
+      this.setState({ showErrorAgreeMessage: true });
+    }
+  }
   render() {
+    if (this.state.goConfirmPay && this.state.checkedAgree) {
+      return <Redirect to="/payConfirm/" />;
+    }
     return (
       <div className="payment">
-
         <div className="payment__wraper">
           <PaymentCard
             carName={this.props.orderDetail.car_name}
@@ -210,11 +216,12 @@ class Pay extends Component {
             <div className="payment__infoItem">
               <Checkbox
                 checked={this.state.checkedAgree}
-                onChange={() => { this.setState({ checkedAgree: !this.state.checkedAgree }); }}
+                onChange={() => this.clickAgree()}
               >
                 <label htmlFor="rule">我同意</label><span>使用規則</span>
               </Checkbox>
-              <div className="paymentBTN" onClick={() => this.submitPayment()}>前往付款</div>
+              <span>{ this.state.showErrorAgreeMessage ? '請同意使用規則' : ''} </span>
+              <div className="paymentBTN" onClick={() => this.goConfirmPay()}>前往付款</div>
             </div>
 
           </div>
