@@ -7,6 +7,7 @@ const RadioGroup = Radio.Group;
 class PaymentDiscount extends Component {
   state = {
     promoCode: '',
+    promoCodeDiscount: 0,
   }
 
   getPromoCode = promoCode => this.props.getPromoCode(promoCode);
@@ -15,7 +16,7 @@ class PaymentDiscount extends Component {
   checkDiscount = (discountType, discountValue) => this.props.checkDiscount(discountType, discountValue);
 
   render() {
-    const { userWallets, userPoints, promoCodeDiscount, errorMessage, chosenDiscount } = this.props
+    const { userWallets, userPoints, errorMessage, chosenDiscount, chosenDiscountValue } = this.props
 
     const radioStyle = {
       display: 'block',
@@ -34,9 +35,9 @@ class PaymentDiscount extends Component {
             { userPoints !== 0 ?
               <Radio style={radioStyle} value="POINT" amount={userPoints}>使用優惠點數折抵 （可折抵金額{userPoints}）</Radio>
               : '' }
-            <Radio style={radioStyle} value="PROMOCODE" amount={promoCodeDiscount}>
+            <Radio style={radioStyle} value="PROMOCODE" amount={0}>
               使用代碼優惠
-              {this.state.value === 'PROMOCODE' && promoCodeDiscount === 0 ?
+              {chosenDiscount === 'PROMOCODE' && chosenDiscountValue === 0 ?
                 <span>
                   <Input
                     type="text"
@@ -47,12 +48,12 @@ class PaymentDiscount extends Component {
                   />
                   <Button onClick={() => this.getPromoCode(this.state.promoCode)}>兌換</Button>
                 </span> : ''}
-              {promoCodeDiscount !== 0 ?
+              {chosenDiscount === 'PROMOCODE' && chosenDiscountValue !== 0 ?
                 <span>
-                  <span>（可折抵金額{promoCodeDiscount})</span>
+                  <span>（可折抵金額{chosenDiscountValue})</span>
                   <Button onClick={() => this.cancelPromoCode()}>更換</Button>
                 </span> : ''}
-              {this.state.value === 'PROMOCODE' && errorMessage !== null ?
+              {chosenDiscount === 'PROMOCODE' && errorMessage !== null ?
                 <span>{errorMessage}</span> : ''}
             </Radio>
           </RadioGroup>
@@ -67,10 +68,10 @@ PaymentDiscount.propTypes = {
   userPoints: PropTypes.number.isRequired,
   getPromoCode: PropTypes.func.isRequired,
   cancelPromoCode: PropTypes.func.isRequired,
-  promoCodeDiscount: PropTypes.number.isRequired,
   errorMessage: PropTypes.string.isRequired,
   chosenDiscount: PropTypes.string.isRequired,
   checkDiscount: PropTypes.func.isRequired,
+  chosenDiscountValue: PropTypes.number.isRequired,
 };
 
 export default PaymentDiscount;

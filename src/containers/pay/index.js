@@ -62,15 +62,11 @@ class Pay extends Component {
               * this.props.orderDetail.rent_days
               * (json.data.percentage / 100);
           }
-          this.props.orderActions.setErrorMessage('');
+          this.checkDiscount('PROMOCODE', discountAmount);
         } else if (json && json.status === 'error') {
           this.props.orderActions.setErrorMessage(json.message);
         }
       });
-  }
-
-  cancelPromoCode = () => {
-    this.props.orderActions.setIsUsePromoCode(false);
   }
 
   useInsurance = (isUseInsurance) => {
@@ -101,6 +97,10 @@ class Pay extends Component {
     } = this.props;
 
     return isUseInsurance ? (totalPrice + insurancePrice) - chosenDiscountValue : totalPrice - chosenDiscountValue;
+  }
+
+  cancelPromoCode = () => {
+    this.checkDiscount('PROMOCODE', 0);
   }
 
   clickAgree() {
@@ -138,7 +138,6 @@ class Pay extends Component {
             endDate={this.props.orderDetail.end_date}
             startTime={this.state.startTime}
             isUseInsurance={this.props.isUseInsurance}
-            promoCodeDiscount={this.props.promoCodeDiscount}
             chosenDiscount={this.props.chosenDiscount}
             chosenDiscountValue={this.props.chosenDiscountValue}
           />
@@ -177,7 +176,6 @@ class Pay extends Component {
             <PaymentDiscount
               userWallets={this.props.userWallets}
               userPoints={this.props.userPoints}
-              promoCodeDiscount={this.props.promoCodeDiscount}
               checkedDiscount={this.checkedDiscount}
               isUsePoint={this.props.isUsePoint}
               isUseWallet={this.props.isUseWallet}
@@ -187,6 +185,7 @@ class Pay extends Component {
               errorMessage={this.props.errorMessage}
               checkDiscount={this.checkDiscount}
               chosenDiscount={this.props.chosenDiscount}
+              chosenDiscountValue={this.props.chosenDiscountValue}
             />
 
             <div className="payment__infoItem">
@@ -220,7 +219,6 @@ const mapStateToProps = state => ({
   insurancePrice: state.order.orderDetail.insurance_price,
   userWallets: state.order.orderDetail.user_wallets,
   userPoints: state.order.orderDetail.user_points,
-  promoCodeDiscount: state.order.orderDetail.promo_code_discount,
   errorMessage: state.order.errorMessage,
   chosenDiscount: state.order.chosenDiscount,
   chosenDiscountValue: state.order.chosenDiscountValue,
