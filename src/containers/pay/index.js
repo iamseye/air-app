@@ -69,10 +69,12 @@ class Pay extends Component {
       });
   }
 
-  useInsurance = (isUseInsurance) => {
-    this.props.orderActions.setIsUseInsurance(isUseInsurance).then(() => {
-      this.props.orderActions.setCalTotalPrice(this.getCalTotalPrice());
-    });
+  getCalTotalPrice() {
+    const {
+      totalPrice, isUseInsurance, insurancePrice, chosenDiscountValue
+    } = this.props;
+
+    return isUseInsurance ? (totalPrice + insurancePrice) - chosenDiscountValue : totalPrice - chosenDiscountValue;
   }
 
   checkDiscount = (discountType, discountValue) => {
@@ -90,13 +92,13 @@ class Pay extends Component {
       });
     });
   }
+  
+  useInsurance = (isUseInsurance) => {
+    const { orderActions } = this.props;
 
-  getCalTotalPrice() {
-    const {
-      totalPrice, isUseInsurance, insurancePrice, chosenDiscountValue
-    } = this.props;
-
-    return isUseInsurance ? (totalPrice + insurancePrice) - chosenDiscountValue : totalPrice - chosenDiscountValue;
+    orderActions.setIsUseInsurance(isUseInsurance).then(() => {
+      orderActions.setCalTotalPrice(this.getCalTotalPrice());
+    });
   }
 
   cancelPromoCode = () => {

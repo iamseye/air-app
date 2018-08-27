@@ -26,7 +26,7 @@ class PayConfirm extends Component {
   }
 
   render() {
-    const { orderDetail, isUseInsurance, isUsePromocode, isUsePoint, isUseWallet, userPoints, userWallets } = this.props;
+    const { orderDetail, isUseInsurance, chosenDiscount, chosenDiscountValue, calTotalPrice } = this.props;
     return (
       <div className="payment">
         <div className="payment__wraper final">
@@ -48,20 +48,18 @@ class PayConfirm extends Component {
                 { orderDetail.long_rent_discount !== 0 ?
                   <li><div>長租優惠</div><div>- {orderDetail.long_rent_discount}</div></li>
                   : '' }
-              </ul>
-              <ul>
-                { isUsePromocode ?
-                  <li><div>代碼優惠</div><div> - {orderDetail.promo_code_discount}</div></li>
+                { chosenDiscount === 'PROMOCODE' && chosenDiscountValue !== 0 ?
+                  <li><div>代碼優惠</div><div> - {chosenDiscountValue}</div></li>
                 : '' }
-                { isUseWallet ?
-                  <li><div>電子錢包折抵</div><div> - {userWallets}</div></li>
+                { chosenDiscount === 'WALLET' && chosenDiscountValue !== 0 ?
+                  <li><div>電子錢包折抵</div><div> - {chosenDiscountValue}</div></li>
                 : '' }
-                { isUsePoint ?
-                  <li><div>優惠點數折抵</div><div> - {userPoints}</div></li>
+                { chosenDiscount === 'POINT' && chosenDiscountValue !== 0 ?
+                  <li><div>優惠點數折抵</div><div> - {chosenDiscountValue}</div></li>
                 : '' }
               </ul>
               <ul>
-                <li><div>體驗總額</div><div>NT$ {orderDetail.total_price}</div></li>
+                <li><div>體驗總額</div><div>NT$ {calTotalPrice}</div></li>
               </ul>
             </div>
 
@@ -89,15 +87,13 @@ class PayConfirm extends Component {
 
 const mapStateToProps = state => ({
   isUseInsurance: state.order.isUseInsurance,
-  isUseWallet: state.order.isUseWallet,
-  isUsePoint: state.order.isUsePoint,
-  isUsePromocode: state.order.isUsePromocode,
   orderDetail: state.order.orderDetail,
-  totalPrice: state.order.orderDetail.total_price,
   insurancePrice: state.order.orderDetail.insurance_price,
   userWallets: state.order.orderDetail.user_wallets,
   userPoints: state.order.orderDetail.user_points,
-  promoCodeDiscount: state.order.orderDetail.promo_code_discount,
+  chosenDiscount: state.order.chosenDiscount,
+  chosenDiscountValue: state.order.chosenDiscountValue,
+  calTotalPrice: state.order.calTotalPrice,
   errorMessage: state.order.errorMessage,
 });
 

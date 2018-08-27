@@ -7,7 +7,6 @@ const RadioGroup = Radio.Group;
 class PaymentDiscount extends Component {
   state = {
     promoCode: '',
-    promoCodeDiscount: 0,
   }
 
   getPromoCode = promoCode => this.props.getPromoCode(promoCode);
