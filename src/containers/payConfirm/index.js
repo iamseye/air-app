@@ -61,7 +61,7 @@ class PayConfirm extends Component {
                 : '' }
               </ul>
               <ul>
-                <li><div>體驗總額</div><div>NT$ 5,000</div></li>
+                <li><div>體驗總額</div><div>NT$ {orderDetail.total_price}</div></li>
               </ul>
             </div>
 
