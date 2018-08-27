@@ -6,13 +6,11 @@ import {
   SET_HOME_ADDRESS,
   SET_PROMO_CODE,
   SET_IS_USE_INSURANCE,
-  SET_IS_USE_POINT,
-  SET_IS_USE_WALLET,
-  SET_IS_USE_PROMOCODE,
   SET_ORDER_DETAIL,
-  SET_TOTAL_PRICE,
-  SET_PROMO_CODE_DISCOUNT,
+  SET_CAL_TOTAL_PRICE,
   SET_ERROR_MESSAGE,
+  SET_CHOSEN_DISCOUNT,
+  SET_CHOSEN_DISCOUNT_VALUE,
 } from '../actions/orderAction';
 
 const initialState = {
@@ -23,9 +21,9 @@ const initialState = {
   homeAddress: '',
   promoCode: '',
   isUseInsurance: true,
-  isUseWallet: false,
-  isUsePoint: false,
-  isUsePromocode: false,
+  chosenDiscount: '',
+  chosenDiscountValue: 0,
+  calTotalPrice: 0,
   orderDetail: {
     car_year: 0,
     car_name: '',
@@ -34,7 +32,6 @@ const initialState = {
     rent_days: 0,
     insurance_price: 0,
     emergency_fee: 0,
-    promo_code_discount: 0,
     long_rent_discount: 0,
     rent_price: 0,
     total_price: 0,
@@ -70,35 +67,24 @@ export default (state = initialState, action) => {
     case SET_IS_USE_INSURANCE:
       return { ...state, isUseInsurance: action.value };
 
-    case SET_IS_USE_WALLET:
-      return { ...state, isUseWallet: action.value };
+    case SET_CHOSEN_DISCOUNT:
+      return { ...state, chosenDiscount: action.value };
 
-    case SET_IS_USE_POINT:
-      return { ...state, isUsePoint: action.value };
-
-    case SET_IS_USE_PROMOCODE:
-      return { ...state, isUsePromocode: action.value };
+    case SET_CHOSEN_DISCOUNT_VALUE:
+      return { ...state, chosenDiscountValue: action.value };
 
     case SET_ORDER_DETAIL:
       return { ...state, orderDetail: action.value };
 
-    case SET_TOTAL_PRICE:
-      return {
-        ...state,
-        orderDetail: {
-          ...state.orderDetail,
-          total_price: action.value,
-        },
-      };
-
-    case SET_PROMO_CODE_DISCOUNT:
-      return {
-        ...state,
-        orderDetail: {
-          ...state.orderDetail,
-          promo_code_discount: action.value,
-        },
-      };
+    case SET_CAL_TOTAL_PRICE:
+      return { ...state, calTotalPrice: action.value };
+      // return {
+      //   ...state,
+      //   orderDetail: {
+      //     ...state.orderDetail,
+      //     total_price: action.value,
+      //   },
+      // };
 
     case SET_ERROR_MESSAGE:
       return { ...state, errorMessage: action.value };

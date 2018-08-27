@@ -43,22 +43,9 @@ class Pay extends Component {
         if (json && json.data) {
           console.log(json.data);
           this.props.orderActions.setOrderDetail(json.data);
-          this.props.orderActions.setTotalPrice(json.data.total_price);
+          this.props.orderActions.setCalTotalPrice(this.getCalTotalPrice());
         }
       });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.isUsePromocode !== this.props.isUsePromocode) {
-      if (!this.props.isUsePromocode) {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice !== 0 ?
-          this.props.totalPrice + this.props.promoCodeDiscount : this.props.promoCodeDiscount);
-        this.props.orderActions.setPromoCodeDiscount(0);
-      } else {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.promoCodeDiscount >= 0 ?
-          this.props.totalPrice - this.props.promoCodeDiscount : 0);
-      }
-    }
   }
 
   getPromoCode = (promoCode) => {
@@ -75,8 +62,6 @@ class Pay extends Component {
               * this.props.orderDetail.rent_days
               * (json.data.percentage / 100);
           }
-          this.props.orderActions.setPromoCodeDiscount(discountAmount);
-          this.props.orderActions.setIsUsePromoCode(true);
           this.props.orderActions.setErrorMessage('');
         } else if (json && json.status === 'error') {
           this.props.orderActions.setErrorMessage(json.message);
@@ -89,41 +74,33 @@ class Pay extends Component {
   }
 
   useInsurance = (isUseInsurance) => {
-    this.props.orderActions.setIsUseInsurance(isUseInsurance);
-
-    if (!isUseInsurance) {
-      this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.insurancePrice >= 0 ?
-        this.props.totalPrice - this.props.insurancePrice : 0);
-    } else {
-      this.props.orderActions.setTotalPrice(this.props.totalPrice !== 0 ?
-        this.props.totalPrice + this.props.insurancePrice : this.props.insurancePrice);
-    }
+    this.props.orderActions.setIsUseInsurance(isUseInsurance).then(() => {
+      this.props.orderActions.setCalTotalPrice(this.getCalTotalPrice());
+    });
   }
 
-  checkedDiscount = (discountType) => {
-    if (discountType === 'POINT') {
-      this.props.orderActions.setIsUsePoint(!this.props.isUsePoint);
+  checkDiscount = (discountType, discountValue) => {
+    const { orderActions } = this.props;
 
-      if (!this.props.isUsePoint) {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.userPoints >= 0 ?
-          this.props.totalPrice - this.props.userPoints : 0);
-      } else {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice !== 0 ?
-          this.props.totalPrice + this.props.userPoints : this.props.userPoints);
+    orderActions.setChosenDiscount(discountType);
+    orderActions.setChosenDiscountValue(0).then(() => {
+      const calTotalPrice = this.getCalTotalPrice();
+      let calDiscountValue = discountValue;
+      if (discountValue > calTotalPrice) {
+        calDiscountValue = calTotalPrice;
       }
-    }
+      orderActions.setChosenDiscountValue(calDiscountValue).then(() => {
+        orderActions.setCalTotalPrice(this.getCalTotalPrice());
+      });
+    });
+  }
 
-    if (discountType === 'WALLET') {
-      this.props.orderActions.setIsUseWallet(!this.props.isUseWallet);
+  getCalTotalPrice() {
+    const {
+      totalPrice, isUseInsurance, insurancePrice, chosenDiscountValue
+    } = this.props;
 
-      if (!this.props.isUseWallet) {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice - this.props.userWallets >= 0 ?
-          this.props.totalPrice - this.props.userWallets : 0);
-      } else {
-        this.props.orderActions.setTotalPrice(this.props.totalPrice !== 0 ?
-          this.props.totalPrice + this.props.userWallets : this.props.userWallets);
-      }
-    }
+    return isUseInsurance ? (totalPrice + insurancePrice) - chosenDiscountValue : totalPrice - chosenDiscountValue;
   }
 
   clickAgree() {
@@ -156,17 +133,14 @@ class Pay extends Component {
             emergencyFee={this.props.orderDetail.emergency_fee}
             longRentDiscount={this.props.orderDetail.long_rent_discount}
             rentPrice={this.props.orderDetail.rent_price}
-            totalPrice={this.props.orderDetail.total_price}
+            calTotalPrice={this.props.calTotalPrice}
             startDate={this.props.orderDetail.start_date}
             endDate={this.props.orderDetail.end_date}
             startTime={this.state.startTime}
             isUseInsurance={this.props.isUseInsurance}
-            userWallets={this.props.userWallets}
-            userPoints={this.props.userPoints}
             promoCodeDiscount={this.props.promoCodeDiscount}
-            isUsePoint={this.props.isUsePoint}
-            isUseWallet={this.props.isUseWallet}
-            isUsePromocode={this.props.isUsePromocode}
+            chosenDiscount={this.props.chosenDiscount}
+            chosenDiscountValue={this.props.chosenDiscountValue}
           />
           <div className="payment_info">
 
@@ -211,6 +185,8 @@ class Pay extends Component {
               getPromoCode={this.getPromoCode}
               cancelPromoCode={this.cancelPromoCode}
               errorMessage={this.props.errorMessage}
+              checkDiscount={this.checkDiscount}
+              chosenDiscount={this.props.chosenDiscount}
             />
 
             <div className="payment__infoItem">
@@ -237,9 +213,6 @@ const mapStateToProps = state => ({
   endDate: state.order.endDate,
   startTime: state.order.startTime,
   isUseInsurance: state.order.isUseInsurance,
-  isUseWallet: state.order.isUseWallet,
-  isUsePoint: state.order.isUsePoint,
-  isUsePromocode: state.order.isUsePromocode,
   homeAddress: state.order.homeAddress,
   promoCode: state.order.promoCode,
   orderDetail: state.order.orderDetail,
@@ -249,6 +222,9 @@ const mapStateToProps = state => ({
   userPoints: state.order.orderDetail.user_points,
   promoCodeDiscount: state.order.orderDetail.promo_code_discount,
   errorMessage: state.order.errorMessage,
+  chosenDiscount: state.order.chosenDiscount,
+  chosenDiscountValue: state.order.chosenDiscountValue,
+  calTotalPrice: state.order.calTotalPrice,
 });
 
 const mapDispatchToProps = dispatch => ({

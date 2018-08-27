@@ -7,22 +7,15 @@ const RadioGroup = Radio.Group;
 class PaymentDiscount extends Component {
   state = {
     promoCode: '',
-    value: 1,
   }
 
-  checkedDiscount = discountType => this.props.checkedDiscount(discountType);
   getPromoCode = promoCode => this.props.getPromoCode(promoCode);
   cancelPromoCode = () => this.props.cancelPromoCode();
 
-  chooseDiscount = (e) => {
-    console.log('radio checked', e.target.value);
-    this.setState({
-      value: e.target.value,
-    });
-  }
+  checkDiscount = (discountType, discountValue) => this.props.checkDiscount(discountType, discountValue);
 
   render() {
-    const { userWallets, userPoints, isUsePoint, isUseWallet, isUsePromocode, promoCodeDiscount, errorMessage } = this.props
+    const { userWallets, userPoints, promoCodeDiscount, errorMessage, chosenDiscount } = this.props
 
     const radioStyle = {
       display: 'block',
@@ -34,15 +27,15 @@ class PaymentDiscount extends Component {
         <h3>選擇優惠</h3>
 
         <div className="payment__content--offer">
-          <RadioGroup onChange={e => this.chooseDiscount(e)} value={this.state.value}>
+          <RadioGroup onChange={e => this.checkDiscount(e.target.value, e.target.amount)} value={chosenDiscount}>
             { userWallets !== 0 ?
-              <Radio style={radioStyle} value="WALLET">使用電子錢包折抵 （可折抵金額{userWallets}）</Radio>
+              <Radio style={radioStyle} value="WALLET" amount={userWallets}>使用電子錢包折抵 （可折抵金額{userWallets}）</Radio>
               : '' }
             { userPoints !== 0 ?
-              <Radio style={radioStyle} value="POINT">使用優惠點數折抵 （可折抵金額{userPoints}）</Radio>
+              <Radio style={radioStyle} value="POINT" amount={userPoints}>使用優惠點數折抵 （可折抵金額{userPoints}）</Radio>
               : '' }
-            <Radio style={radioStyle} value="PROMOCODE">
-              { promoCodeDiscount === 0 ? <label htmlFor="promoCode">使用代碼優惠</label> : ''}
+            <Radio style={radioStyle} value="PROMOCODE" amount={promoCodeDiscount}>
+              使用代碼優惠
               {this.state.value === 'PROMOCODE' && promoCodeDiscount === 0 ?
                 <span>
                   <Input
@@ -54,11 +47,13 @@ class PaymentDiscount extends Component {
                   />
                   <Button onClick={() => this.getPromoCode(this.state.promoCode)}>兌換</Button>
                 </span> : ''}
-              {this.state.value === 'PROMOCODE' && promoCodeDiscount !== 0 ?
+              {promoCodeDiscount !== 0 ?
                 <span>
-                  使用代碼優惠 <span>（可折抵金額{promoCodeDiscount})</span>
+                  <span>（可折抵金額{promoCodeDiscount})</span>
                   <Button onClick={() => this.cancelPromoCode()}>更換</Button>
                 </span> : ''}
+              {this.state.value === 'PROMOCODE' && errorMessage !== null ?
+                <span>{errorMessage}</span> : ''}
             </Radio>
           </RadioGroup>
         </div>
@@ -70,14 +65,12 @@ class PaymentDiscount extends Component {
 PaymentDiscount.propTypes = {
   userWallets: PropTypes.number.isRequired,
   userPoints: PropTypes.number.isRequired,
-  isUsePoint: PropTypes.bool.isRequired,
-  isUseWallet: PropTypes.bool.isRequired,
-  isUsePromocode: PropTypes.bool.isRequired,
-  checkedDiscount: PropTypes.func.isRequired,
   getPromoCode: PropTypes.func.isRequired,
   cancelPromoCode: PropTypes.func.isRequired,
   promoCodeDiscount: PropTypes.number.isRequired,
   errorMessage: PropTypes.string.isRequired,
+  chosenDiscount: PropTypes.string.isRequired,
+  checkDiscount: PropTypes.func.isRequired,
 };
 
 export default PaymentDiscount;

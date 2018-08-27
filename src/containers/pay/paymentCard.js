@@ -8,8 +8,8 @@ class PaymentCard extends Component {
   render() {
     const {
       carName, carYear, pickupPrice, rentDays, insurancePrice, isUseInsurance,
-      emergencyFee, promoCodeDiscount, longRentDiscount, rentPrice, totalPrice,
-      userWallets, userPoints, isUsePoint, isUseWallet, isUsePromocode
+      emergencyFee, longRentDiscount, rentPrice, calTotalPrice,
+      chosenDiscount, chosenDiscountValue
     } = this.props;
 
     return (
@@ -30,16 +30,14 @@ class PaymentCard extends Component {
               <li><div>取車費用</div><div>{pickupPrice}</div></li> : '' }
             { longRentDiscount !== 0 ?
               <li><div>長租優惠</div><div>- {longRentDiscount}</div></li> : '' }
+            { chosenDiscount === 'PROMOCODE' && chosenDiscountValue !== 0 ?
+              <li><div>代碼優惠</div><div>- {chosenDiscountValue}</div></li> : '' }
+            { chosenDiscount === 'WALLET' && chosenDiscountValue !== 0 ?
+              <li><div>電子錢包折扣</div><div>- {chosenDiscountValue}</div></li> : '' }
+            { chosenDiscount === 'POINT' && chosenDiscountValue !== 0 ?
+              <li><div>優惠點數折扣</div><div>- {chosenDiscountValue}</div></li> : '' }
           </ul>
-          <ul>
-            { isUsePromocode && promoCodeDiscount !== 0 ?
-              <li><div>代碼優惠</div><div>- {promoCodeDiscount}</div></li> : '' }
-            { isUseWallet && userWallets !== 0 ?
-              <li><div>代碼優惠</div><div>- {userWallets}</div></li> : '' }
-            { isUsePoint && userPoints !== 0 ?
-              <li><div>代碼優惠</div><div>- {userPoints}</div></li> : '' }
-          </ul>
-          <div className="totalPrice">體驗總額 NT$ {totalPrice}</div>
+          <div className="totalPrice">體驗總額 NT$ {calTotalPrice}</div>
         </div>
       </div>
     );
@@ -53,16 +51,12 @@ PaymentCard.propTypes = {
   rentDays: PropTypes.number.isRequired,
   insurancePrice: PropTypes.number.isRequired,
   emergencyFee: PropTypes.number.isRequired,
-  promoCodeDiscount: PropTypes.number.isRequired,
   longRentDiscount: PropTypes.number.isRequired,
   rentPrice: PropTypes.number.isRequired,
-  totalPrice: PropTypes.number.isRequired,
+  calTotalPrice: PropTypes.number.isRequired,
   isUseInsurance: PropTypes.bool.isRequired,
-  isUsePoint: PropTypes.bool.isRequired,
-  isUseWallet: PropTypes.bool.isRequired,
-  isUsePromocode: PropTypes.bool.isRequired,
-  userWallets: PropTypes.number.isRequired,
-  userPoints: PropTypes.number.isRequired,
+  chosenDiscount: PropTypes.string.isRequired,
+  chosenDiscountValue: PropTypes.number.isRequired,
 };
 
 export default PaymentCard;
