@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox, Radio, Button, Input } from 'antd';
+import { Radio, Button, Input } from 'antd';
 
 const RadioGroup = Radio.Group;
 

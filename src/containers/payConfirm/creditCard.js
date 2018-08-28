@@ -1,24 +1,57 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import * as TPDirect from 'https://js.tappaysdk.com/tpdirect/v2_3_3';
+import { Checkbox } from 'antd';
+
 
 class CreditCard extends Component {
   state = {
+    errorMessage: '',
+    canGetPrime: false,
   }
 
-  // componentDidMount() {
-  //   const defaultCardViewStyle = {
-  //     color: 'rgb(0,0,0)',
-  //     fontSize: '15px',
-  //     lineHeight: '24px',
-  //     fontWeight: '300',
-  //     errorColor: 'red',
-  //     placeholderColor: '',
-  //   };
-  //   TPDirect.setupSDK(12371, 'app_YfXNUmNpT47bb45EMEAKvvCVHXoexve7vM0xuWKUF4vDflGTWI4jaIVDVRKV', 'sandbox');
-  //
-  //   TPDirect.card.setup('#cardview-container', defaultCardViewStyle);
-  // }
+  componentDidMount() {
+    const defaultCardViewStyle = {
+      color: 'rgb(0,0,0)',
+      fontSize: '15px',
+      lineHeight: '24px',
+      fontWeight: '300',
+      errorColor: 'red',
+      placeholderColor: '',
+    };
+
+    window.TPDirect.card.setup('#tappay-iframe', defaultCardViewStyle);
+    window.TPDirect.card.onUpdate((update) => {
+      console.log(update.canGetPrime);
+      if (update.canGetPrime) {
+        this.setState({ canGetPrime: true });
+      }
+
+      console.log(update.status.number);
+      if (update.status.number === 2) {
+        this.setState({ errorMessage: '填寫資料錯誤' });
+      }
+      if (update.status.number === 0) {
+        this.setState({ errorMessage: '' });
+      }
+    });
+  }
+
+  getPrimeAndPay = () => {
+    if (this.state.canGetPrime && this.state.errorMessage === '') {
+      window.TPDirect.card.getPrime((result) => {
+        if (result.status !== 0) {
+          console.err('getPrime error');
+        }
+        const prime = result.card.prime;
+        console.log(`getPrime success: ${prime}`);
+      })
+    }
+  }
+
+  saveCreditCard() {
+
+  }
+
   render() {
     const {
     } = this.props;
@@ -36,11 +69,12 @@ class CreditCard extends Component {
         </div>
         <div className="payment__other"><span>或是使用其他信用卡</span></div>
         <div>
-          <div id="tappay-iframe" />
+          <label htmlFor="tappay">CardView</label>
+          <div name="tappay" id="tappay-iframe" />
         </div>
-        <input type="text" className="payment__input" placeholder="XXXX-XXXX-XXXX-XXXX" />
-        <input type="checkbox" id="saveCard" /><label for="saveCard">儲存這張信用卡</label>
-        <div className="paymentBTN">付款</div>
+        <Checkbox onChange={() => this.saveCreditCard()}>儲存這張信用卡</Checkbox>
+        { this.state.errorMessage !== '' ? this.state.errorMessage : '' }
+        <div className="paymentBTN" onClick={() => this.getPrimeAndPay()}>付款</div>
       </div>
     );
   }
