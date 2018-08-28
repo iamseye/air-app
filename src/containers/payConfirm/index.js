@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as orderActions from '../../actions/orderAction';
+import CreditCard from './creditCard';
 import api from '../../utils/api';
 import '../pay/style.css';
 
@@ -63,21 +64,7 @@ class PayConfirm extends Component {
               </ul>
             </div>
 
-            <div className="payment__infoItem center">
-              <h3>選擇信用卡</h3>
-              <div className="payment__content--item">
-                <h4><div>發卡銀行</div><div>玉山銀行</div></h4>
-                <ul>
-                  <li><div>付款類型</div><div>MasterCard</div></li>
-                  <li><div>信用卡號</div><div>5211-29XX-XXXX-8682</div></li>
-                  <li><div>有效期限</div><div>09-2024</div></li>
-                </ul>
-              </div>
-              <div className="payment__other"><span>或是使用其他信用卡</span></div>
-              <input type="text" className="payment__input" placeholder="XXXX-XXXX-XXXX-XXXX" />
-              <input type="checkbox" id="saveCard" /><label for="saveCard">儲存這張信用卡</label>
-              <div className="paymentBTN">付款</div>
-            </div>
+            <CreditCard />
           </div>
         </div>
       </div>
